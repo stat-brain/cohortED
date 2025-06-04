@@ -1,7 +1,5 @@
 ---
-title: "cohortED"
-format: html
-editor: visual
+
 ---
 
 # cohortED
@@ -19,3 +17,5 @@ Work in Progress - An R package for cohort analysis in educational testing. The 
 -   mosaic_COHORTS():
 
 -   plot_TREND():
+
+## Completed Functions
