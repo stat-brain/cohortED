@@ -1,7 +1,6 @@
 ---
 title: "cohortED"
 format: gfm
-editor: visual
 ---
 
 # cohortED
