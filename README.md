@@ -1,8 +1,10 @@
 ---
-editor: visual
-title: cohortED
 toc-title: Table of contents
 ---
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 
 # cohortED
 
@@ -21,3 +23,5 @@ them in identifying trends and parsing results.
 -   mosaic_COHORTS():
 
 -   plot_TREND():
+
+## Completed Functions
