@@ -1,8 +1,3 @@
----
-title: cohortED
-toc-title: Table of contents
----
-
 # cohortED
 
 Work in Progress - An R package for cohort analysis in educational
