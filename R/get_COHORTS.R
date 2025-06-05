@@ -9,7 +9,7 @@
 #' @export
 #' 
 #' @examples
-#' library(SGPdata)
+#' @importFrom SGPdata sgpDATA_LONG
 #' get_COHORT(DATASET = sgpDATA_LONG[sgpDATA_LONG$CONTENT_AREA == "MATHEMATICS", ])
 #' 
 

@@ -1,24 +1,17 @@
 Package: cohortED
 Version: 0.1
 Date: 2025-6-5
-Title: A package designed to assist with analyzing student cohorts by state education agencies
-Description: A package designed to assist with analyzing student cohorts by state education agencies
-Authors@R: c(person(given=c"Brian", family="Betebenner", email="bharrold@email.sc.edu", role=c("aut", "cre"), 
+Title: Cohort Analysis for Education
+Description: A package designed to assist with analyzing student cohorts by state education agencies.
+Authors@R: c(person(given="Brian", family="Betebenner", email="bharrold@email.sc.edu", role=c("aut", "cre"), 
 		comment = c(ORCID = "0009-0009-8680-1709")))
 Maintainer: Brian Harrold <bharrold@email.sc.edu>
+Contact: <bharrold@email.sc.edu>
 Depends: R (>= 4.0)
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, SGPdata
 Imports: 
-    crayon,
-    data.table (>= 1.14.0),
-    jsonlite (>= 1.9.0),
-    pkgsearch,
-    RestRserve (>= 1.2.0),
-    testthat (>= 3.2.0),
-    toOrdinal,
-    utils
 URL: 
-BugReports: 
+BugReports: https://github.com/stat-brain/cohortED/issues
 LazyData: Yes
 LazyDataCompression: xz
 LazyLoad: Yes

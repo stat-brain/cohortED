@@ -18,8 +18,3 @@ Returns "Hello, World!" in various languages using the Hello_World dataset
 \details{
 Takes a long dataset and separates it into a list of cohort datasets by grade level and year
 }
-\examples{
-library(SGPdata)
-get_COHORT(DATASET = sgpDATA_LONG[sgpDATA_LONG$CONTENT_AREA == "MATHEMATICS", ])
-
-}
