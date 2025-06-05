@@ -1,5 +1,4 @@
 ---
-editor: visual
 title: cohortED
 toc-title: Table of contents
 ---
