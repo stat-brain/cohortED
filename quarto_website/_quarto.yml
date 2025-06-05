@@ -1,0 +1,91 @@
+project:
+  type: website
+  output-dir: ../docs
+  render:
+   - "*.qmd"      # Render all .qmd files by default
+   - "!content/presentations/**"  # Exclude everything in the "content/presentations" directory
+   - "assets/**/*"
+
+author: 
+  - name: "Brian Harrold"
+
+execute:
+  freeze: auto
+
+# Define your package documentation
+references:
+  - type: r
+    title: "Function Reference"
+    source: "../man"   # Path to your R package .Rd files (relative to quarto_website)
+
+website:
+  site-url: "https://stat-brain.github.io/cohortED/"
+  repo-url: "https://github.com/stat-brain/cohortED"
+  title: ""
+  favicon: ./assets/img/logo_color.png
+
+  page-navigation: true
+  navbar:
+    title: "cohortED"
+    logo: ./assets/img/logo_grey.png
+    logo-alt: "Center for Assessment GitHub Homepage"
+    logo-href: "https://centerforassessment.github.io/"
+    search: false
+    pinned: true
+    foreground: "#7c7c7c"
+    right:
+      - text: About 
+        href: about.qmd
+      - text: "{{< iconify fa6-brands github size=28px title='GitHub Repo' label='The packageSkeleton GitHub Repo' >}}"
+        href: https://github.com/centerforassessment/packageSkeleton/
+        target: _blank
+      - text: "{{< iconify fa6-brands bluesky size=28px title='Share on Bluesky' label='Share on Bluesky' >}}" 
+        href: https://bsky.app/intent/compose?text=packageSkeleton%3A%20A%20GitHub%20repository%20featuring%20a%20starter%20template%20for%20R%20package%20development%2C%20paired%20with%20a%20Quarto-powered%20website.%20%23packageSkeleton%20%23rstats%20https%3A%2F%2Fcenterforassessment.github.io%2FpackageSkeleton
+        target: _blank 
+
+  search:
+    location: navbar
+    type: overlay
+    copy-button: true
+
+  page-footer:
+    center:
+      - text: "{{< iconify bi:info-square-fill size=28px title='About packageSkeleton', label='About packageSkeleton' >}}"
+        href: https://centerforassessment.github.io/packageSkeleton/
+      - text: "{{< iconify jam:github-square size=33.5px title='GitHub Repo' label='The packageSkeleton GitHub Repo' >}}"
+        href: https://github.com/centerforassessment/packageSkeleton/
+        target: _blank
+
+  twitter-card:
+    title: packageSkeleton
+    description: A GitHub repository featuring a starter template for R package development, paired with a Quarto-powered website
+    image: ./assets/img/logo_grey.png
+    image-alt: packageSkeleton logo 
+    image-width: 500
+    image-height: 500
+    card-style: summary
+    creator: "dbetebenner"
+    site: "nciea1"
+
+  open-graph: 
+    #description: A GitHub repository featuring a starter template for R package development, paired with a Quarto-powered website
+    image: ./assets/img/logo_grey.png
+    image-alt: packageSkeleton logo
+    image-width: 500
+    image-height: 500
+    locale: en-US
+
+format:
+  html:
+    theme:
+     - cosmo
+     - ./assets/css/website-custom.scss
+    css: ./assets/css/website-styles.css
+    toc: true
+    include-after: |
+      <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,600" rel="stylesheet" type="text/css">
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script type="text/javascript" src="/assets/js/jquery.sticky-kit.min.js"></script>
+      <script type="text/javascript" src="/assets/js/scroll.js"></script>
+      <script type="text/javascript" src="/assets/js/logo-switch.js"></script>
+      <script type="text/javascript" src="/assets/js/custom-anchors.js"></script>

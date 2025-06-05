@@ -1,0 +1,194 @@
+/*-- scss:defaults --*/
+$h2-font-size:          1.6rem !default;
+$headings-font-weight:  500 !default;
+
+/*-- scss:rules --*/
+
+/* For shrinking navbar ------------------ */
+
+ .navbar {
+    background-image: linear-gradient(to bottom, #f4fda6 0%, #b6e202 100%);
+    border-color: transparent;
+    border-bottom: 1px solid #444;
+    -webkit-box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.1);
+    min-height: 50px;
+    transition: all 0.35s ease; 
+ }
+
+ .navbar.shrink {
+    min-height: 0;
+    padding: 0 0;
+    background-size: 32px auto;
+    transition-duration: 0.25s;
+ }
+  
+ .navbar-title {
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 400;
+    font-size: 38px;
+    padding: 0 0 0 0px;
+    height: 48px;
+    line-height: 55px;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    transition-duration: 0.25s;
+ }
+
+ .navbar-title:hover {
+    color: black;
+ }
+
+ .navbar-title.shrink {
+    font-size: 32px;
+    transition-duration: 0.25s;
+ }
+
+ .navbar-logo {
+    background-image: url(./assets/img/logo_grey.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    max-height: 36px;
+    transition: all 0.25s ease-in-out; 
+ }
+
+ .navbar-logo:hover, .navbar-logo:focus {
+    background-image: url(./assets/img/logo_color.png);
+    transition: all 0.25s ease-in-out;
+ }
+
+ .navbar-logo.shrink {
+    max-height: 28px;
+    transition-duration: 0.25s;
+ }
+
+ .navbar-brand-container {
+    padding: 0 0 0 60px;
+ }
+
+ .navbar-brand-logo {
+    margin-bottom: 4px;
+ }
+
+ nav .nav-item:not(.compact) {
+    padding-top: 7px
+ }
+
+ .navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
+    width: 28px;
+    height: 30px;
+    color: #7c7c7c;
+    opacity: 1
+}
+
+ .navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon:hover {
+    color: magenta;
+    transition: all 0.35s ease-in-out;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #000;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #000;
+}
+
+.menu-text {
+    color: #7C7C7C
+}
+
+.menu-text:hover {
+    color: #000
+}
+
+/* Target the Bluesky icon using the icon attribute */
+iconify-icon[icon="fa6-brands:bluesky"]:hover {
+    color: #1185FE;  /* Change to blue on hover */
+    transition: color 0.3s ease;  /* Smooth transition */
+}
+
+/* Target the Information icon in the footer using the icon attribute */
+iconify-icon[icon="bi:info-square-fill"]:hover {
+   color: #000;  /* Change to black on hover */
+   transition: color 0.3s ease;  /* Smooth transition */
+}
+
+/* Target the GitHub icon in the footer using the icon attribute */
+iconify-icon[icon="jam:github-square"]:hover {
+   color: #000;  /* Change to black on hover */
+   transition: color 0.3s ease;  /* Smooth transition */
+}
+
+/* Target the GitHub icon in the footer using the icon attribute */
+iconify-icon[icon="jam:github-square"] {
+   margin-top: -3px;
+}
+
+/* Move the anchor icon close to the section header text */
+.anchorjs-link {
+    font-size: 0.8em;          /* Adjust the icon's font size */
+    color: #2761e3;               /* Optional: set icon color */
+}
+
+.anchorjs-link:hover {
+   color: black;
+}
+
+/* Ensure the header text doesn't overlap with the icon */
+h1, h2, h3, h4, h5, h6 {
+    position: relative;        /* Create a positioning context for the anchor icon */
+}
+
+.header-section-number {
+   color: #000;
+}
+
+
+
+
+/* Landing Page Container */
+.landing-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem auto;
+  padding: 2rem;
+  max-width: 1200px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo Section */
+.logo-section {
+  flex: 1;
+  text-align: left;
+}
+
+.landing-logo {
+  max-width: 150px;
+  height: auto;
+}
+
+/* Description Section */
+.description-section {
+  flex: 2;
+  text-align: right;
+}
+
+.description-section h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+}
+
+.description-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
