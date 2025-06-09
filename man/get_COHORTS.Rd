@@ -4,10 +4,10 @@
 \alias{get_COHORTS}
 \title{Get Cohort Data from Long Dataset}
 \usage{
-get_COHORTS(DATASET)
+get_COHORTS(dataset)
 }
 \arguments{
-\item{DATASET}{a data frame in long formate with columns for GRADE and YEAR}
+\item{dataset}{a data frame in long formate with columns for GRADE and YEAR}
 }
 \value{
 A list containing cohort datasets by grade level and year
@@ -17,4 +17,8 @@ Returns "Hello, World!" in various languages using the Hello_World dataset
 }
 \details{
 Takes a long dataset and separates it into a list of cohort datasets by grade level and year
+}
+\examples{
+get_COHORTS(dataset = math)
+
 }

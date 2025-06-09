@@ -1,0 +1,32 @@
+#' Math Subset of sgpData_Long
+#'
+#' A short description of the dataset and what it represents.
+#'
+#' @format A data frame with 184724 rows and 23 variables:
+#' \describe{
+#'   \item{VALID_CASE}{Valid Case Identifier}
+#'   \item{CONTENT_AREA}{Content Area Identifier (Mathematics)}
+#'   \item{YEAR}{School Year Identifier}
+#'   \item{ID}{Student ID Number}
+#'   \item{LAST_NAME}{Student Last Name}
+#'   \item{FIRST_NAME}{Student First Name}
+#'   \item{GRADE}{Grade Level Identifier}
+#'   \item{SCALE_SCORE}{Numeric Score on EOC Assessment}
+#'   \item{ACHIEVEMENT_LEVEL}{Achievement Level Category}
+#'   \item{GENDER}{Gender Identifier}
+#'   \item{ETHNICITY}{Ethnicity Identifier}
+#'   \item{FREE_REDUCED_LUNCH_STATUS}{Free/Reduced Lunch Status Identifier}
+#'   \item{ELL_STATUS}{English Language Learner Status Identifier}
+#'   \item{IEP_STATUS}{Individualized Education Plan Status Identifier}
+#'   \item{GIFTED_AND_TALENTED_PROGRAM_STATUS}{Gifted and Talented Program Status Identifier}
+#'   \item{SCHOOL_NUMBER}{School ID Number}
+#'   \item{SCHOOL_NAME}{School Name}
+#'   \item{EMH_LEVEL}{Elementary, Middle, or High School Identifier}
+#'   \item{DISTRICT_NUMBER}{District ID Number}
+#'   \item{DISTRICT_NAME}{District Name}
+#'   \item{SCHOOL_ENROLLMENT_STATUS}{Student Enrollment Status in School Identifier}
+#'   \item{DISTRICT_ENROLLMENT_STATUS}{Student Enrollment Status in District Identifier}
+#'   \item{STATE_ENROLLMENT_STATUS}{Student Enrollment Status in State Identifier}
+#' }
+#' 
+"math"
