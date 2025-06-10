@@ -4,31 +4,27 @@
 \alias{plot_alluvial_mobility}
 \title{Plot Alluvial Mobility}
 \usage{
-plot_alluvial_mobility(
-  dataset,
-  start_year,
-  start_grade,
-  print_table = TRUE,
-  make_plot = TRUE
-)
+plot_alluvial_mobility(dataset, start_year, start_grade, print_table = TRUE)
 }
 \arguments{
 \item{dataset}{A data frame that includes student grade level and academic year}
 
-\item{start_year}{The academic year to begin evaluating with}
+\item{start_year}{The academic year to begin evaluating with (only required if not already used make_mobility)}
 
-\item{start_grade}{The grade level to begin evaluating with}
+\item{start_grade}{The grade level to begin evaluating with (only required if not already used make_mobility)}
 
 \item{print_table}{Prints a contingency table of indicators associated with student mobility (default: TRUE)}
-
-\item{make_plot}{Makes an alluvial diagram depicting student mobility (default: TRUE)}
 }
 \value{
-A table of proportions of students
+An Alluvial Diagram showing Gender, Ethnicity, and Mobility with Optional Contingency Table
 }
 \description{
 Creates an Alluvial Diagram depicting Student Mobility from previous year
 }
 \details{
 Plot an Alluvial Diagram of Student Mobility
+}
+\examples{
+plot_alluvial_mobility(dataset = math, start_year = "2019_2020", start_grade = 3, print_table = FALSE)
+
 }
