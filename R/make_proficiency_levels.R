@@ -9,6 +9,7 @@
 #' @param make_plot Makes a relative frequency bar plot of students who are proficient and not proficient (default: TRUE)
 #' 
 #' @return A data frame with an appended column containing student proficiency data
+#' @importFrom stats aggregate setNames
 #' @importFrom graphics barplot
 #' @export
 #' 
@@ -18,19 +19,33 @@
 
 make_proficiency_levels = function(dataset, n_proficiencies, print_table = TRUE, make_plot = TRUE) {
   # Validate inputs
-  if(!is.numeric(n_proficiencies) && floor(n_proficiencies) != n_proficiencies) {
+  if(!is.numeric(n_proficiencies) || floor(n_proficiencies) != n_proficiencies) {
     stop("The number of proficiency levels must be a whole number.")
   }
   
-  if(!"ACHIEVEMENT_LEVEL" %in% names(dataset)) {
-    stop("The input dataset must contain a column names 'ACHIEVEMENT_LEVELS'.")
+  # Validate and standardize column names
+  colnames_lower = tolower(names(dataset))
+  
+  # Required variables
+  required_variables = c("achievement_level")
+  
+  # Missing variables
+  missing_variables = required_variables[!required_variables %in% colnames_lower]
+  
+  # Check to make sure all of the required variables are included
+  if(length(missing_variables) > 0) {
+    stop(paste("Missing required variable(s):", paste(missing_variables, collapse = ", ")))
   }
 
   # Convert to data frame if not already
   OUT = as.data.frame(dataset)
   
+  # Map the original column names
+  name_map = setNames(names(dataset), colnames_lower)
+  achievement = name_map["achievement_level"]
+  
   # Prepare variables
-  ACHIEVEMENTS = OUT$ACHIEVEMENT_LEVEL
+  ACHIEVEMENTS = OUT[[achievement]]
 
   if(!is.factor(ACHIEVEMENTS)) {
     ACHIEVEMENTS = factor(ACHIEVEMENTS)

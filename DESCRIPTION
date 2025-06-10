@@ -9,7 +9,7 @@ Maintainer: Brian Harrold <bharrold@email.sc.edu>
 Contact: <bharrold@email.sc.edu>
 Depends: R (>= 4.0)
 Suggests: knitr, rmarkdown, SGPdata
-Imports: 
+Imports: ggplot2, ggalluvial
 URL: 
 BugReports: https://github.com/stat-brain/cohortED/issues
 LazyData: Yes
