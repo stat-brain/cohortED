@@ -93,7 +93,7 @@ make_mobility = function(dataset, start_year, start_grade, print_table = TRUE, m
     barplot(prop.table(table(OUT$MOBILITY_STATUS)), main = "Mobility Distribution",
             ylab = "Proportion", col = c("darkgray", "steelblue", "lightgray"))
   }
-  
+
   # Output the desired data set
   return(OUT)
 }
