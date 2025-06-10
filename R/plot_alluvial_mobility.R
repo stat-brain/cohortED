@@ -11,7 +11,7 @@
 #' 
 #' @return An Alluvial Diagram showing Gender, Ethnicity, and Mobility with Optional Contingency Table
 #' @import ggplot2
-#' @importFrom ggalluvial geom_alluvium geom_stratum geom_flow stat_stratum
+#' @importFrom ggalluvial geom_alluvium geom_stratum stat_stratum
 #' @export
 #' 
 #' @examples
@@ -59,7 +59,7 @@ plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table 
   GRAPH = ggplot(data = DATAFRAME, aes(axis1 = Mobility, axis2 = Gender, axis3 = Ethnicity, y = Frequency)) + 
     geom_alluvium(aes(fill = Mobility)) + 
     geom_stratum() + 
-    geom_text(stat = "stratum", aes(label = after_stat(stratum))) + 
+    geom_text(stat = ggalluvial::StatStratum, aes(label = after_stat(stratum))) + 
     theme_void() + 
     theme(legend.position = "none")
   
