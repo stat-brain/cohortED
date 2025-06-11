@@ -73,6 +73,8 @@ plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table 
   }
   
   # Return dataset if desired
-  return(dataset)
+  if(data_out) {
+    return(dataset)
+  }
 }
 

@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This short report provides a snapshot of student mobility trends in the state based on recent available data. The mobility of concern is for those students who enter or exit the state.</p>
+<p>This short report provides a snapshot of student mobility trends in the state based on recent available data. The mobility of concern is for those students who enter or exit the state based on the Grade 3 assessment from 2019-2020 and Grade 4 assessment from 2020-2021.</p>
 </section>
 <section id="key-findings" class="level2">
 <h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
@@ -81,10 +81,13 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="mobility_report_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="mobility_report_files/figure-html/alluvial-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
+</div>
+<p>Student mobility in 3rd grade appears to be more highly associated with the non-white population.</p>
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -100,27 +103,27 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Leave</td>
-<td style="text-align: right;">0.182</td>
-<td style="text-align: right;">0.173</td>
-<td style="text-align: right;">0.172</td>
-<td style="text-align: right;">0.098</td>
-<td style="text-align: right;">0.097</td>
+<td style="text-align: right;">0.148</td>
+<td style="text-align: right;">0.140</td>
+<td style="text-align: right;">0.149</td>
+<td style="text-align: right;">0.088</td>
+<td style="text-align: right;">0.086</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Stay</td>
-<td style="text-align: right;">0.818</td>
-<td style="text-align: right;">0.827</td>
-<td style="text-align: right;">0.828</td>
-<td style="text-align: right;">0.902</td>
-<td style="text-align: right;">0.903</td>
+<td style="text-align: right;">0.667</td>
+<td style="text-align: right;">0.667</td>
+<td style="text-align: right;">0.716</td>
+<td style="text-align: right;">0.808</td>
+<td style="text-align: right;">0.799</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Join</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.185</td>
+<td style="text-align: right;">0.194</td>
+<td style="text-align: right;">0.134</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.115</td>
 </tr>
 </tbody>
 </table>
@@ -129,10 +132,20 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="impact-of-student-mobility" class="level2">
 <h2 class="anchored" data-anchor-id="impact-of-student-mobility">Impact of Student Mobility</h2>
+<p>Student mobility tends impact performance on assessments. The both the students who left and the students who joined had a higher proportion of students who were not proficient. Additionally, the students a higher proportion of the students who left had unsatisfactory performance on the Grade 3 assessment. While there were a similar proportion of students on the Grade 4 assessment in both the Stay and Join groups, the students who joined tended to not have the same proportion of advanced scores. The performance of students who stayed seemed to be very similar between Grade 3 and Grade 4.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mobility_report_files/figure-html/student_performance-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="data-notes" class="level2">
 <h2 class="anchored" data-anchor-id="data-notes">Data Notes</h2>
-<p>This is an example report based on the sgpData_Long that is contained in the SGPData package.</p>
+<p>This is an example report based on the sgpData_Long that is contained in the SGPData package, which has been subset to only include the data associated the <strong>Mathematics</strong> Content Area.</p>
 </section>
 
 </main>
