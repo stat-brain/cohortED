@@ -25,6 +25,7 @@ Creates an Alluvial Diagram depicting Student Mobility from previous year
 Plot an Alluvial Diagram of Student Mobility
 }
 \examples{
-plot_alluvial_mobility(dataset = math, start_year = "2019_2020", start_grade = 3, print_table = FALSE)
+plot_alluvial_mobility(dataset = math, 
+  start_year = "2019_2020", start_grade = 3, print_table = FALSE)
 
 }

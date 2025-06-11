@@ -15,7 +15,8 @@
 #' @export
 #' 
 #' @examples
-#' plot_alluvial_mobility(dataset = math, start_year = "2019_2020", start_grade = 3, print_table = FALSE)
+#' plot_alluvial_mobility(dataset = math, 
+#'   start_year = "2019_2020", start_grade = 3, print_table = FALSE)
 #' 
 
 plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table = TRUE) {
@@ -67,7 +68,7 @@ plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table 
   print(GRAPH)
   
   if(print_table) {
-    print(TABLE)
+    print(round(prop.table(TABLE), 3))
   }
 }
 
