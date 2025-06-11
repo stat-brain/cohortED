@@ -13,7 +13,7 @@
 #' 
 
 
-strict_COHORT = function(DATASET, START_GRADE, START_YEAR) {
+strict_cohort = function(DATASET, START_GRADE, START_YEAR) {
   # 
   
   

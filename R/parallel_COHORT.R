@@ -12,7 +12,7 @@
 #' 
 #' 
 
-parallel_COHORT = function(YEARS, START_GRADE, CONTENT) {
+parallel_cohort = function(YEARS, START_GRADE, CONTENT) {
   BASELINE = sort(YEARS)[1]
   
   
