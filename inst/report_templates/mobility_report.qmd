@@ -1,7 +1,9 @@
 ---
 title: "State Level Mobility Report"
 author: "Brian Harrold"
-format: html
+format: 
+  html: 
+    self-contained: true
 execute: 
   cache: false
 ---
