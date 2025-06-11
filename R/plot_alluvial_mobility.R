@@ -7,6 +7,7 @@
 #' @param start_year The academic year to begin evaluating with (only required if not already used make_mobility)
 #' @param start_grade The grade level to begin evaluating with (only required if not already used make_mobility)
 #' @param print_table Prints a contingency table of indicators associated with student mobility (default: TRUE)
+#' @param data_out Returns an updated data frame with merged gender and ethnicity columns (default: FALSE)
 #' 
 #' 
 #' @return An Alluvial Diagram showing Gender, Ethnicity, and Mobility with Optional Contingency Table
@@ -16,10 +17,10 @@
 #' 
 #' @examples
 #' plot_alluvial_mobility(dataset = math, 
-#'   start_year = "2019_2020", start_grade = 3, print_table = FALSE)
+#'   start_year = "2019_2020", start_grade = 3, print_table = FALSE, data_out = FALSE)
 #' 
 
-plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table = TRUE) {
+plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table = TRUE, data_out = FALSE) {
   # Check to see if the dataset currently contains Mobility_Status as column
   colnames_lower = tolower(names(dataset))
   
@@ -70,5 +71,8 @@ plot_alluvial_mobility = function(dataset, start_year, start_grade, print_table 
   if(print_table) {
     print(round(prop.table(TABLE), 3))
   }
+  
+  # Return dataset if desired
+  return(dataset)
 }
 

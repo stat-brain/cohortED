@@ -1,0 +1,51 @@
+---
+title: "State Level Mobility Report"
+author: "Brian Harrold"
+format: html
+---
+
+## Overview
+
+This short report provides a snapshot of student mobility trends in the state based on recent available data. The mobility of concern is for those students who enter or exit the state based on the Grade 3 assessment from 2019-2020 and Grade 4 assessment from 2020-2021.
+
+## Key Findings
+
+The alluvial diagram below shows the student mobility of 3rd graders from 2019-2020 to 4th graders from 2020-2021.
+
+```{r}
+#| echo: FALSE
+library(cohortED)
+
+grade3 = plot_alluvial_mobility(dataset = grade3, start_year = "2019_2020", start_grade = 3, 
+                       print_table = FALSE, data_out = TRUE)
+
+mobility_ethnicity = table(grade3$MOBILITY_STATUS, grade3$ETHNICITY)
+
+knitr::kable(round(prop.table(mobility_ethnicity, margin = 2), 3))
+
+```
+
+
+## Impact of Student Mobility
+
+
+
+
+```{r}
+#| echo: FALSE
+
+
+
+
+```
+
+
+
+## Data Notes
+
+This is an example report based on the sgpData_Long that is contained in the SGPData package.
+
+
+
+
+
