@@ -34,8 +34,6 @@ website:
     pinned: true
     foreground: "white"
     left:
-      - text: Home
-        href: index.qmd
       - text: About 
         href: about.qmd
       - text: Getting Started 

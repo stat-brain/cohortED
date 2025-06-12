@@ -45,12 +45,11 @@ plot_distribution_mobility = function(dataset, year, start_grade = NULL, end_gra
   # Extract the beginning of the year from within the academic year
   NEW$NUMERIC_YEAR = as.numeric(substr(NEW$YEAR, 1, 4))
   if(is.character(start_year)) {
-    this_year = as.numeric(substr(start_year, 1, 4))
+    last_year = as.numeric(substr(start_year, 1, 4)) - 1
   }
   
   # Make sure year and grade are comparable (convert to numeric if needed)
   NEW[[grade_col]] = as.numeric(NEW[[grade_col]])
-  start_grade = as.numeric(start_grade)
   
   if(is.null(start_grade)) {
     start_grade = 2
@@ -60,10 +59,12 @@ plot_distribution_mobility = function(dataset, year, start_grade = NULL, end_gra
     end_grade = 12
   }
   
-  if(!is.numeric(start_grade) || !is.numeric(end_grade)) {
-    start_grade = as.numeric(start_grade)
-    end_grade = as.numeric(end_grade)
-  }
+  start_grade = as.numeric(start_grade)
+  end_grade = as.numeric(end_grade)
   
   GRADE_SEQUENCE = seq(from = start_grade, to = end_grade, by = 1) - 1
+  
+  for(i in GRADE_SEQUENCE) {
+    
+  }
 }
