@@ -1,17 +1,18 @@
 /*-- scss:defaults --*/
 $h2-font-size:          1.6rem !default;
 $headings-font-weight:  500 !default;
+$body-bg: #ededeb !default;
 
 /*-- scss:rules --*/
 
 /* For shrinking navbar ------------------ */
 
  .navbar {
-    background-image: linear-gradient(to bottom, #f4fda6 0%, #b6e202 100%);
+    background-image: linear-gradient(to bottom, #f4f4f0 0%, #e6e6e2 100%);
     border-color: transparent;
-    border-bottom: 1px solid #444;
-    -webkit-box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 3px 12px 0px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ffa73b;
+    -webkit-box-shadow: 0 3px 12px 0px #ffa73b;
+    box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.1);
     min-height: 50px;
     transition: all 0.35s ease; 
  }
@@ -132,7 +133,7 @@ iconify-icon[icon="jam:github-square"] {
 }
 
 .anchorjs-link:hover {
-   color: black;
+   color: #ff8c00;
 }
 
 /* Ensure the header text doesn't overlap with the icon */
@@ -144,22 +145,6 @@ h1, h2, h3, h4, h5, h6 {
    color: #000;
 }
 
-
-
-
-/* Landing Page Container */
-.landing-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 3rem auto;
-  padding: 2rem;
-  max-width: 1200px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
 /* Logo Section */
 .logo-section {
@@ -192,3 +177,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.8rem;
 }
 
+/* Grid Column Styling */
+.grid {
+  align-items: center;
+}

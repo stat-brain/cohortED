@@ -1,0 +1,10 @@
+---
+title: "Example Reports"
+format:
+  html:
+    toc: true
+    number-sections: false
+---
+
+# Example Reports
+

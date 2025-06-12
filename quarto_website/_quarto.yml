@@ -4,10 +4,9 @@ project:
   render:
    - "*.qmd"      # Render all .qmd files by default
    - "!content/presentations/**"  # Exclude everything in the "content/presentations" directory
+   - "!content/documents/**"  # Exclude everything in the "content/documents" directory
    - "assets/**/*"
 
-author: 
-  - name: "Brian Harrold"
 
 execute:
   freeze: auto
@@ -21,7 +20,7 @@ references:
 website:
   site-url: "https://stat-brain.github.io/cohortED/"
   repo-url: "https://github.com/stat-brain/cohortED"
-  title: ""
+  title: "A GitHub Repository for a Cohort Analysis in Education"
   favicon: ./assets/img/logo_color.png
 
   page-navigation: true
@@ -30,18 +29,30 @@ website:
     logo: ./assets/img/logo_grey.png
     logo-alt: "Center for Assessment GitHub Homepage"
     logo-href: "https://centerforassessment.github.io/"
+    title-href: "https://stat-brain.github.io/cohortED/"
     search: false
     pinned: true
     foreground: "#7c7c7c"
     right:
       - text: About 
         href: about.qmd
+      - text: Getting Started 
+        href: getting_started.qmd
+      - text: R Package
+        href: https://github.com/stat-brain/cohortED/
+      - text: Resources
+        menu:
+          - text: Documents
+            href: documents.qmd
+          - text: Presentations 
+            href: presentations.qmd
+          - text: Example Reports
+            href: example_reports.qmd
+      - text: News
+        href: news.qmd
       - text: "{{< iconify fa6-brands github size=28px title='GitHub Repo' label='The packageSkeleton GitHub Repo' >}}"
-        href: https://github.com/centerforassessment/packageSkeleton/
+        href: https://github.com/stat-brain/cohortED/
         target: _blank
-      - text: "{{< iconify fa6-brands bluesky size=28px title='Share on Bluesky' label='Share on Bluesky' >}}" 
-        href: https://bsky.app/intent/compose?text=packageSkeleton%3A%20A%20GitHub%20repository%20featuring%20a%20starter%20template%20for%20R%20package%20development%2C%20paired%20with%20a%20Quarto-powered%20website.%20%23packageSkeleton%20%23rstats%20https%3A%2F%2Fcenterforassessment.github.io%2FpackageSkeleton
-        target: _blank 
 
   search:
     location: navbar

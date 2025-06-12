@@ -1,0 +1,153 @@
+---
+title: Getting Started with **packageSkeleton**
+format:
+  html:
+    toc: true
+    number-sections: true 
+---
+
+Welcome to **packageSkeleton**, a template designed to help you set up and develop an R package alongside a Quarto-powered website hosted on GitHub. This guide will walk you through the necessary steps for getting started, including installing required software, setting up your GitHub account, forking the repository, and customizing both the R package and the website.
+
+---
+
+# Requirements
+
+Before using **packageSkeleton**, you need to have the following tools installed on your computer, and you'll need a GitHub account to manage your project.
+
+## Software Installation
+
+- **R**: Ensure that you have the latest version of [R](https://cran.r-project.org/) installed. You can download it from [CRAN](https://cran.r-project.org/).
+- **RStudio** (Optional but Recommended): [RStudio](https://rstudio.com/) is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.
+- **Quarto**: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on [Quarto’s website](https://quarto.org/docs/get-started/).
+  - On macOS: 
+    ```bash
+    brew install quarto
+    ```
+  - On Windows:
+    Download and run the installer from [Quarto's download page](https://quarto.org/docs/download/).
+- **Git**: Install [Git](https://git-scm.com/), which will allow you to interact with GitHub and version control your project.
+  - On macOS: 
+    ```bash
+    brew install git
+    ```
+  - On Windows:
+    Download and install [Git for Windows](https://gitforwindows.org/).
+
+---
+
+# Set Up a GitHub Account and Fork the Repository
+
+You will need a GitHub account to manage your project repository and host the website. If you don’t have a GitHub account yet, [sign up for free here](https://github.com/join).
+
+### 2.1 Fork the **packageSkeleton** Repository
+
+1. Go to the [**packageSkeleton** GitHub repository](https://github.com/CenterForAssessment/packageSkeleton).
+2. Click the "Fork" button in the top-right corner to create a personal copy of the repository under your GitHub account.
+3. Once forked, you will have your own version of **packageSkeleton** to work with.
+
+## Clone the Repository Locally
+
+Once you’ve forked the repo, clone it to your local machine using Git. In RStudio, you can do this by going to **File > New Project > Version Control > Git**. Alternatively, use the command line:
+
+```bash
+git clone https://github.com/<your-username>/packageSkeleton.git
+cd packageSkeleton
+```
+
+This will download the repository to your computer, where you can start making changes.
+
+# Customizing the R Package
+
+Now that you have the project on your machine, it’s time to customize the R package.
+
+## Rename the Package
+
+By default, the package is called packageSkeleton. To personalize it:
+
+1.	Open the DESCRIPTION file.
+2.	Change the Package field to your desired package name:
+
+```r
+Package: MyPackageName
+```
+
+## Update the package name in other places such as the NAMESPACE and R files where it is referenced.
+
+## Add Your Own Functions
+
+-	Inside the R/ directory, add your own R scripts that define the functions you want to include in your package.
+-	Each R script should follow the convention of documenting the functions using roxygen comments. For example:
+
+```r
+# A Sample Function
+sample_function <- function(x) {
+  x^2
+}
+```
+
+## Build and Test Your Package
+
+Once you’ve added your custom functions, it’s important to build and test the package. You can do this in RStudio or via the command line:
+
+```r
+devtools::build()
+devtools::check()
+```
+
+# Customizing the Quarto Website
+
+Your packageSkeleton project comes with a Quarto-based website that documents your package. Let’s walk through customizing it.
+
+## Edit the Quarto Configuration
+
+Open the `_quarto.yml` file in the project. This file controls the structure and appearance of the website.
+
+- Update the title, author, and repo-url fields to match your package details.
+
+```yaml
+project:
+  type: website
+title: "MyPackageName"
+author: "Your Name"
+repo-url: "https://github.com/<your-username>/MyCustomPackage"
+```
+
+## Modify the Website Content
+
+You can edit the content of the website by modifying the .qmd files located in the root directory.
+
+- index.qmd: This is the homepage of your Quarto site.
+- getting_started.qmd: This file can serve as a guide for users getting started with your package (like the one you’re reading now).
+- reference.qmd: This file provides a function reference for your package.
+
+## Build and Preview the Website
+
+To build the website and preview it locally, run the following commands in your terminal or RStudio console:
+
+```bash
+quarto render
+quarto preview
+```
+
+This will render the documents and start a local server where you can view the site. Any changes you make will automatically be reflected in the browser.
+
+## Publish the Website
+
+Once you’re happy with your customizations, you can publish the website on GitHub Pages. If you’ve forked the **packageSkeleton** repo, GitHub Pages will be set up to build from the docs/ folder. Simply push your changes to GitHub, and the site will be automatically updated.
+
+# Keep Your Fork Synced
+
+As the original **packageSkeleton** repo might get updates, it’s good practice to keep your fork in sync. You can do this by fetching and merging changes from the original repository:
+
+```bash
+git remote add upstream https://github.com/CenterForAssessment/packageSkeleton.git
+git fetch upstream
+git merge upstream/main
+```
+This will pull in the latest changes from the upstream repo.
+
+# Start Building!
+
+You’re now ready to start building your own R package with an integrated Quarto website. Follow the steps above to customize the package, document your functions, and share your work with others through GitHub and GitHub Pages. If you run into any issues, check out the vignette for more detailed instructions.
+
+Happy coding!
