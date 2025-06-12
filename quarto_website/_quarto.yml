@@ -29,13 +29,13 @@ website:
     logo: ./assets/img/logo_grey.png
     logo-alt: "cohortED Package Homepage"
     logo-href: "https://stat-brain.github.io/cohortED/"
-    title-href: home.qmd
+    title-href: "https://stat-brain.github.io/cohortED/"
     search: true
     pinned: true
     foreground: "white"
     left:
       - text: Home
-        href: home.qmd
+        href: index.qmd
       - text: About 
         href: about.qmd
       - text: Getting Started 
