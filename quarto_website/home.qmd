@@ -11,3 +11,4 @@ format:
 
 This is a package developed specifically for R which is designed to facilitate and perform cohort analysis of educational data.
 
+---

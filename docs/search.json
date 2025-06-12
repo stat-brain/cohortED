@@ -30,16 +30,16 @@
   {
     "objectID": "getting_started.html",
     "href": "getting_started.html",
-    "title": "Getting Started with packageSkeleton",
+    "title": "Getting Started with cohortED",
     "section": "",
-    "text": "Welcome to packageSkeleton, a template designed to help you set up and develop an R package alongside a Quarto-powered website hosted on GitHub. This guide will walk you through the necessary steps for getting started, including installing required software, setting up your GitHub account, forking the repository, and customizing both the R package and the website."
+    "text": "Before using packageSkeleton, you need to have the following tools installed on your computer, and you’ll need a GitHub account to manage your project.\n\n\n\nR: Ensure that you have the latest version of R installed. You can download it from CRAN.\nRStudio (Optional but Recommended): RStudio is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.\nQuarto: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on Quarto’s website.\n\nOn macOS:\nbrew install quarto\nOn Windows: Download and run the installer from Quarto’s download page.\n\nGit: Install Git, which will allow you to interact with GitHub and version control your project.\n\nOn macOS:\nbrew install git\nOn Windows: Download and install Git for Windows."
   },
   {
     "objectID": "getting_started.html#software-installation",
     "href": "getting_started.html#software-installation",
-    "title": "Getting Started with packageSkeleton",
-    "section": "1.1 Software Installation",
-    "text": "1.1 Software Installation\n\nR: Ensure that you have the latest version of R installed. You can download it from CRAN.\nRStudio (Optional but Recommended): RStudio is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.\nQuarto: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on Quarto’s website.\n\nOn macOS:\nbrew install quarto\nOn Windows: Download and run the installer from Quarto’s download page.\n\nGit: Install Git, which will allow you to interact with GitHub and version control your project.\n\nOn macOS:\nbrew install git\nOn Windows: Download and install Git for Windows."
+    "title": "Getting Started with cohortED",
+    "section": "",
+    "text": "R: Ensure that you have the latest version of R installed. You can download it from CRAN.\nRStudio (Optional but Recommended): RStudio is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.\nQuarto: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on Quarto’s website.\n\nOn macOS:\nbrew install quarto\nOn Windows: Download and run the installer from Quarto’s download page.\n\nGit: Install Git, which will allow you to interact with GitHub and version control your project.\n\nOn macOS:\nbrew install git\nOn Windows: Download and install Git for Windows."
   },
   {
     "objectID": "getting_started.html#clone-the-repository-locally",
@@ -116,6 +116,6 @@
     "href": "home.html",
     "title": "Welcome to cohortED",
     "section": "",
-    "text": "Welcome to cohortED"
+    "text": "Welcome to cohortED\n\nThis is a package developed specifically for R which is designed to facilitate and perform cohort analysis of educational data."
   }
 ]
