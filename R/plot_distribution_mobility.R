@@ -8,14 +8,14 @@
 #' @param start_grade (Optional)
 #' @param end_grade (Optional)
 #' @param print_table Prints a contingency table of student mobility by grade level (default: TRUE)
-#' @param data_out Outputs a dataframe containing
+#' @param data_out Outputs a data frame containing the student mobility data
 #' 
 #' @return The Distribution of Student Mobility for a given Year for all Grade levels
 #' @import ggplot2
 #' @export
 #' 
 
-plot_distribution_mobility = function(dataset, year, print_table = TRUE, data_out = FALSE) {
+plot_distribution_mobility = function(dataset, year, start_grade = NULL, end_grade = NULL, print_table = TRUE, data_out = FALSE) {
   # Validate and standardize column names
   colnames_lower = tolower(names(dataset))
   
@@ -51,4 +51,22 @@ plot_distribution_mobility = function(dataset, year, print_table = TRUE, data_ou
   # Make sure year and grade are comparable (convert to numeric if needed)
   NEW[[grade_col]] = as.numeric(NEW[[grade_col]])
   start_grade = as.numeric(start_grade)
+  
+  if(is.null(start_grade)) {
+    start_grade = 1
+  }
+  
+  if(is.null(end_grade)) {
+    end_grade = 12
+  }
+  
+  if (!is.null(start_grade) && !is.null(end_grade)) {
+    if (!is.numeric(start_grade) || !is.numeric(end_grade)) {
+      start_grade = as.numeric(start_grade)
+      end_grade = as.numeric(end_grade)
+    }
+    if (start_grade > end_grade) {
+      stop
+    }
+  }
 }
