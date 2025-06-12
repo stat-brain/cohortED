@@ -53,20 +53,17 @@ plot_distribution_mobility = function(dataset, year, start_grade = NULL, end_gra
   start_grade = as.numeric(start_grade)
   
   if(is.null(start_grade)) {
-    start_grade = 1
+    start_grade = 2
   }
   
   if(is.null(end_grade)) {
     end_grade = 12
   }
   
-  if (!is.null(start_grade) && !is.null(end_grade)) {
-    if (!is.numeric(start_grade) || !is.numeric(end_grade)) {
-      start_grade = as.numeric(start_grade)
-      end_grade = as.numeric(end_grade)
-    }
-    if (start_grade > end_grade) {
-      stop
-    }
+  if(!is.numeric(start_grade) || !is.numeric(end_grade)) {
+    start_grade = as.numeric(start_grade)
+    end_grade = as.numeric(end_grade)
   }
+  
+  GRADE_SEQUENCE = seq(from = start_grade, to = end_grade, by = 1) - 1
 }
