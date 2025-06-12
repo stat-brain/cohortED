@@ -27,19 +27,25 @@ website:
   navbar:
     title: "cohortED"
     logo: ./assets/img/logo_grey.png
-    logo-alt: "Center for Assessment GitHub Homepage"
-    logo-href: "https://centerforassessment.github.io/"
+    logo-alt: "cohortED Package Homepage"
+    logo-href: "https://stat-brain.github.io/cohortED/"
     title-href: "https://stat-brain.github.io/cohortED/"
-    search: false
+    search: true
     pinned: true
-    foreground: "#7c7c7c"
-    right:
+    foreground: "white"
+    left:
+      - text: Home
+        href: home.qmd
       - text: About 
         href: about.qmd
       - text: Getting Started 
         href: getting_started.qmd
       - text: R Package
         href: https://github.com/stat-brain/cohortED/
+        menu: 
+          - text: Helper Functions
+          - text: Plotting Functions
+          - text: Analysis Functions
       - text: Resources
         menu:
           - text: Documents
@@ -64,7 +70,7 @@ website:
       - text: "{{< iconify bi:info-square-fill size=28px title='About packageSkeleton', label='About packageSkeleton' >}}"
         href: https://centerforassessment.github.io/packageSkeleton/
       - text: "{{< iconify jam:github-square size=33.5px title='GitHub Repo' label='The packageSkeleton GitHub Repo' >}}"
-        href: https://github.com/centerforassessment/packageSkeleton/
+        href: https://github.com/stat-brain/cohortED/
         target: _blank
 
   twitter-card:

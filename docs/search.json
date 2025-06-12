@@ -2,7 +2,7 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Overview",
+    "title": "About",
     "section": "",
     "text": "Overview\nTesting to see how well this works.\n\n\nFunctionality\n\nTesting a few ideas out\nSeeing what happens"
   },
@@ -26,5 +26,96 @@
     "title": "News",
     "section": "",
     "text": "Nothing Newsworthy yet…"
+  },
+  {
+    "objectID": "getting_started.html",
+    "href": "getting_started.html",
+    "title": "Getting Started with packageSkeleton",
+    "section": "",
+    "text": "Welcome to packageSkeleton, a template designed to help you set up and develop an R package alongside a Quarto-powered website hosted on GitHub. This guide will walk you through the necessary steps for getting started, including installing required software, setting up your GitHub account, forking the repository, and customizing both the R package and the website."
+  },
+  {
+    "objectID": "getting_started.html#software-installation",
+    "href": "getting_started.html#software-installation",
+    "title": "Getting Started with packageSkeleton",
+    "section": "1.1 Software Installation",
+    "text": "1.1 Software Installation\n\nR: Ensure that you have the latest version of R installed. You can download it from CRAN.\nRStudio (Optional but Recommended): RStudio is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.\nQuarto: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on Quarto’s website.\n\nOn macOS:\nbrew install quarto\nOn Windows: Download and run the installer from Quarto’s download page.\n\nGit: Install Git, which will allow you to interact with GitHub and version control your project.\n\nOn macOS:\nbrew install git\nOn Windows: Download and install Git for Windows."
+  },
+  {
+    "objectID": "getting_started.html#clone-the-repository-locally",
+    "href": "getting_started.html#clone-the-repository-locally",
+    "title": "Getting Started with packageSkeleton",
+    "section": "2.1 Clone the Repository Locally",
+    "text": "2.1 Clone the Repository Locally\nOnce you’ve forked the repo, clone it to your local machine using Git. In RStudio, you can do this by going to File &gt; New Project &gt; Version Control &gt; Git. Alternatively, use the command line:\ngit clone https://github.com/&lt;your-username&gt;/packageSkeleton.git\ncd packageSkeleton\nThis will download the repository to your computer, where you can start making changes."
+  },
+  {
+    "objectID": "getting_started.html#rename-the-package",
+    "href": "getting_started.html#rename-the-package",
+    "title": "Getting Started with packageSkeleton",
+    "section": "3.1 Rename the Package",
+    "text": "3.1 Rename the Package\nBy default, the package is called packageSkeleton. To personalize it:\n\nOpen the DESCRIPTION file.\nChange the Package field to your desired package name:\n\nPackage: MyPackageName"
+  },
+  {
+    "objectID": "getting_started.html#update-the-package-name-in-other-places-such-as-the-namespace-and-r-files-where-it-is-referenced.",
+    "href": "getting_started.html#update-the-package-name-in-other-places-such-as-the-namespace-and-r-files-where-it-is-referenced.",
+    "title": "Getting Started with packageSkeleton",
+    "section": "3.2 Update the package name in other places such as the NAMESPACE and R files where it is referenced.",
+    "text": "3.2 Update the package name in other places such as the NAMESPACE and R files where it is referenced."
+  },
+  {
+    "objectID": "getting_started.html#add-your-own-functions",
+    "href": "getting_started.html#add-your-own-functions",
+    "title": "Getting Started with packageSkeleton",
+    "section": "3.3 Add Your Own Functions",
+    "text": "3.3 Add Your Own Functions\n\nInside the R/ directory, add your own R scripts that define the functions you want to include in your package.\nEach R script should follow the convention of documenting the functions using roxygen comments. For example:\n\n# A Sample Function\nsample_function &lt;- function(x) {\n  x^2\n}"
+  },
+  {
+    "objectID": "getting_started.html#build-and-test-your-package",
+    "href": "getting_started.html#build-and-test-your-package",
+    "title": "Getting Started with packageSkeleton",
+    "section": "3.4 Build and Test Your Package",
+    "text": "3.4 Build and Test Your Package\nOnce you’ve added your custom functions, it’s important to build and test the package. You can do this in RStudio or via the command line:\ndevtools::build()\ndevtools::check()"
+  },
+  {
+    "objectID": "getting_started.html#edit-the-quarto-configuration",
+    "href": "getting_started.html#edit-the-quarto-configuration",
+    "title": "Getting Started with packageSkeleton",
+    "section": "4.1 Edit the Quarto Configuration",
+    "text": "4.1 Edit the Quarto Configuration\nOpen the _quarto.yml file in the project. This file controls the structure and appearance of the website.\n\nUpdate the title, author, and repo-url fields to match your package details.\n\nproject:\n  type: website\ntitle: \"MyPackageName\"\nauthor: \"Your Name\"\nrepo-url: \"https://github.com/&lt;your-username&gt;/MyCustomPackage\""
+  },
+  {
+    "objectID": "getting_started.html#modify-the-website-content",
+    "href": "getting_started.html#modify-the-website-content",
+    "title": "Getting Started with packageSkeleton",
+    "section": "4.2 Modify the Website Content",
+    "text": "4.2 Modify the Website Content\nYou can edit the content of the website by modifying the .qmd files located in the root directory.\n\nindex.qmd: This is the homepage of your Quarto site.\ngetting_started.qmd: This file can serve as a guide for users getting started with your package (like the one you’re reading now).\nreference.qmd: This file provides a function reference for your package."
+  },
+  {
+    "objectID": "getting_started.html#build-and-preview-the-website",
+    "href": "getting_started.html#build-and-preview-the-website",
+    "title": "Getting Started with packageSkeleton",
+    "section": "4.3 Build and Preview the Website",
+    "text": "4.3 Build and Preview the Website\nTo build the website and preview it locally, run the following commands in your terminal or RStudio console:\nquarto render\nquarto preview\nThis will render the documents and start a local server where you can view the site. Any changes you make will automatically be reflected in the browser."
+  },
+  {
+    "objectID": "getting_started.html#publish-the-website",
+    "href": "getting_started.html#publish-the-website",
+    "title": "Getting Started with packageSkeleton",
+    "section": "4.4 Publish the Website",
+    "text": "4.4 Publish the Website\nOnce you’re happy with your customizations, you can publish the website on GitHub Pages. If you’ve forked the packageSkeleton repo, GitHub Pages will be set up to build from the docs/ folder. Simply push your changes to GitHub, and the site will be automatically updated."
+  },
+  {
+    "objectID": "documents.html",
+    "href": "documents.html",
+    "title": "Documents",
+    "section": "",
+    "text": "Documents"
+  },
+  {
+    "objectID": "home.html",
+    "href": "home.html",
+    "title": "Welcome to cohortED",
+    "section": "",
+    "text": "Welcome to cohortED"
   }
 ]
