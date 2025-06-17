@@ -1,99 +1,137 @@
-#' Append a Factor for Student Mobility
-#' 
+#' Calculate Student Mobility Between Grades and Years
+#'
+#' This function analyzes student mobility status by comparing student IDs
+#' between two consecutive academic years and grades. It categorizes students as
+#' "Leave" (present in previous year/grade only), "Join" (present in current year/grade only),
+#' or "Stay" (present in both). It returns a summary table, a merged dataset with mobility
+#' status, and a bar plot visualizing the distribution.
+#'
 #' @title Make Mobility
-#' @description Appends a year-to-year student mobility category based on a given starting year
 #' 
-#' @param dataset A data frame that includes student grade level and academic year
-#' @param start_year The academic year to begin evaluating with
-#' @param start_grade The grade level to begin evaluating with
-#' @param print_table Prints a table of proportions of students for student mobility (default: TRUE)
-#' @param make_plot Makes a relative frequency bar plot of student mobility (default: TRUE)
+#' @param dataset A data frame containing student-level data. Must include columns for
+#'   student ID, grade, and academic year. Column names are case-insensitive.
+#'   The grade column may contain numeric values, or special codes:
+#'   \itemize{
+#'     \item `"K"` for Kindergarten (treated as 0),
+#'     \item `"PK"` or `"PreK"` for Pre-Kindergarten (treated as -1).
+#'   }
+#' @param current_year The academic year of the current grade (e.g., `"2020-2021"` or numeric year `2020`).
+#'   Can be a string or numeric. The function extracts the starting calendar year if a string.
+#' @param current_grade Numeric or convertible to numeric, or a string representing grade level.
+#'   Supports `"K"`, `"PK"`, and `"PreK"` as described above.
+#' @param print_plot Logical (default: \code{FALSE}). If \code{TRUE}, prints the mobility distribution bar plot.
+#'
+#' @return A list with the following components:
+#' \describe{
+#'   \item{Data}{A data frame merging student data from previous and current year/grade with mobility status.}
+#'   \item{Table}{A one-row matrix with percentages of students who "Leave", "Stay", or "Join".}
+#'   \item{Caption}{A character string describing the grade and year comparison used.}
+#'   \item{Barplot}{A ggplot2 bar plot object visualizing mobility distribution percentages.}
+#' }
+#'
+#' @details
+#' The function:
+#' \itemize{
+#'   \item Validates required columns ("id", "grade", "year") exist (case-insensitive).
+#'   \item Converts special grade codes `"K"`, `"PK"`, and `"PreK"` to numeric equivalents (`0` and `-1` respectively) for computation.
+#'   \item Extracts the calendar year from the academic year (first 4 characters).
+#'   \item Computes mobility status by comparing student IDs from the previous grade/year
+#'     to the current grade/year.
+#'   \item Always returns percentages for all three mobility categories, even if some have zero counts.
+#'   \item Produces a bar plot showing the distribution with custom colors for each status.
+#' }
 #' 
-#' 
-#' @return A table of proportions of students and an alluvial 
 #' @importFrom stats aggregate setNames
-#' @importFrom graphics barplot
+#' @import ggplot2
 #' @export
 #' 
 #' @examples
-#' make_mobility(dataset = math, start_year = "2019_2020", start_grade = 3)
-#' make_mobility(dataset = math, start_year = 2021, start_grade = 6, print_table = FALSE)
+#' make_mobility(dataset = math, current_year = "2020_2021", current_grade = 4)
+#' make_mobility(dataset = math, current_year = 2022, current_grade = 7)
 #' 
 
-make_mobility = function(dataset, start_year, start_grade, print_table = TRUE, make_plot = TRUE) {
+make_mobility <- function(dataset, current_year, current_grade, print_plot = FALSE) {
   # Validate and standardize column names
-  colnames_lower = tolower(names(dataset))
+  colnames_lower <- tolower(names(dataset))
+  required_variables <- c("id", "grade", "year")
+  missing_variables <- required_variables[!required_variables %in% colnames_lower]
   
-  # Required variables
-  required_variables = c("id", "grade", "year")
-  
-  # Missing variables
-  missing_variables = required_variables[!required_variables %in% colnames_lower]
-  
-  # Check to make sure all of the required variables are included
   if(length(missing_variables) > 0) {
     stop(paste("Missing required variable(s):", paste(missing_variables, collapse = ", ")))
   }
   
-  # Map the original column names
-  name_map = setNames(names(dataset), colnames_lower)
-  id_col = name_map["id"]
-  grade_col = name_map["grade"]
-  year_col = name_map["year"]
+  name_map <- setNames(names(dataset), colnames_lower)
+  id_col <- name_map["id"]
+  grade_col <- name_map["grade"]
+  year_col <- name_map["year"]
   
-  # Convert to data frame if not already
-  NEW = as.data.frame(dataset)
+  NEW <- as.data.frame(dataset)
+  NEW <- NEW[!is.na(NEW[[grade_col]]) & !is.na(NEW[[year_col]]), ]
   
-  # Remove any students without grade level or academic year information
-  NEW = NEW[!is.na(NEW[[grade_col]]) & !is.na(NEW[[year_col]]), ]
-  
-  # Extract the beginning of the year from within the academic year
-  NEW$NUMERIC_YEAR = as.numeric(substr(NEW$YEAR, 1, 4))
-  if(is.character(start_year)) {
-    start_year = as.numeric(substr(start_year, 1, 4))
+  NEW$NUMERIC_YEAR <- as.numeric(substr(NEW[[year_col]], 1, 4))
+  if(is.character(current_year)) {
+    current_year <- as.numeric(substr(current_year, 1, 4))
   }
   
-  # Make sure year and grade are comparable (convert to numeric if needed)
-  NEW[[grade_col]] = as.numeric(NEW[[grade_col]])
-  start_grade = as.numeric(start_grade)
+  # Normalize grades
+  NEW[[grade_col]] <- normalize_grade(NEW[[grade_col]])
+  current_grade <- normalize_grade(current_grade)
   
-  # Subset rows
-  START = NEW[NEW$NUMERIC_YEAR == start_year & NEW[[grade_col]] == start_grade, ]
-  END = NEW[NEW$NUMERIC_YEAR == (start_year + 1) & NEW[[grade_col]] == (start_grade + 1), ]
+  previous_year <- current_year - 1
+  previous_grade <- current_grade - 1
   
-  # Remove the Extra Column
-  START$NUMERIC_YEAR = NULL
-  END$NUMERIC_YEAR = NULL
+  START <- NEW[NEW$NUMERIC_YEAR == previous_year & NEW[[grade_col]] == previous_grade, ]
+  END <- NEW[NEW$NUMERIC_YEAR == current_year & NEW[[grade_col]] == current_grade, ]
   
-  # Vector of IDs
-  START_ID = unique(START[[id_col]])
-  END_ID = unique(END[[id_col]])
+  START$NUMERIC_YEAR <- NULL
+  END$NUMERIC_YEAR <- NULL
   
-  # All unique IDs
-  ALL_ID = union(START_ID, END_ID)
+  START_ID <- unique(START[[id_col]])
+  END_ID <- unique(END[[id_col]])
   
-  # Determine mobility status
-  MOBILITY = ifelse(ALL_ID %in% START_ID & ALL_ID %in% END_ID, "Stay", 
-                    ifelse(ALL_ID %in% START_ID, "Leave", "Join"))
-  MOBILITY = factor(MOBILITY, levels = c("Leave", "Stay", "Join"))
+  ALL_ID <- union(START_ID, END_ID)
   
-  # Combine this vector with all ids
-  MOBILITY = data.frame(ID = ALL_ID, MOBILITY_STATUS = MOBILITY)
+  MOBILITY <- ifelse(
+    ALL_ID %in% START_ID & ALL_ID %in% END_ID, "Stay",
+    ifelse(ALL_ID %in% START_ID, "Leave", "Join")
+  )
   
-  # Create a merged data set
-  OUT = merge(x = START, y = END, by = "ID", all = TRUE)
-  OUT = merge(x = OUT, y = MOBILITY, by = "ID", all = TRUE)
+  MOBILITY <- factor(MOBILITY, levels = c("Leave", "Stay", "Join"))
   
-  # Optional outputs
-  if(print_table) {
-    print(round(prop.table(table(OUT$MOBILITY_STATUS)), 3))
-  }
+  MOBILITY_df <- data.frame(ID = ALL_ID, MOBILITY_STATUS = MOBILITY)
   
-  if(make_plot) {
-    barplot(prop.table(table(OUT$MOBILITY_STATUS)), main = "Mobility Distribution",
-            ylab = "Proportion", col = c("darkgray", "steelblue", "lightgray"))
-  }
-
-  # Output the desired data set
-  return(OUT)
+  OUT <- list()
+  
+  OUT$Data <- merge(x = START, y = END, by = id_col, all = TRUE)
+  OUT$Data <- merge(x = OUT$Data, y = MOBILITY_df, by = "ID", all = TRUE)
+  
+  TABLE1_raw <- prop.table(table(OUT$Data$MOBILITY_STATUS)) * 100
+  TABLE1 <- setNames(rep(0, 3), c("Leave", "Stay", "Join"))
+  TABLE1[names(TABLE1_raw)] <- round(TABLE1_raw[names(TABLE1_raw)], 1)
+  TABLE2 <- sapply(TABLE1, function(x) sprintf("%.1f%%", x))
+  OUT$Table <- t(TABLE2)
+  
+  previous_text <- paste0("Grade ", previous_grade, " in ", previous_year, "-", current_year)
+  current_text <- paste0("Grade ", current_grade, " in ", current_year, "-", (current_year + 1))
+  OUT$Caption <- paste("From ", previous_text, " to ", current_text)
+  
+  PLOT_df <- data.frame(
+    MOBILITY = names(TABLE1),
+    PERCENT = as.numeric(TABLE1)
+  )
+  
+  PLOT1 <- ggplot(PLOT_df, aes(x = MOBILITY, y = PERCENT, fill = MOBILITY)) +
+    geom_bar(stat = "identity") +
+    scale_fill_manual(values = c(
+      "Leave" = "darkgray",
+      "Stay" = "steelblue",
+      "Join" = "lightgray"
+    )) +
+    labs(title = "Mobility Distribution", subtitle = OUT$Caption, y = "Percent", x = NULL) +
+    theme_minimal()
+  OUT$Barplot <- PLOT1
+  
+  if (print_plot) print(PLOT1)
+  
+  return(invisible(OUT))
 }

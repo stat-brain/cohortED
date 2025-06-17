@@ -124,5 +124,61 @@
     "title": "Welcome to cohortED",
     "section": "",
     "text": "Welcome to cohortED\n\nThis is a package developed specifically for R which is designed to facilitate and perform cohort analysis of educational data."
+  },
+  {
+    "objectID": "plotting_functions.html",
+    "href": "plotting_functions.html",
+    "title": "Plotting Functions",
+    "section": "",
+    "text": "Mobility Related\nplot_mobility_distribution\n\n\nPerformance Related\nplot_cohort2_proficiency"
+  },
+  {
+    "objectID": "plotting_functions.html#mobility-related",
+    "href": "plotting_functions.html#mobility-related",
+    "title": "Plotting Functions",
+    "section": "",
+    "text": "plot_mobility_distribution"
+  },
+  {
+    "objectID": "plotting_functions.html#performance-related",
+    "href": "plotting_functions.html#performance-related",
+    "title": "Plotting Functions",
+    "section": "Performance Related",
+    "text": "Performance Related\nplot_cohort2_proficiency"
+  },
+  {
+    "objectID": "analysis_functions.html",
+    "href": "analysis_functions.html",
+    "title": "Analysis Functions",
+    "section": "",
+    "text": "Still working on this section…"
+  },
+  {
+    "objectID": "analysis_functions.html#how-to-perform-analysis",
+    "href": "analysis_functions.html#how-to-perform-analysis",
+    "title": "Analysis Functions",
+    "section": "",
+    "text": "Still working on this section…"
+  },
+  {
+    "objectID": "helper_functions.html",
+    "href": "helper_functions.html",
+    "title": "Helper Functions",
+    "section": "",
+    "text": "make_mobility, make_proficiency_levels, make_achievement_levels"
+  },
+  {
+    "objectID": "helper_functions.html#data-related",
+    "href": "helper_functions.html#data-related",
+    "title": "Helper Functions",
+    "section": "",
+    "text": "make_mobility, make_proficiency_levels, make_achievement_levels"
+  },
+  {
+    "objectID": "helper_functions.html#format-related",
+    "href": "helper_functions.html#format-related",
+    "title": "Helper Functions",
+    "section": "Format Related",
+    "text": "Format Related\nnormalize_grade"
   }
 ]

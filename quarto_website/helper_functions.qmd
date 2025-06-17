@@ -1,0 +1,18 @@
+---
+title: "Helper Functions"
+format:
+  html:
+    toc: true
+    number-sections: false 
+---
+
+## Data Related
+
+make_mobility, make_proficiency_levels, make_achievement_levels
+
+
+
+## Format Related
+
+normalize_grade
+

@@ -4,36 +4,35 @@
 \alias{plot_alluvial_mobility}
 \title{Plot Alluvial Mobility}
 \usage{
-plot_alluvial_mobility(
-  dataset,
-  start_year,
-  start_grade,
-  print_table = TRUE,
-  data_out = FALSE
-)
+plot_alluvial_mobility(dataset, current_year, current_grade, print_plot = TRUE)
 }
 \arguments{
-\item{dataset}{A data frame that includes student grade level and academic year}
+\item{dataset}{A data frame that includes student grade level, academic year, gender, and ethnicity.}
 
-\item{start_year}{The academic year to begin evaluating with (only required if not already used make_mobility)}
+\item{current_year}{The academic year to evaluate (e.g., "2020_2021").}
 
-\item{start_grade}{The grade level to begin evaluating with (only required if not already used make_mobility)}
+\item{current_grade}{The grade level to evaluate (e.g., 4 or "4").}
 
-\item{print_table}{Prints a contingency table of indicators associated with student mobility (default: TRUE)}
-
-\item{data_out}{Returns an updated data frame with merged gender and ethnicity columns (default: FALSE)}
+\item{print_plot}{Logical; if TRUE (default), the alluvial plot is printed.}
 }
 \value{
-An Alluvial Diagram showing Gender, Ethnicity, and Mobility with Optional Contingency Table
+A list containing:
+\describe{
+\item{Data}{The updated dataset used for plotting}
+\item{Data_Table}{A contingency table of Mobility x Gender x Ethnicity}
+\item{Table_by_Ethnicity}{Proportion table by ethnicity}
+\item{Table_by_Gender}{Proportion table by gender}
+\item{Caption}{Text summary of transition between grades}
+\item{Plot}{The generated ggplot2 object}
+}
 }
 \description{
-Creates an Alluvial Diagram depicting Student Mobility from previous year
+Creates an alluvial diagram that illustrates student mobility between years, segmented by gender and ethnicity. If \code{MOBILITY_STATUS} is not already present in the dataset, it will be computed using the provided grade and year.
 }
 \details{
 Plot an Alluvial Diagram of Student Mobility
 }
 \examples{
-plot_alluvial_mobility(dataset = math, 
-  start_year = "2019_2020", start_grade = 3, print_table = FALSE, data_out = FALSE)
+plot_alluvial_mobility(dataset = math, current_year = "2020_2021", current_grade = 4)
 
 }

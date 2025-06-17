@@ -2,21 +2,40 @@
 % Please edit documentation in R/make_first_entered.R
 \name{make_first_entered}
 \alias{make_first_entered}
-\title{Get First Entered}
+\title{Make First Entered}
 \usage{
-make_first_entered(dataset)
+make_first_entered(dataset, print_plot = FALSE)
 }
 \arguments{
-\item{dataset}{A data frame that includes student grade level and academic year}
+\item{dataset}{A data frame containing student-level longitudinal data.
+Must include columns representing student IDs, grades, and academic years.}
+
+\item{print_plot}{Logical (default: \code{FALSE}). If \code{TRUE}, the function will print both plots to the active graphics device.}
 }
 \value{
-A data frame with an appended column containing student entry cohort data
+A named list with the following elements:
+\describe{
+\item{\code{Data}}{The input dataset with a new column \code{FIRST_ENTERED}, indicating each student's first observed grade and year (e.g., \code{"1.2019"}).}
+\item{\code{Table}}{A contingency table of first-time student counts by grade and year, with total row and column margins.}
+\item{\code{Caption}}{A string caption describing the contingency table.}
+\item{\code{Plot_by_Grade}}{A \code{ggplot2} line plot showing number of first-time students by grade and cohort (cohort defined as \code{year - grade}).}
+\item{\code{Plot_by_Year}}{A \code{ggplot2} line plot showing first-time student counts by academic year and grade level.}
+}
 }
 \description{
-Appends a column of "FIRST_ENTERED" to the dataset to indicate which cohort they were initially included in
+Identify First Grade-Year Entry per Student and Visualize Entry Patterns
 }
 \details{
-Append a Column for Grade Level and Year indicating when the Student first appeared in the Dataset
+This function identifies the first grade-year entry per student in a longitudinal dataset,
+appends a \code{"FIRST_ENTERED"} column, produces a contingency table of first entries by grade and year,
+and optionally generates two line plots of entry patterns across grades and years.
+
+The function standardizes grade values by converting \code{"K"} to \code{0}, and \code{"PK"} or \code{"PreK"} to \code{-1} (case-insensitive),
+allowing them to be plotted numerically. A totals row and column are added to the contingency table.
+
+The function assumes the year is in a string format such as \code{"2019-20"} or \code{"2019"}, and extracts the numeric start year
+using the first four characters. Grades are coerced to character for processing, and then converted to numeric for plotting
+by interpreting \code{"K"} as \code{0} and \code{"PK"}/\code{"PreK"} as \code{-1}. Any other non-numeric grades will result in \code{NA} unless handled separately.
 }
 \examples{
 make_first_entered(dataset = math)

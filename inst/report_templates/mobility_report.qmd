@@ -8,65 +8,153 @@ execute:
   cache: false
 ---
 
-## Overview
-
-This short report provides a snapshot of student mobility trends in the state based on recent available data. The mobility of concern is for those students who enter or exit the state based on the Grade 3 assessment from 2019-2020 and Grade 4 assessment from 2020-2021.
-
-## Key Findings
-
-The alluvial diagram below shows the student mobility of 3rd graders from 2019-2020 to 4th graders from 2020-2021.
-
-```{r alluvial}
-#| echo: FALSE
+```{r setup}
+#| echo: false
 
 library(cohortED)
 library(ggplot2)
 library(cowplot)
 
-grade3 = plot_alluvial_mobility(dataset = math, start_year = "2019_2020", start_grade = 3, 
-                       print_table = FALSE, data_out = TRUE)
+```
+
+## Overview
+
+This short report provides a brief summary of the trends in the student cohorts and student mobility. This will focus on the state mathematics assessment from the 2023-2024 academic year, but illustrate trends over previous academic years.
+
+## Definitions
+
+- **Leave** A student has a mobility status of "leave" if there was a record for the previous academic year, but the student is not present in the data for the current academic year.
+- **Stay** A student is classified as having a "stay" mobility status if they are present in the data set for both the previous academic year and the current academic year.
+- **Join** A student has a mobility status of "join" when the student is present in the current academic year's data set, but the student did not appear in the previous data set.
+
+## General Trends in Student Mobility and Cohorts
+
+Based on the table below, the overall trend for students for the 2023-2024 academic year seem to be that there is little difference in the mobility of students based on the grade level. Approximately 80% of students from each grade in 2023-2024 continued from the previous grade during the previous academic year. Students appear to be joining at a slightly higher rate than leaving.
+
+```{r table_of_years}
+#| echo: false
+
+change = plot_distribution_mobility(dataset = math, year = "2022_2023", start_grade = 4, end_grade = 6, print_table = FALSE, data_out = TRUE, print_plot = FALSE)
+
+new.table = xtabs(PERCENT ~ MOBILITY + GRADE, data = change)
+colnames(new.table) = c("Grade 3", "Grade 4", "Grade 5")
+new.table = apply(new.table, c(1, 2), function(x) {
+  sprintf("%.1f%%", x)  # formats with 2 decimal places and adds '%'
+})
+
+knitr::kable(new.table, caption = "Mobility Status by Grade for 2023-2024", align = rep("r", ncol(new.table)))
+```
+
+Also of interest is how these cohorts of students compare to one another and to previous cohorts of students. This is evident in the plot shown below. Until more recently, it was common for the percent proficient to increase from Grade 3 to Grade 4. However, this appears to have reversed post-COVID. Additionally, it appears that the percent proficient decreases between Grade 4 and Grade 5, with a much sharper decline in the recent years. It also appears that while most cohorts start with approximately the same proficiency rate in Grade 3, the gap tends to widen as the grade levels increase.
+
+```{r spaghetti}
+#| echo: false
+
+prof1 = make_proficiency_levels(dataset = math, n_proficiencies = 2, print_table = FALSE, 
+                                make_plot = FALSE)
+
+df.new = data.frame(
+  grade = integer(), 
+  year = integer(), 
+  np = numeric(), 
+  p = numeric(), 
+  stringsAsFactors = FALSE
+)
+
+g = rep(c(5, 4, 3), 5)
+y = rep(c(2024, 2023, 2022, 2021, 2020), each = 3)
+
+year_char = paste0((y-1), "_", y)
+
+for(i in 1:length(g)) {
+  table.new = table(prof1[prof1$GRADE == g[i] & prof1$YEAR == year_char[i],
+                          "PROFICIENCY_LEVELS"])
+  proptable.new = round(prop.table(table.new), 3) * 100
+  TEMP = data.frame(
+    grade = g[i], 
+    year = y[i], 
+    np = as.numeric(proptable.new["Not Proficient"]), 
+    p = as.numeric(proptable.new["Proficient"])
+  )
+  df.new = rbind(df.new, TEMP)
+}
+
+df.new$cohort = df.new$year - df.new$grade + 3
+
+ggplot(df.new, aes(x = grade, y = p, group = cohort, color = as.factor(cohort))) +
+  geom_point(size = 3) +
+  geom_line(linewidth = 1) +
+  scale_color_brewer(palette = "Dark2") +  
+  scale_x_continuous(breaks = seq(min(df.new$grade), max(df.new$grade), 1)) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  labs(
+    x = "Grade",
+    y = "Percent Proficient",
+    title = "Percent Proficient by Cohort",
+    color = "Grade 3 in "  # <-- Custom legend title here
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom")
 
 ```
 
-Student mobility in 3rd grade appears to be more highly associated with the non-white population.
+
+## Deep Dive into Student Mobility and Cohorts
+
+This section focuses on the students who were in Grade 4 during the 2022-2023 academic year and are currently Grade 5 during the 2023-2024 academic year. The alluvial diagram shows the interaction between student mobility, gender, and ethnicity for those students. From this diagram it appears that there is little difference in student mobility by gender, however there are some concerns regarding student mobility and ethnicity.
+
+
+```{r alluvial}
+#| echo: FALSE
+
+grade4 = plot_alluvial_mobility(dataset = math, 
+                                start_year = "2022_2023", 
+                                start_grade = 4, print_table = FALSE, data_out = TRUE)
+```
+
+As shown in the table below, the non-white student population generally experiences a higher rate of student mobility. This is incredibly evident with a much higher proportion of African American students leaving between the 2022-2023 and 2023-2024 academic years. Similarly, students who are Native American also experience a higher rate of student mobility in both directions.
 
 ```{r ethnicity_table}
 #| echo: FALSE
 
-mobility_ethnicity = table(grade3$MOBILITY_STATUS, grade3$ETHNICITY)
+mobility_ethnicity = round(prop.table(table(grade4$MOBILITY_STATUS, 
+                                            grade4$ETHNICITY), margin = 2), 3) * 100
+mobility_ethnicity = apply(mobility_ethnicity, c(1, 2), function(x) {
+  sprintf("%.1f%%", x)  # formats with 2 decimal places and adds '%'
+})
 
-knitr::kable(round(prop.table(mobility_ethnicity, margin = 2), 3))
+knitr::kable(mobility_ethnicity, align = rep("r", ncol(mobility_ethnicity)))
 
 ```
 
-
-## Impact of Student Mobility
-
-
-Student mobility tends impact performance on assessments. The both the students who left and the students who joined had a higher proportion of students who were not proficient. Additionally, the students a higher proportion of the students who left had unsatisfactory performance on the Grade 3 assessment. While there were a similar proportion of students on the Grade 4 assessment in both the Stay and Join groups, the students who joined tended to not have the same proportion of advanced scores. The performance of students who stayed seemed to be very similar between Grade 3 and Grade 4.
-
+As research suggests, student mobility has an impact on student performance. To further see these results, consider the plots below which show the achievement levels for the students who were in Grade 4 during 2022-2023 and Grade 5 during 2023-2024. That is, the "stay" mobility status are the same cohort of students. As expected, their achievement levels change slightly from one academic year to the next. However, there is a big difference in the achievement levels between the students who stayed as compared to those students who experience mobility. Those students who either left or joined between the 2022-2023 and 2023-2024 school years had lower proficiency and advanced rates, than their counterparts.
 
 ```{r student_performance}
 #| echo: FALSE
 
-grade3.x = grade3[!is.na(grade3$ACHIEVEMENT_LEVEL.x) & grade3$ACHIEVEMENT_LEVEL.x != "No Score", ]
-grade3.y = grade3[!is.na(grade3$ACHIEVEMENT_LEVEL.y) & grade3$ACHIEVEMENT_LEVEL.y != "No Score", ]
+grade4.x = grade4[!is.na(grade4$ACHIEVEMENT_LEVEL.x) & 
+                    grade4$ACHIEVEMENT_LEVEL.x != "No Score", ]
+grade4.y = grade4[!is.na(grade4$ACHIEVEMENT_LEVEL.y) & 
+                    grade4$ACHIEVEMENT_LEVEL.y != "No Score", ]
 
-table1 = table(grade3.x$MOBILITY_STATUS, grade3.x$ACHIEVEMENT_LEVEL.x)
+table1 = table(grade4.x$MOBILITY_STATUS, grade4.x$ACHIEVEMENT_LEVEL.x)
 df1 = data.frame(round(prop.table(table1, margin = 1), 3))
 df1 = df1[!is.nan(df1$Freq), ]
 df1$Var2 = factor(df1$Var2, 
-                  levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory"))
+                  levels = c("Advanced", "Proficient", 
+                             "Partially Proficient", "Unsatisfactory"))
 
-table2 = table(grade3.y$MOBILITY_STATUS, grade3.y$ACHIEVEMENT_LEVEL.y)
+table2 = table(grade4.y$MOBILITY_STATUS, grade4.y$ACHIEVEMENT_LEVEL.y)
 df2 = data.frame(round(prop.table(table2, margin = 1), 3))
 df2 = df2[!is.nan(df2$Freq), ]
 df2$Var2 = factor(df2$Var2, 
-                  levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory"))
+                  levels = c("Advanced", "Proficient", 
+                             "Partially Proficient", "Unsatisfactory"))
 
 plot1 = ggplot(df1, aes(x = Var1, y = Freq, fill = Var2)) + 
   geom_bar(stat = "identity") + 
-  labs(title = "2019-2020", y = "Value", x = "Mobility Status", fill = "Achievement Level") + 
+  labs(title = "2022-2023", y = "Value", x = "Mobility Status", 
+       fill = "Achievement Level") + 
   theme_minimal() +
   scale_fill_manual(values = c(
     "Advanced" = "#2E8B57",
@@ -77,7 +165,8 @@ plot1 = ggplot(df1, aes(x = Var1, y = Freq, fill = Var2)) +
 
 plot2 = ggplot(df2, aes(x = Var1, y = Freq, fill = Var2)) + 
   geom_bar(stat = "identity") + 
-  labs(title = "2020-2021", y = "Value", x = "Mobility Status", fill = "Achievement Level") + 
+  labs(title = "2023-2024", y = "Value", x = "Mobility Status", 
+       fill = "Achievement Level") + 
   theme_minimal() +
   scale_fill_manual(values = c(
     "Advanced" = "#2E8B57",
@@ -91,10 +180,9 @@ plot_grid(plot1, plot2, ncol = 2)
 ```
 
 
-
 ## Data Notes
 
-This is an example report based on the sgpData_Long that is contained in the SGPData package, which has been subset to only include the data associated the **Mathematics** Content Area.
+This is an example report based on the sgpData_Long that is contained in the SGPData package, which has been subset to only include the data associated the **Mathematics** Content Area. While the data does not truly represent student attendance, the general functionality  readily accounts for student entering and exiting the data.
 
 
 

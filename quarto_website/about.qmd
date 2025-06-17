@@ -6,12 +6,12 @@ format:
     number-sections: false
 ---
 
-# Overview
+## Overview
 
 Testing to see how well this works.
 
 
-# Functionality
+## Functionality
 
 * Testing a few ideas out
 * Seeing what happens

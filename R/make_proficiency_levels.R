@@ -1,54 +1,82 @@
-#' Append a Binary Factor for Student Proficiency
+#' Create Proficiency Levels from Ordered Achievement Factor
+#'
+#' Converts an ordered factor achievement variable into a binary proficiency variable by
+#' grouping the top `n_proficiencies` achievement levels as "Proficient" and the rest as "Not Proficient".
+#'
+#' @title Make Proficiency Levels
 #' 
-#' @title Get Proficiency
-#' @description Appends a student proficiency data based on the achievement level and the number of achievement levels that are considered proficient
-#' 
-#' @param dataset A data frame that includes student achievement levels
-#' @param n_proficiencies An integer for the number of achievement levels that are considered proficient
-#' @param print_table Prints a table of proportions of students who are proficient and not proficient (default: TRUE)
-#' @param make_plot Makes a relative frequency bar plot of students who are proficient and not proficient (default: TRUE)
-#' 
-#' @return A data frame with an appended column containing student proficiency data
+#' @param dataset A data frame containing the achievement variable.
+#' @param achievement A string specifying the column name of the achievement factor variable.
+#'        The variable must be a factor with ordered levels from lowest to highest.
+#' @param n_proficiencies An integer (≥1) specifying how many of the highest achievement levels
+#'        to classify as "Proficient".
+#' @param print_plot Logical (default: \code{FALSE}). If \code{TRUE}, prints a bar plot of proficiency level distribution.
+#' @param proficiency_labels A character vector of length 2 specifying the labels for
+#'        proficiency levels, in order: c("Not Proficient", "Proficient").
+#'        Default is c("Not Proficient", "Proficient").
+#'
+#' @return A list containing:
+#' \describe{
+#'   \item{Data}{The input dataset with an added factor variable \code{PROFICIENCY_LEVELS}.}
+#'   \item{Table}{A summary table showing percentages of each proficiency level.}
+#'   \item{Caption}{A descriptive caption string about the proficiency grouping.}
+#'   \item{Plot}{A ggplot2 barplot object of the proficiency distribution.}
+#' }
+#'
+#' @details
+#' The function verifies inputs, orders the achievement factor if unordered,
+#' and classifies observations into proficiency based on the top `n_proficiencies` achievement levels.
+#'
 #' @importFrom stats aggregate setNames
-#' @importFrom graphics barplot
+#' @import ggplot2
 #' @export
 #' 
 #' @examples
-#' make_proficiency_levels(dataset = math, n_proficiencies = 2)
+#' make_proficiency_levels(dataset = math, achievement = "ACHIEVEMENT_LEVEL", n_proficiencies = 2)
 #' 
 
-make_proficiency_levels = function(dataset, n_proficiencies, print_table = TRUE, make_plot = TRUE) {
+make_proficiency_levels = function(dataset, achievement, n_proficiencies, print_plot = FALSE,
+                                   proficiency_labels = c("Not Proficient", "Proficient")) {
   # Validate inputs
   if(!is.numeric(n_proficiencies) || floor(n_proficiencies) != n_proficiencies) {
     stop("The number of proficiency levels must be a whole number.")
   }
-  
-  # Validate and standardize column names
-  colnames_lower = tolower(names(dataset))
-  
-  # Required variables
-  required_variables = c("achievement_level")
-  
-  # Missing variables
-  missing_variables = required_variables[!required_variables %in% colnames_lower]
-  
-  # Check to make sure all of the required variables are included
-  if(length(missing_variables) > 0) {
-    stop(paste("Missing required variable(s):", paste(missing_variables, collapse = ", ")))
+  if (n_proficiencies < 1) {
+    stop("The number of proficiency levels must be at least 1.")
   }
-
-  # Convert to data frame if not already
-  OUT = as.data.frame(dataset)
   
-  # Map the original column names
+  # Validate proficiency_labels length
+  if(length(proficiency_labels) != 2) {
+    stop("proficiency_labels must be a character vector of length 2.")
+  }
+  
+  # Validate column names
+  colnames_lower = tolower(names(dataset))
+  if (!(tolower(achievement) %in% colnames_lower)) {
+    stop(paste("Achievement variable", achievement, "not found in dataset."))
+  }
+  
+  # Map actual column name (in case of case mismatch)
   name_map = setNames(names(dataset), colnames_lower)
-  achievement = name_map["achievement_level"]
+  achievement_col = name_map[[tolower(achievement)]]
+  
+  # Initialize output
+  OUT = list()
+  
+  # Convert to data frame if not already
+  OUT$Data = as.data.frame(dataset)
   
   # Prepare variables
-  ACHIEVEMENTS = OUT[[achievement]]
-
-  if(!is.factor(ACHIEVEMENTS)) {
-    ACHIEVEMENTS = factor(ACHIEVEMENTS)
+  ACHIEVEMENTS = OUT$Data[[achievement_col]]
+  
+  # Check that achievement levels are factors
+  if (!is.factor(ACHIEVEMENTS)) {
+    stop("The 'achievement_level' column must be a factor with ordered levels from lowest to highest.")
+  }
+  
+  # Ensure the factor is ordered
+  if (!is.ordered(ACHIEVEMENTS)) {
+    ACHIEVEMENTS = factor(ACHIEVEMENTS, levels = levels(ACHIEVEMENTS), ordered = TRUE)
   }
   
   # Identify the levels of achievements
@@ -62,25 +90,43 @@ make_proficiency_levels = function(dataset, n_proficiencies, print_table = TRUE,
     stop("The number of proficiency levels cannot exceed the number of achievement levels.")
   }
   
-  # Binary conversion to proficiency
+  # Binary conversion to proficiency with custom labels
   TOP_LEVELS = LEVELS[(N_LEVELS - n_proficiencies + 1):N_LEVELS]
   BINARY = ifelse(is.na(ACHIEVEMENTS), NA, 
                   ACHIEVEMENTS %in% TOP_LEVELS)
-  PROFICIENCY = factor(BINARY, levels = c(FALSE, TRUE), labels = c("Not Proficient", "Proficient"))
+  PROFICIENCY = factor(BINARY, levels = c(FALSE, TRUE), labels = proficiency_labels)
   
-  # Append to the dataset
-  OUT$PROFICIENCY_LEVELS = PROFICIENCY
+  # Append to the data set
+  OUT$Data$PROFICIENCY_LEVELS = PROFICIENCY
   
-  # Optional outputs
-  if(print_table) {
-    print(round(prop.table(table(PROFICIENCY)), 3))
-  }
+  # Make summary tables
+  TABLE1 = round(prop.table(table(PROFICIENCY)), 3) * 100
+  TABLE2 = sapply(TABLE1, function(x) {sprintf("%.1f%%", x)})
   
-  if(make_plot) {
-    barplot(prop.table(table(PROFICIENCY)), main = "Proficiency Distribution",
-            ylab = "Proportion", col = c("lightgray", "steelblue"))
-  }
+  # Output the table
+  OUT$Table = t(TABLE2)
   
-  # Return the new data frame
-  return(OUT)
+  # Make a caption
+  caption_text <- paste("Distribution of proficiency status using top", n_proficiencies, "achievement level(s)")
+  OUT$Caption = caption_text
+  
+  # Prepare plot data
+  PLOT_df <- data.frame(
+    PROFICIENCY = names(TABLE1),
+    PERCENT = as.numeric(TABLE1)
+  )
+  
+  # Make a barplot
+  PLOT1 = ggplot(PLOT_df, aes(x = PROFICIENCY, y = PERCENT, fill = PROFICIENCY)) +
+    geom_bar(stat = "identity") +
+    scale_fill_manual(values = c("lightgray", "steelblue")) +
+    labs(title = "Proficiency Distribution", y = "Percent", x = NULL) +
+    theme_minimal()
+  OUT$Plot = PLOT1
+  
+  # Print the barplot
+  if(print_plot) print(PLOT1)
+  
+  # Return the output invisibly
+  return(invisible(OUT))
 }

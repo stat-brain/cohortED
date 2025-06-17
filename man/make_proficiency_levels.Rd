@@ -2,34 +2,51 @@
 % Please edit documentation in R/make_proficiency_levels.R
 \name{make_proficiency_levels}
 \alias{make_proficiency_levels}
-\title{Get Proficiency}
+\title{Make Proficiency Levels}
 \usage{
 make_proficiency_levels(
   dataset,
+  achievement,
   n_proficiencies,
-  print_table = TRUE,
-  make_plot = TRUE
+  print_plot = FALSE,
+  proficiency_labels = c("Not Proficient", "Proficient")
 )
 }
 \arguments{
-\item{dataset}{A data frame that includes student achievement levels}
+\item{dataset}{A data frame containing the achievement variable.}
 
-\item{n_proficiencies}{An integer for the number of achievement levels that are considered proficient}
+\item{achievement}{A string specifying the column name of the achievement factor variable.
+The variable must be a factor with ordered levels from lowest to highest.}
 
-\item{print_table}{Prints a table of proportions of students who are proficient and not proficient (default: TRUE)}
+\item{n_proficiencies}{An integer (≥1) specifying how many of the highest achievement levels
+to classify as "Proficient".}
 
-\item{make_plot}{Makes a relative frequency bar plot of students who are proficient and not proficient (default: TRUE)}
+\item{print_plot}{Logical (default: \code{FALSE}). If \code{TRUE}, prints a bar plot of proficiency level distribution.}
+
+\item{proficiency_labels}{A character vector of length 2 specifying the labels for
+proficiency levels, in order: c("Not Proficient", "Proficient").
+Default is c("Not Proficient", "Proficient").}
 }
 \value{
-A data frame with an appended column containing student proficiency data
+A list containing:
+\describe{
+\item{Data}{The input dataset with an added factor variable \code{PROFICIENCY_LEVELS}.}
+\item{Table}{A summary table showing percentages of each proficiency level.}
+\item{Caption}{A descriptive caption string about the proficiency grouping.}
+\item{Plot}{A ggplot2 barplot object of the proficiency distribution.}
+}
 }
 \description{
-Appends a student proficiency data based on the achievement level and the number of achievement levels that are considered proficient
+Create Proficiency Levels from Ordered Achievement Factor
 }
 \details{
-Append a Binary Factor for Student Proficiency
+Converts an ordered factor achievement variable into a binary proficiency variable by
+grouping the top \code{n_proficiencies} achievement levels as "Proficient" and the rest as "Not Proficient".
+
+The function verifies inputs, orders the achievement factor if unordered,
+and classifies observations into proficiency based on the top \code{n_proficiencies} achievement levels.
 }
 \examples{
-make_proficiency_levels(dataset = math, n_proficiencies = 2)
+make_proficiency_levels(dataset = math, achievement = "ACHIEVEMENT_LEVEL", n_proficiencies = 2)
 
 }

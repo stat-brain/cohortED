@@ -1,0 +1,19 @@
+---
+title: "Plotting Functions"
+format:
+  html:
+    toc: true
+    number-sections: false 
+---
+
+## Mobility Related
+
+plot_mobility_distribution
+
+
+## Performance Related
+
+plot_cohort2_proficiency
+
+
+

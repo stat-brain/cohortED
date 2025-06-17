@@ -4,36 +4,57 @@
 \alias{make_mobility}
 \title{Make Mobility}
 \usage{
-make_mobility(
-  dataset,
-  start_year,
-  start_grade,
-  print_table = TRUE,
-  make_plot = TRUE
-)
+make_mobility(dataset, current_year, current_grade, print_plot = FALSE)
 }
 \arguments{
-\item{dataset}{A data frame that includes student grade level and academic year}
+\item{dataset}{A data frame containing student-level data. Must include columns for
+student ID, grade, and academic year. Column names are case-insensitive.
+The grade column may contain numeric values, or special codes:
+\itemize{
+\item \code{"K"} for Kindergarten (treated as 0),
+\item \code{"PK"} or \code{"PreK"} for Pre-Kindergarten (treated as -1).
+}}
 
-\item{start_year}{The academic year to begin evaluating with}
+\item{current_year}{The academic year of the current grade (e.g., \code{"2020-2021"} or numeric year \code{2020}).
+Can be a string or numeric. The function extracts the starting calendar year if a string.}
 
-\item{start_grade}{The grade level to begin evaluating with}
+\item{current_grade}{Numeric or convertible to numeric, or a string representing grade level.
+Supports \code{"K"}, \code{"PK"}, and \code{"PreK"} as described above.}
 
-\item{print_table}{Prints a table of proportions of students for student mobility (default: TRUE)}
-
-\item{make_plot}{Makes a relative frequency bar plot of student mobility (default: TRUE)}
+\item{print_plot}{Logical (default: \code{FALSE}). If \code{TRUE}, prints the mobility distribution bar plot.}
 }
 \value{
-A table of proportions of students and an alluvial
+A list with the following components:
+\describe{
+\item{Data}{A data frame merging student data from previous and current year/grade with mobility status.}
+\item{Table}{A one-row matrix with percentages of students who "Leave", "Stay", or "Join".}
+\item{Caption}{A character string describing the grade and year comparison used.}
+\item{Barplot}{A ggplot2 bar plot object visualizing mobility distribution percentages.}
+}
 }
 \description{
-Appends a year-to-year student mobility category based on a given starting year
+Calculate Student Mobility Between Grades and Years
 }
 \details{
-Append a Factor for Student Mobility
+This function analyzes student mobility status by comparing student IDs
+between two consecutive academic years and grades. It categorizes students as
+"Leave" (present in previous year/grade only), "Join" (present in current year/grade only),
+or "Stay" (present in both). It returns a summary table, a merged dataset with mobility
+status, and a bar plot visualizing the distribution.
+
+The function:
+\itemize{
+\item Validates required columns ("id", "grade", "year") exist (case-insensitive).
+\item Converts special grade codes \code{"K"}, \code{"PK"}, and \code{"PreK"} to numeric equivalents (\code{0} and \code{-1} respectively) for computation.
+\item Extracts the calendar year from the academic year (first 4 characters).
+\item Computes mobility status by comparing student IDs from the previous grade/year
+to the current grade/year.
+\item Always returns percentages for all three mobility categories, even if some have zero counts.
+\item Produces a bar plot showing the distribution with custom colors for each status.
+}
 }
 \examples{
-make_mobility(dataset = math, start_year = "2019_2020", start_grade = 3)
-make_mobility(dataset = math, start_year = 2021, start_grade = 6, print_table = FALSE)
+make_mobility(dataset = math, current_year = "2020_2021", current_grade = 4)
+make_mobility(dataset = math, current_year = 2022, current_grade = 7)
 
 }
