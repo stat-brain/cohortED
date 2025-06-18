@@ -22,7 +22,7 @@ draft: false
 ---
 ::: {.title-slide}
 
-![](assets/img/cfa_logo_full_color.png){width=500px style="margin-bottom: 1em;"}
+![](assets/img/cfa_logo_full_color.png){style="max-width: 30%; height: auto; margin-bottom: 1em;"}
 
 # Agile Development to Support State Assessment Analyses
 ## Intern Update #1
@@ -36,26 +36,30 @@ June 20, 2025
 
 **Brian Harrold and Erik Whitfield**
 
+## Description
+
+Create a suite of R packages to:
+
+1. Support policy-relevant analysis of state educational data  
+2. Develop reproducible R functions for common analytic tasks  
+3. Use an iterative development process to build, test, and refine tools  
+4. Empower state analysts and researchers to produce high-quality, replicable reports  
+
 ## Goal
 
+Develop robust functionality to:
 
-
-
+- Facilitate routine analysis  
+- Streamline standard analytic workflows  
+- Enable deeper, exploratory data investigations  
+- Generate clear, reproducible reports and presentations  
+- Provide comprehensive supporting documentation  
 
 ## Workflow
 
-* R and R Studio
-* GitHub
-* Quarto
-
-
-
-
-## 
-
-
-
-
+- **R and RStudio** – Programming and package development  
+- **GitHub** – Version control and website hosting  
+- **Quarto** – Website creation and dynamic report generation  
 
 
 # cohortED package
@@ -67,39 +71,44 @@ June 20, 2025
 * Cohort Analysis for Educational Research
   + Demographics
   + Student Mobility
-  + Longitudinal Analysis (Cohort-Tracking)
-  + Cross-Sectional Analysis (Cohort-Comparing)
+  + Longitudinal Analysis (tracking cohorts over time)
+  + Cross-Sectional Analysis (comparing cohorts)
 
 ## Related Work
 
-* 
-* 
-* SGP (Student Growth Percentiles)
-
-
-
+* `cohorts` package - Customer Analytics
+* `survival` package - Time-to-Event Analytics
+* `SGP` package - Student Growth Percentiles
+* `brolgar` package - Longitudinal Data Analysis
 
 ## Vocabulary
 
 * [Classifications:]{.underline} Leave, Join, Stay
-* [From Cohort Analysis:]{.underline} Churn
-
-
-
+* [From Cohort Analysis:]{.underline} Churn, Persistence
 
 ## Ideal Dataset
 
 * Longitudinal Student-Level Data
   + **Example:** sgpData_Long from SGPdata package
-  + **Requires:** Grade Level and Academic Year
+  + **Requires:** Student ID, Grade Level, Academic Year
   + **Optional** Demographics, Subgroups, Performance, School/District, etc.
 
 ## Enabling the Ideal
 
 * Helper Functions
-  + make_achievement_levels(), make_proficiency_levels()
-  + make_mobility(), make_first_entered()
-  + standardize_grade()
+  + `make_achievement_levels()`
+  + `make_proficiency_levels()`
+  + `make_mobility()`
+  + `make_first_entered()`
+  + `standardize_grade()`
+
+## Example Output
+
+
+
+
+
+
 
 ## Visualizing
 
@@ -107,19 +116,45 @@ June 20, 2025
   + plot_distribution_mobility()
   + plot_alluvial_mobility()
   + plot_cohort2_proficiency()
+  
+## Example Output
+
+
+
+
+
 
 ## Analyzing
 
 * Analysis Functions
   + 
+  + More to come...
+
+## Example Report
+
+
+
 
 
 ## Persistent Challenges
 
-* Flexible Arguments
-* Cohesive Functionality
-* Data Limitations
-* Dynamic Reporting
+* Designing flexible function arguments
+* Creating cohesive, user-friendly functionality
+* Handling data limitations
+* Developing dynamic reporting capabilities
+
+## Next Steps
+
+* Build in more functionality and analysis features
+* Expand dynamic reporting capabilities
+* Test with additional datasets (as available)
+* Obtain feedback
+
+## Desired Feedback
+
+- **Functionality:** Are there any features you think would be useful to add?  
+- **Reporting:** Are there any challenges from states that this package could better support?  
+- **Datasets:** Do you know of any datasets that can be used to test and validate the package? 
 
 ## Resources
 

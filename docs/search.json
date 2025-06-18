@@ -130,7 +130,7 @@
     "href": "plotting_functions.html",
     "title": "Plotting Functions",
     "section": "",
-    "text": "Mobility Related\nplot_mobility_distribution\n\n\nPerformance Related\nplot_cohort2_proficiency"
+    "text": "plot_mobility_distribution"
   },
   {
     "objectID": "plotting_functions.html#mobility-related",

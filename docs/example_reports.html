@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-927b59aba650724ef0f1ae456e6795c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a62a53684e5ef22a280b3f99efc0171d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -95,38 +95,43 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="https://centerforassessment.github.io/" class="navbar-brand navbar-brand-logo">
-    <img src="././assets/img/logo_grey.png" alt="Center for Assessment GitHub Homepage" class="navbar-logo">
+    <a href="https://stat-brain.github.io/cohortED/" class="navbar-brand navbar-brand-logo">
+    <img src="././assets/img/logo_grey.png" alt="cohortED Package Homepage" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="https://centerforassessment.github.io/">
+    <a class="navbar-brand" href="https://stat-brain.github.io/cohortED/">
     <span class="navbar-title">cohortED</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./getting_started.qmd"> 
+    <a class="nav-link" href="./getting_started.html"> 
 <span class="menu-text">Getting Started</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-r-package" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">R Package</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-r-package">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-r-package">    
         <li>
-    <a class="dropdown-item" href="./overview.qmd">
- <span class="dropdown-text">Overview</span></a>
+    <a class="dropdown-item" href="./helper_functions.html">
+ <span class="dropdown-text">Helper Functions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./api_reference.qmd">
- <span class="dropdown-text">API Reference</span></a>
+    <a class="dropdown-item" href="./plotting_functions.html">
+ <span class="dropdown-text">Plotting Functions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./analysis_functions.html">
+ <span class="dropdown-text">Analysis Functions</span></a>
   </li>  
     </ul>
   </li>
@@ -134,9 +139,9 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Resources</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="./documents.qmd">
+    <a class="dropdown-item" href="./documents.html">
  <span class="dropdown-text">Documents</span></a>
   </li>  
         <li>
@@ -150,16 +155,12 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./news.qmd"> 
+    <a class="nav-link" href="./news.html"> 
 <span class="menu-text">News</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/centerforassessment/packageSkeleton/" target="_blank"> 
+    <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank"> 
 <span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:github" style="font-size: 28px;" aria-label="The packageSkeleton GitHub Repo" title="GitHub Repo"></iconify-icon></span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://bsky.app/intent/compose?text=packageSkeleton%3A%20A%20GitHub%20repository%20featuring%20a%20starter%20template%20for%20R%20package%20development%2C%20paired%20with%20a%20Quarto-powered%20website.%20%23packageSkeleton%20%23rstats%20https%3A%2F%2Fcenterforassessment.github.io%2FpackageSkeleton" target="_blank"> 
-<span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:bluesky" style="font-size: 28px;" aria-label="Share on Bluesky" title="Share on Bluesky"></iconify-icon></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -623,7 +624,7 @@ ul.task-list li input[type="checkbox"] {
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="https://github.com/centerforassessment/packageSkeleton/" target="_blank">
+    <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank">
 <p><iconify-icon role="img" inline="" icon="jam:github-square" style="font-size: 33.5px;" aria-label="The packageSkeleton GitHub Repo" title="GitHub Repo"></iconify-icon></p>
 </a>
   </li>  
