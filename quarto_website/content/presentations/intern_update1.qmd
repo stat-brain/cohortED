@@ -1,0 +1,129 @@
+---
+format:
+  revealjs:
+    title-slide: false
+    logo: assets/img/cfa_logo_full_color.png
+    width: 1600
+    height: 900
+    preview-links: auto
+    scrollable: false
+    slide-number: true
+    show-slide-number: all
+    multiplex: true
+    controls: true
+    background-transition: fade
+    fig-align: center
+    center-title-slide: false
+    navigation-mode: linear
+    theme: [simple, assets/css/presentation-style.scss]
+    html-math-method: mathjax
+    embed-resources: true
+draft: false
+---
+::: {.title-slide}
+
+![](assets/img/cfa_logo_full_color.png){width=500px style="margin-bottom: 1em;"}
+
+# Agile Development to Support State Assessment Analyses
+## Intern Update #1
+**Brian Harrold and Erik Whitfield**  
+June 20, 2025
+
+:::
+
+
+# Project Overview
+
+**Brian Harrold and Erik Whitfield**
+
+## Goal
+
+
+
+
+
+## Workflow
+
+* R and R Studio
+* GitHub
+* Quarto
+
+
+
+
+## 
+
+
+
+
+
+
+# cohortED package
+
+**Brian Harrold**
+
+## Focus of the Package
+
+* Cohort Analysis for Educational Research
+  + Demographics
+  + Student Mobility
+  + Longitudinal Analysis (Cohort-Tracking)
+  + Cross-Sectional Analysis (Cohort-Comparing)
+
+## Related Work
+
+* 
+* 
+* SGP (Student Growth Percentiles)
+
+
+
+
+## Vocabulary
+
+* [Classifications:]{.underline} Leave, Join, Stay
+* [From Cohort Analysis:]{.underline} Churn
+
+
+
+
+## Ideal Dataset
+
+* Longitudinal Student-Level Data
+  + **Example:** sgpData_Long from SGPdata package
+  + **Requires:** Grade Level and Academic Year
+  + **Optional** Demographics, Subgroups, Performance, School/District, etc.
+
+## Enabling the Ideal
+
+* Helper Functions
+  + make_achievement_levels(), make_proficiency_levels()
+  + make_mobility(), make_first_entered()
+  + standardize_grade()
+
+## Visualizing
+
+* Plotting Functions
+  + plot_distribution_mobility()
+  + plot_alluvial_mobility()
+  + plot_cohort2_proficiency()
+
+## Analyzing
+
+* Analysis Functions
+  + 
+
+
+## Persistent Challenges
+
+* Flexible Arguments
+* Cohesive Functionality
+* Data Limitations
+* Dynamic Reporting
+
+## Resources
+
+* [Quarto Website](https://stat-brain.github.io/cohortED/)
+* [GitHub Repository](https://github.com/stat-brain/cohortED)
+
+

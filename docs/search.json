@@ -4,14 +4,14 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Overview\nTesting to see how well this works.\n\n\nFunctionality\n\nTesting a few ideas out\nSeeing what happens"
+    "text": "Testing to see how well this works."
   },
   {
     "objectID": "presentations.html",
     "href": "presentations.html",
     "title": "Presentations",
     "section": "",
-    "text": "This is my presentations page.\n\nPresentations Associated with cohortED"
+    "text": "Open Full Screen \n    Download PowerPoint"
   },
   {
     "objectID": "example_reports.html",
@@ -180,5 +180,26 @@
     "title": "Helper Functions",
     "section": "Format Related",
     "text": "Format Related\nnormalize_grade"
+  },
+  {
+    "objectID": "presentations.html#intern-update-1",
+    "href": "presentations.html#intern-update-1",
+    "title": "Presentations",
+    "section": "",
+    "text": "Open Full Screen \n    Download PowerPoint"
+  },
+  {
+    "objectID": "about.html#overview",
+    "href": "about.html#overview",
+    "title": "About",
+    "section": "",
+    "text": "Testing to see how well this works."
+  },
+  {
+    "objectID": "about.html#functionality",
+    "href": "about.html#functionality",
+    "title": "About",
+    "section": "Functionality",
+    "text": "Functionality\n\nTesting a few ideas out\nSeeing what happens"
   }
 ]

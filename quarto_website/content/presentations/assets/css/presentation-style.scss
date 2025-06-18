@@ -19,7 +19,7 @@ $font-family-sans-serif: "Yanone Kaffeesatz", sans-serif !default;
 
 // colors
 $body-color: #12273F;
-$link-color: #3CD7D9;
+$link-color: #1a0dab;
 $code-color: #9E71FE;
 $dark-bg-code-color: lighten($code-color, 15%);
 $light-bg-code-color: darken($code-color, 15%);
@@ -28,7 +28,9 @@ $light-bg-code-color: darken($code-color, 15%);
 $presentation-heading-font: "Yanone Kaffeesatz", sans-serif !default;
 
 /*-- scss:rules --*/
-.reveal .title-slide h1 {font-size: 3.5em;}
+.reveal .title-slide h1 {
+  font-size: 3.0em;
+}
 
 .rotate {
     writing-mode: vertical-lr;
@@ -37,10 +39,32 @@ $presentation-heading-font: "Yanone Kaffeesatz", sans-serif !default;
 }
 
 .reveal {
-  background-color: #f0f0f0;  /* Light grey background globally */
+  background-color: #f2f2f2; /* Light grey background globally */
 }
 
 .reveal .slides section {
   color: #333333; /* Custom text color */
 }
 
+/* Increase font size for all slide content */
+.reveal .slides section {
+  font-size: 1.2em; /* base font size for paragraphs and normal text */
+}
+
+/* Increase font size for headings */
+.reveal .slides section h1 {
+  font-size: 3.0em; /* a bit bigger than your current 3.5em */
+}
+
+.reveal .slides section h2 {
+  font-size: 2.0em;
+}
+
+.reveal .slides section h3 {
+  font-size: 1.5em;
+}
+
+/* Optional: increase font size for smaller headings */
+.reveal .slides section h4 {
+  font-size: 1.5em;
+}
