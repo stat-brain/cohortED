@@ -6,5 +6,5 @@ format:
     number-sections: false
 ---
 
-# Example Reports
+## Example Report #1
 

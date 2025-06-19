@@ -6,26 +6,5 @@ format:
     number-sections: true 
 ---
 
-# Requirements
 
-Before using **packageSkeleton**, you need to have the following tools installed on your computer, and you'll need a GitHub account to manage your project.
-
-## Software Installation
-
-- **R**: Ensure that you have the latest version of [R](https://cran.r-project.org/) installed. You can download it from [CRAN](https://cran.r-project.org/).
-- **RStudio** (Optional but Recommended): [RStudio](https://rstudio.com/) is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.
-- **Quarto**: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on [Quarto’s website](https://quarto.org/docs/get-started/).
-  - On macOS: 
-    ```bash
-    brew install quarto
-    ```
-  - On Windows:
-    Download and run the installer from [Quarto's download page](https://quarto.org/docs/download/).
-- **Git**: Install [Git](https://git-scm.com/), which will allow you to interact with GitHub and version control your project.
-  - On macOS: 
-    ```bash
-    brew install git
-    ```
-  - On Windows:
-    Download and install [Git for Windows](https://gitforwindows.org/).
 

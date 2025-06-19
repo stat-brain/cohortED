@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Testing to see how well this works."
+    "text": "This package"
   },
   {
     "objectID": "presentations.html",
@@ -25,7 +25,7 @@
     "href": "news.html",
     "title": "News",
     "section": "",
-    "text": "Nothing Newsworthy yet…"
+    "text": "June 2025 - June 20, 2025: Intern Update #1"
   },
   {
     "objectID": "getting_started.html",
@@ -123,7 +123,7 @@
     "href": "index.html",
     "title": "Welcome to cohortED",
     "section": "",
-    "text": "Welcome to cohortED\n\nThis is a package developed specifically for R which is designed to facilitate and perform cohort analysis of educational data."
+    "text": "Welcome to cohortED\n\n\n\n\n\ncohortED badge\n\n\n\ncohortED is an R package for conducting cohort-based data analysis in education.\nIt helps researchers and analysts explore longitudinal trends, visualize student performance across time, and gain insights into educational progression using clean, consistent tools."
   },
   {
     "objectID": "plotting_functions.html",
@@ -165,21 +165,21 @@
     "href": "helper_functions.html",
     "title": "Helper Functions",
     "section": "",
-    "text": "make_mobility, make_proficiency_levels, make_achievement_levels"
+    "text": "make_mobility()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_achievement_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_proficiency_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_first_entered()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis"
   },
   {
     "objectID": "helper_functions.html#data-related",
     "href": "helper_functions.html#data-related",
     "title": "Helper Functions",
     "section": "",
-    "text": "make_mobility, make_proficiency_levels, make_achievement_levels"
+    "text": "make_mobility()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_achievement_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_proficiency_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_first_entered()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis"
   },
   {
     "objectID": "helper_functions.html#format-related",
     "href": "helper_functions.html#format-related",
     "title": "Helper Functions",
     "section": "Format Related",
-    "text": "Format Related\nnormalize_grade"
+    "text": "Format Related\n\n\n\n\n\n\nnormalize_grade()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis"
   },
   {
     "objectID": "presentations.html#intern-update-1",
@@ -193,13 +193,13 @@
     "href": "about.html#overview",
     "title": "About",
     "section": "",
-    "text": "Testing to see how well this works."
+    "text": "This package"
   },
   {
     "objectID": "about.html#functionality",
     "href": "about.html#functionality",
     "title": "About",
     "section": "Functionality",
-    "text": "Functionality\n\nTesting a few ideas out\nSeeing what happens"
+    "text": "Functionality"
   }
 ]

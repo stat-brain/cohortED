@@ -8,11 +8,42 @@ format:
 
 ## Data Related
 
-make_mobility, make_proficiency_levels, make_achievement_levels
+::: {.callout-note icon = false}
+## `make_mobility()`
+
+Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+
+:::
+
+::: {.callout-note icon = false}
+## `make_achievement_levels()`
+
+Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+
+:::
+
+::: {.callout-note icon = false}
+## `make_proficiency_levels()`
+
+Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+
+:::
+
+::: {.callout-note icon = false}
+## `make_first_entered()`
+
+Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+
+:::
 
 
 
 ## Format Related
 
-normalize_grade
+::: {.callout-note icon = false}
+## `normalize_grade()`
+
+Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+
+:::
 

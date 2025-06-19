@@ -54,8 +54,6 @@ website:
             href: presentations.qmd
           - text: Example Reports
             href: example_reports.qmd
-      - text: News
-        href: news.qmd
       - text: "{{< iconify fa6-brands github size=28px title='GitHub Repo' label='The packageSkeleton GitHub Repo' >}}"
         href: https://github.com/stat-brain/cohortED/
         target: _blank

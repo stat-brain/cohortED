@@ -1,0 +1,42 @@
+
+---
+
+## ✅ 2. `assets/css/simple-timeline.css` (Straightforward Styling)
+
+```css
+.simple-timeline {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding-left: 1rem;
+  border-left: 3px solid #333;
+}
+
+.simple-entry {
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.simple-entry::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0.4rem;
+  width: 14px;
+  height: 14px;
+  background-color: #333;
+  border-radius: 50%;
+}
+
+.simple-date {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.simple-content {
+  background: #f9f9f9;
+  padding: 0.75rem;
+  border-left: 3px solid #ccc;
+  border-radius: 4px;
+}

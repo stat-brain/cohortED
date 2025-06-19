@@ -5,10 +5,19 @@ format:
     number-sections: false
 ---
 
-# Welcome to <em>cohortED</em>
+# Welcome to `cohortED`
 
----
+::: {.columns}
 
-This is a package developed specifically for R which is designed to facilitate and perform cohort analysis of educational data.
+::: {.column width="40%"}
+![cohortED badge](assets/img/cohortED_badge.png)
+:::
 
----
+::: {.column width="60%"}
+
+`cohortED` is an R package for conducting cohort-based data analysis in education.
+
+It helps researchers and analysts explore longitudinal trends, visualize student performance across time, and gain insights into educational progression using clean, consistent tools.
+:::
+
+:::
