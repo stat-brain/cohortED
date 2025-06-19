@@ -11,14 +11,14 @@
     "href": "presentations.html",
     "title": "Presentations",
     "section": "",
-    "text": "Open Full Screen \n    Download PowerPoint"
+    "text": "Open Full Screen"
   },
   {
     "objectID": "example_reports.html",
     "href": "example_reports.html",
     "title": "Example Reports",
     "section": "",
-    "text": "Example Reports"
+    "text": "View Full Report"
   },
   {
     "objectID": "news.html",
@@ -30,9 +30,9 @@
   {
     "objectID": "getting_started.html",
     "href": "getting_started.html",
-    "title": "Getting Started with cohortED",
+    "title": "Getting Started",
     "section": "",
-    "text": "Before using packageSkeleton, you need to have the following tools installed on your computer, and you’ll need a GitHub account to manage your project.\n\n\n\nR: Ensure that you have the latest version of R installed. You can download it from CRAN.\nRStudio (Optional but Recommended): RStudio is a popular IDE for working with R. It simplifies the development process and integrates well with GitHub and Quarto.\nQuarto: Quarto is used to build the website associated with your R package. Install Quarto by following the instructions on Quarto’s website.\n\nOn macOS:\nbrew install quarto\nOn Windows: Download and run the installer from Quarto’s download page.\n\nGit: Install Git, which will allow you to interact with GitHub and version control your project.\n\nOn macOS:\nbrew install git\nOn Windows: Download and install Git for Windows."
+    "text": "The cohortED package is hosted on GitHub and can be installed using the devtools package.\nFirst, install devtools if you haven’t already:\ninstall.packages(\"devtools\")\nThen install cohortED with\ndevtools::install_github(\"stat-brain/cohortED\")\n\n\nAfter installation, load cohortED like any other R package:\nlibrary(cohortED)\n\n\n\nYou can verify that it’s working by browsing package help:\nhelp(package = \"cohortED\")\nOr try a basic function:\n# Example: \n\n\n\n\nMake sure you’re using the latest version of R (4.2 or higher is recommended).\nUse RStudio Projects to organize your work.\nIf you run into issues, try restarting R and reinstalling the package.\n\n\n\n\n\nDocumentation: Learn how to use each function.\nExamples: see cohortED in action.\nReport an issue: Found a bug or need help?\n\nHappy cohorting!"
   },
   {
     "objectID": "getting_started.html#software-installation",
@@ -123,7 +123,7 @@
     "href": "index.html",
     "title": "Welcome to cohortED",
     "section": "",
-    "text": "Welcome to cohortED\n\n\n\n\n\ncohortED badge\n\n\n\ncohortED is an R package for conducting cohort-based data analysis in education.\nIt helps researchers and analysts explore longitudinal trends, visualize student performance across time, and gain insights into educational progression using clean, consistent tools."
+    "text": "Welcome to cohortED\n\n\n\n\ncohortED is an R package for conducting cohort-based data analysis in education.\nIt helps researchers and analysts explore longitudinal trends, visualize student performance across time, and gain insights into educational progression using clean, consistent tools."
   },
   {
     "objectID": "plotting_functions.html",
@@ -186,7 +186,7 @@
     "href": "presentations.html#intern-update-1",
     "title": "Presentations",
     "section": "",
-    "text": "Open Full Screen \n    Download PowerPoint"
+    "text": "Open Full Screen"
   },
   {
     "objectID": "about.html#overview",
@@ -201,5 +201,26 @@
     "title": "About",
     "section": "Functionality",
     "text": "Functionality"
+  },
+  {
+    "objectID": "getting_started.html#install-cohorted-from-github",
+    "href": "getting_started.html#install-cohorted-from-github",
+    "title": "Getting Started",
+    "section": "",
+    "text": "The cohortED package is hosted on GitHub and can be installed using the devtools package.\nFirst, install devtools if you haven’t already:\ninstall.packages(\"devtools\")\nThen install cohortED with\ndevtools::install_github(\"stat-brain/cohortED\")\n\n\nAfter installation, load cohortED like any other R package:\nlibrary(cohortED)\n\n\n\nYou can verify that it’s working by browsing package help:\nhelp(package = \"cohortED\")\nOr try a basic function:\n# Example: \n\n\n\n\nMake sure you’re using the latest version of R (4.2 or higher is recommended).\nUse RStudio Projects to organize your work.\nIf you run into issues, try restarting R and reinstalling the package.\n\n\n\n\n\nDocumentation: Learn how to use each function.\nExamples: see cohortED in action.\nReport an issue: Found a bug or need help?\n\nHappy cohorting!"
+  },
+  {
+    "objectID": "example_reports.html#example-report-1",
+    "href": "example_reports.html#example-report-1",
+    "title": "Example Reports",
+    "section": "",
+    "text": "View Full Report"
+  },
+  {
+    "objectID": "example_reports.html#mobility-report",
+    "href": "example_reports.html#mobility-report",
+    "title": "Example Reports",
+    "section": "",
+    "text": "View Full Report"
   }
 ]

@@ -1,10 +1,60 @@
 ---
-title: Getting Started with *cohortED*
+title: "Getting Started"
+description: "Install and begin using the cohortED package in R."
 format:
   html:
     toc: true
-    number-sections: true 
+    number-sections: false
+    code-copy: true
 ---
 
+## Install cohortED from GitHub
+
+The `cohortED` package is hosted on [GitHub](https://github.com/stat-brain/cohortED) and can be installed using the [`devtools`](https://cran.r-project.org/package=devtools) package.
+
+First, install `devtools` if you haven’t already:
+
+```r
+install.packages("devtools")
+```
+
+Then install `cohortED` with
+```r
+devtools::install_github("stat-brain/cohortED")
+```
+### Load the package
+
+After installation, load `cohortED` like any other R package:
+
+```r
+library(cohortED)
+```
+
+### Test your installation
+
+You can verify that it's working by browsing package help:
+
+```r
+help(package = "cohortED")
+```
+
+Or try a basic function:
+
+```r
+# Example: 
+
+```
+
+### RStudio Tips
+
+- Make sure you're using the **latest version of R** (4.2 or higher is recommended).
+- Use **RStudio Projects** to organize your work.
+- If you run into issues, try restarting R and reinstalling the package.
+
+### What's Next?
+- Documentation: Learn how to use each function.
+- Examples: see `cohortED` in action.
+- Report an issue: Found a bug or need help?
 
 
+*Happy cohorting!*

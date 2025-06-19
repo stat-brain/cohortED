@@ -10,7 +10,7 @@ format:
 ::: {.columns}
 
 ::: {.column width="40%"}
-![cohortED badge](assets/img/cohortED_badge.png)
+![](assets/img/cohortED_badge.png)
 :::
 
 ::: {.column width="60%"}

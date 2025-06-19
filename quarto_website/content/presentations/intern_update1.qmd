@@ -61,10 +61,65 @@ Develop robust functionality to:
 - **GitHub** – Version control and website hosting  
 - **Quarto** – Website creation and dynamic report generation  
 
+---
 
-# cohortED package
+```{=html}
+<div style="display: flex; height: 90vh;">
+
+  <!-- Left half -->
+  <div style="
+    flex: 1; 
+    border-right: 2px solid #ccc; 
+    padding: 1rem; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+  ">
+    <h2>Brian Harrold</h2>
+    <img src="assets/img/cohortED_badge.png" alt="cohortED badge" style="width: 90%; max-width: 400px;">
+    <p>Cohort Analysis</p>
+    <a href="https://stat-brain.github.io/cohortED/" target="https://stat-brain.github.io/cohortED/">https://stat-brain.github.io/cohortED/</a>
+  </div>
+
+  <!-- Right half -->
+  <div style="
+    flex: 1; 
+    padding: 1rem; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+  ">
+    <h2>Erik Whitfield</h2>
+    <img src="assets/img/bueller_hex2.png" alt="bueller badge" style="width: 90%; max-width: 400px;">
+    <p>Participation and Chronic Absenteeism Analysis</p>
+    <a href="https://erwx.github.io/bueller/" target="https://erwx.github.io/bueller/">https://erwx.github.io/bueller/</a>
+  </div>
+
+</div>
+```
+
+# `cohortED` package
 
 **Brian Harrold**
+
+::: {.columns}
+
+::: {.column width="40%"}
+![](assets/img/cohortED_badge.png){alt="cohortED badge" style="width: 90%"}
+:::
+
+::: {.column width="60%"}
+- [Quarto Website](https://stat-brain.github.io/cohortED/)
+- [GitHub Repository](https://github.com/stat-brain/cohortED)
+:::
+
+:::
+
+---
 
 ## Focus of the Package
 
@@ -74,67 +129,78 @@ Develop robust functionality to:
   + Longitudinal Analysis (tracking cohorts over time)
   + Cross-Sectional Analysis (comparing cohorts)
 
-## Related Work
+## Why `cohortED`?
 
-* `cohorts` package - Customer Analytics
-* `survival` package - Time-to-Event Analytics
-* `SGP` package - Student Growth Percentiles
-* `brolgar` package - Longitudinal Data Analysis
+- How do students move between grade levels over time?
+- Who is present in one year but not the next?
+- When and where do enrollment patterns shift?
+- How do these trends vary across districts or subgroups?
+- How does student mobility impact metrics, such as performance or graduation rates?
+- How do different cohorts compare to each other over time?
 
-## Vocabulary
+## Grade-to-Grade Transitions
 
-* [Classifications:]{.underline} Leave, Join, Stay
-* [From Cohort Analysis:]{.underline} Churn, Persistence
+Grouping students based on movement across adjacent grades:
+
+- **Leave** - in the earlier grade but not the next  
+- **Stay** - in both grades  
+- **Join** - in the later grade but not the previous  
+
+To support measures of:
+
+- **Persistence** - proportion of students who stay  
+- **Churn** - combined rate of students who leave or join  
+
+## Looking for Your Insights
+
+Please consider:
+- What additional features or capabilities would be valuable?
+- Are there any specific challenges or questions that states want addressed?
+- Are there datasets that could help improve and validate the package?
 
 ## Ideal Dataset
 
 * Longitudinal Student-Level Data
-  + **Example:** sgpData_Long from SGPdata package
+  + **Example:** `sgpData_Long` from `SGPdata` package
   + **Requires:** Student ID, Grade Level, Academic Year
   + **Optional** Demographics, Subgroups, Performance, School/District, etc.
-
-## Enabling the Ideal
-
-* Helper Functions
-  + `make_achievement_levels()`
-  + `make_proficiency_levels()`
-  + `make_mobility()`
-  + `make_first_entered()`
-  + `standardize_grade()`
-
-## Example Output
-
-
-
-
-
-
-
-## Visualizing
-
-* Plotting Functions
-  + plot_distribution_mobility()
-  + plot_alluvial_mobility()
-  + plot_cohort2_proficiency()
   
-## Example Output
+## Current Analysis  
 
+- Data Manipulation and Cohort Construction
+- Grade-to-Grade Transition Tracking
+- Cohort Demographic Comparisons
+- Cross-Cohort Performance Summaries
+- Analysis of Mobility's Impact on Performance
 
+## Future Analysis
 
+- Cross-District and Cross-School Mobility
+- Advanced Subgroup Analysis
+- Expanded Longitudinal Cohort Tracking
+- Improved Visualization of Churn and Persistence
 
+## Report Generation
 
+**Currently**, reports are user-built with Modular Functions that have list output
 
-## Analyzing
-
-* Analysis Functions
-  + 
-  + More to come...
+* Updated or refined datasets
+* Formatted table objects and summary statistics
+* `ggplot2` plots
+* Auto-generated captions
+* Designed to be embedded in R Markdown or Quarto
+  
+**Future** versions will offer pre-built templates with dynamic text and visual explanations.
 
 ## Example Report
 
+<iframe src="assets/mobility_report.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
 
-
-
+<div style="margin-top: 12px; text-align: center;">
+  <a href="https://stat-brain.github.io/cohortED/example_reports.html" target="_blank" style="font-weight: bold; text-decoration: none; color: #007acc;">
+    View Example Reports
+  </a>
+</div>
 
 ## Persistent Challenges
 
@@ -155,10 +221,3 @@ Develop robust functionality to:
 - **Functionality:** Are there any features you think would be useful to add?  
 - **Reporting:** Are there any challenges from states that this package could better support?  
 - **Datasets:** Do you know of any datasets that can be used to test and validate the package? 
-
-## Resources
-
-* [Quarto Website](https://stat-brain.github.io/cohortED/)
-* [GitHub Repository](https://github.com/stat-brain/cohortED)
-
-
