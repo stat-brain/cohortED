@@ -8,16 +8,37 @@ format:
 
 ## Overview
 
-This package
-
+`cohortED` is an R package designed to facilitate cohort-based analyses in educational research. It enables researchers and analysts to track student mobility, demographic changes, and academic performance over time within and across cohorts. The package supports both longitudinal and cross-sectional studies, making it easier to understand student transitions, persistence, and churn within educational systems.
 
 ## Functionality
 
+- **Grade-to-Grade Transitions:** Identify students who leave, join, or stay between adjacent grade levels across academic years.
+- **Cohort Construction:** Build and analyze synthetic cohorts based on student enrollment and movement data.
+- **Performance Analysis:** Summarize proficiency and achievement levels longitudinally and compare cohorts.
+- **Demographic Analysis:** Examine mobility patterns by student subgroups such as race/ethnicity, socioeconomic status, or special programs.
+- **Report Generation:** Modular functions enable creation of detailed reports with tables, plots, and summaries, easily embedded into Quarto or R Markdown documents.
 
+## Intended Users
 
+`cohortED` is primarily aimed at educational researchers, policy analysts, and state education agency staff who work with longitudinal student data to monitor enrollment patterns, assess student mobility, and evaluate impacts on academic outcomes.
 
+## Data Requirements
 
+To use `cohortED` effectively, datasets should contain at least:
 
+- Unique student identifiers
+- Grade levels
+- Academic years
 
+Optional variables to enhance analysis include demographic information, performance scores, and school or district identifiers.
 
----
+## Getting Started
+
+Check out the [Getting Started](https://stat-brain.github.io/cohortED/getting_started.html) page for installation instructions to begin analyzing your data with `cohortED`.
+
+## Contribution & Support
+
+`cohortED` is actively developed and open source. Contributions, issue reports, and feature requests are welcome via the [GitHub repository](https://github.com/stat-brain/cohortED). For assistance or questions, please open an issue or contact the maintainer.
+
+This package was developed as part of an internship at the Center for Assessment.
+

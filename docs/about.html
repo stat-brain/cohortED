@@ -177,6 +177,10 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#functionality" id="toc-functionality" class="nav-link" data-scroll-target="#functionality">Functionality</a></li>
+  <li><a href="#intended-users" id="toc-intended-users" class="nav-link" data-scroll-target="#intended-users">Intended Users</a></li>
+  <li><a href="#data-requirements" id="toc-data-requirements" class="nav-link" data-scroll-target="#data-requirements">Data Requirements</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
+  <li><a href="#contribution-support" id="toc-contribution-support" class="nav-link" data-scroll-target="#contribution-support">Contribution &amp; Support</a></li>
   </ul>
 </nav>
     </div>
@@ -204,11 +208,40 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This package</p>
+<p><code>cohortED</code> is an R package designed to facilitate cohort-based analyses in educational research. It enables researchers and analysts to track student mobility, demographic changes, and academic performance over time within and across cohorts. The package supports both longitudinal and cross-sectional studies, making it easier to understand student transitions, persistence, and churn within educational systems.</p>
 </section>
 <section id="functionality" class="level2">
 <h2 class="anchored" data-anchor-id="functionality">Functionality</h2>
-<hr>
+<ul>
+<li><strong>Grade-to-Grade Transitions:</strong> Identify students who leave, join, or stay between adjacent grade levels across academic years.</li>
+<li><strong>Cohort Construction:</strong> Build and analyze synthetic cohorts based on student enrollment and movement data.</li>
+<li><strong>Performance Analysis:</strong> Summarize proficiency and achievement levels longitudinally and compare cohorts.</li>
+<li><strong>Demographic Analysis:</strong> Examine mobility patterns by student subgroups such as race/ethnicity, socioeconomic status, or special programs.</li>
+<li><strong>Report Generation:</strong> Modular functions enable creation of detailed reports with tables, plots, and summaries, easily embedded into Quarto or R Markdown documents.</li>
+</ul>
+</section>
+<section id="intended-users" class="level2">
+<h2 class="anchored" data-anchor-id="intended-users">Intended Users</h2>
+<p><code>cohortED</code> is primarily aimed at educational researchers, policy analysts, and state education agency staff who work with longitudinal student data to monitor enrollment patterns, assess student mobility, and evaluate impacts on academic outcomes.</p>
+</section>
+<section id="data-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="data-requirements">Data Requirements</h2>
+<p>To use <code>cohortED</code> effectively, datasets should contain at least:</p>
+<ul>
+<li>Unique student identifiers</li>
+<li>Grade levels</li>
+<li>Academic years</li>
+</ul>
+<p>Optional variables to enhance analysis include demographic information, performance scores, and school or district identifiers.</p>
+</section>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
+<p>Check out the <a href="https://stat-brain.github.io/cohortED/getting_started.html">Getting Started</a> page for installation instructions to begin analyzing your data with <code>cohortED</code>.</p>
+</section>
+<section id="contribution-support" class="level2">
+<h2 class="anchored" data-anchor-id="contribution-support">Contribution &amp; Support</h2>
+<p><code>cohortED</code> is actively developed and open source. Contributions, issue reports, and feature requests are welcome via the <a href="https://github.com/stat-brain/cohortED">GitHub repository</a>. For assistance or questions, please open an issue or contact the maintainer.</p>
+<p>This package was developed as part of an internship at the Center for Assessment.</p>
 
 
 </section>

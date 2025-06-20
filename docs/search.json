@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This package"
+    "text": "cohortED is an R package designed to facilitate cohort-based analyses in educational research. It enables researchers and analysts to track student mobility, demographic changes, and academic performance over time within and across cohorts. The package supports both longitudinal and cross-sectional studies, making it easier to understand student transitions, persistence, and churn within educational systems."
   },
   {
     "objectID": "presentations.html",
@@ -193,14 +193,14 @@
     "href": "about.html#overview",
     "title": "About",
     "section": "",
-    "text": "This package"
+    "text": "cohortED is an R package designed to facilitate cohort-based analyses in educational research. It enables researchers and analysts to track student mobility, demographic changes, and academic performance over time within and across cohorts. The package supports both longitudinal and cross-sectional studies, making it easier to understand student transitions, persistence, and churn within educational systems."
   },
   {
     "objectID": "about.html#functionality",
     "href": "about.html#functionality",
     "title": "About",
     "section": "Functionality",
-    "text": "Functionality"
+    "text": "Functionality\n\nGrade-to-Grade Transitions: Identify students who leave, join, or stay between adjacent grade levels across academic years.\nCohort Construction: Build and analyze synthetic cohorts based on student enrollment and movement data.\nPerformance Analysis: Summarize proficiency and achievement levels longitudinally and compare cohorts.\nDemographic Analysis: Examine mobility patterns by student subgroups such as race/ethnicity, socioeconomic status, or special programs.\nReport Generation: Modular functions enable creation of detailed reports with tables, plots, and summaries, easily embedded into Quarto or R Markdown documents."
   },
   {
     "objectID": "getting_started.html#install-cohorted-from-github",
@@ -222,5 +222,33 @@
     "title": "Example Reports",
     "section": "",
     "text": "View Full Report"
+  },
+  {
+    "objectID": "about.html#intended-users",
+    "href": "about.html#intended-users",
+    "title": "About",
+    "section": "Intended Users",
+    "text": "Intended Users\ncohortED is primarily aimed at educational researchers, policy analysts, and state education agency staff who work with longitudinal student data to monitor enrollment patterns, assess student mobility, and evaluate impacts on academic outcomes."
+  },
+  {
+    "objectID": "about.html#data-requirements",
+    "href": "about.html#data-requirements",
+    "title": "About",
+    "section": "Data Requirements",
+    "text": "Data Requirements\nTo use cohortED effectively, datasets should contain at least:\n\nUnique student identifiers\nGrade levels\nAcademic years\n\nOptional variables to enhance analysis include demographic information, performance scores, and school or district identifiers."
+  },
+  {
+    "objectID": "about.html#getting-started",
+    "href": "about.html#getting-started",
+    "title": "About",
+    "section": "Getting Started",
+    "text": "Getting Started\nCheck out the Getting Started page for installation instructions to begin analyzing your data with cohortED."
+  },
+  {
+    "objectID": "about.html#contribution-support",
+    "href": "about.html#contribution-support",
+    "title": "About",
+    "section": "Contribution & Support",
+    "text": "Contribution & Support\ncohortED is actively developed and open source. Contributions, issue reports, and feature requests are welcome via the GitHub repository. For assistance or questions, please open an issue or contact the maintainer.\nThis package was developed as part of an internship at the Center for Assessment."
   }
 ]
