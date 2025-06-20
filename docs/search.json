@@ -130,21 +130,21 @@
     "href": "plotting_functions.html",
     "title": "Plotting Functions",
     "section": "",
-    "text": "plot_mobility_distribution"
+    "text": "plot_distribution_mobility()\n\n\n\nCreates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.\n\n\n\n\n\n\n\n\nplot_alluvial_mobility()\n\n\n\nGenerates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay)."
   },
   {
     "objectID": "plotting_functions.html#mobility-related",
     "href": "plotting_functions.html#mobility-related",
     "title": "Plotting Functions",
     "section": "",
-    "text": "plot_mobility_distribution"
+    "text": "plot_distribution_mobility()\n\n\n\nCreates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.\n\n\n\n\n\n\n\n\nplot_alluvial_mobility()\n\n\n\nGenerates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay)."
   },
   {
     "objectID": "plotting_functions.html#performance-related",
     "href": "plotting_functions.html#performance-related",
     "title": "Plotting Functions",
     "section": "Performance Related",
-    "text": "Performance Related\nplot_cohort2_proficiency"
+    "text": "Performance Related\n\n\n\n\n\n\nplot_cohort2_proficiency()\n\n\n\nCreates a line chart that visualizes percent proficient over time for each synthetic cohort, tracking longitudinal proficiency trends."
   },
   {
     "objectID": "analysis_functions.html",
@@ -165,21 +165,21 @@
     "href": "helper_functions.html",
     "title": "Helper Functions",
     "section": "",
-    "text": "make_mobility()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_achievement_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_proficiency_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_first_entered()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis"
+    "text": "make_mobility()\n\n\n\nCalculates grade-to-grade student transitions (leave, join, stay) between two years for a specified cohort, based on the presence (or absence) of a student ID in the dataset.\n\n\n\n\n\n\n\n\nmake_achievement_levels()\n\n\n\nCategorizes student performance into achievement levels based on provided test scores and predefined cut scores.\n\n\n\n\n\n\n\n\nmake_proficiency_levels()\n\n\n\nAssigns students a binary proficiency category (e.g., proficient vs. not proficient) by classifying the top n achievement levels as “proficient” and the rest as “not proficient.”\n\n\n\n\n\n\n\n\nmake_first_entered()\n\n\n\nIdentifies the first year and grade level that each student appears in the dataset."
   },
   {
     "objectID": "helper_functions.html#data-related",
     "href": "helper_functions.html#data-related",
     "title": "Helper Functions",
     "section": "",
-    "text": "make_mobility()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_achievement_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_proficiency_levels()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis\n\n\n\n\n\n\n\n\nmake_first_entered()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis"
+    "text": "make_mobility()\n\n\n\nCalculates grade-to-grade student transitions (leave, join, stay) between two years for a specified cohort, based on the presence (or absence) of a student ID in the dataset.\n\n\n\n\n\n\n\n\nmake_achievement_levels()\n\n\n\nCategorizes student performance into achievement levels based on provided test scores and predefined cut scores.\n\n\n\n\n\n\n\n\nmake_proficiency_levels()\n\n\n\nAssigns students a binary proficiency category (e.g., proficient vs. not proficient) by classifying the top n achievement levels as “proficient” and the rest as “not proficient.”\n\n\n\n\n\n\n\n\nmake_first_entered()\n\n\n\nIdentifies the first year and grade level that each student appears in the dataset."
   },
   {
     "objectID": "helper_functions.html#format-related",
     "href": "helper_functions.html#format-related",
     "title": "Helper Functions",
     "section": "Format Related",
-    "text": "Format Related\n\n\n\n\n\n\nnormalize_grade()\n\n\n\nConverts character-based grades (such as \"K\" and \"PreK\") into numeric grades for analysis"
+    "text": "Format Related\n\n\n\n\n\n\nnormalize_grade()\n\n\n\nConverts character-based grade labels (e.g., “K”, “PreK”) into standardized numeric grade values to support consistent analysis."
   },
   {
     "objectID": "presentations.html#intern-update-1",

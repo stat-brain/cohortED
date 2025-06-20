@@ -8,12 +8,29 @@ format:
 
 ## Mobility Related
 
-plot_mobility_distribution
+::: {.callout-note icon = false}
+## `plot_distribution_mobility()`
+
+Creates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.
+
+:::
+
+::: {.callout-note icon = false}
+## `plot_alluvial_mobility()`
+
+Generates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay).
+
+:::
 
 
 ## Performance Related
 
-plot_cohort2_proficiency
+::: {.callout-note icon = false}
+## `plot_cohort2_proficiency()`
+
+Creates a line chart that visualizes percent proficient over time for each synthetic cohort, tracking longitudinal proficiency trends.
+
+:::
 
 
 

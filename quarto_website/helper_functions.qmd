@@ -11,28 +11,28 @@ format:
 ::: {.callout-note icon = false}
 ## `make_mobility()`
 
-Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+Calculates grade-to-grade student transitions (leave, join, stay) between two years for a specified cohort, based on the presence (or absence) of a student ID in the dataset.
 
 :::
 
 ::: {.callout-note icon = false}
 ## `make_achievement_levels()`
 
-Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+Categorizes student performance into achievement levels based on provided test scores and predefined cut scores.
 
 :::
 
 ::: {.callout-note icon = false}
 ## `make_proficiency_levels()`
 
-Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+Assigns students a binary proficiency category (e.g., proficient vs. not proficient) by classifying the top *n* achievement levels as "proficient" and the rest as "not proficient."
 
 :::
 
 ::: {.callout-note icon = false}
 ## `make_first_entered()`
 
-Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+Identifies the first year and grade level that each student appears in the dataset.
 
 :::
 
@@ -43,7 +43,7 @@ Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades
 ::: {.callout-note icon = false}
 ## `normalize_grade()`
 
-Converts character-based grades (such as `"K"` and `"PreK"`) into numeric grades for analysis
+Converts character-based grade labels (e.g., "K", "PreK") into standardized numeric grade values to support consistent analysis.
 
 :::
 
