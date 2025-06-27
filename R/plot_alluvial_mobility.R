@@ -31,73 +31,114 @@ plot_alluvial_mobility <- function(dataset, current_year, current_grade, print_p
   # Normalize current grade input
   numeric_grade <- normalize_grade(current_grade)
   
-  # Standardize column names to lower case
-  colnames_lower <- tolower(names(dataset))
+  # Standardize column names to lowercase
+  names(dataset) <- tolower(names(dataset))
   
-  # If Mobility_Status is missing, generate it using make_mobility()
-  if (!"mobility_status" %in% colnames_lower) {
+  # Create mobility_status if missing
+  if (!"mobility_status" %in% names(dataset)) {
     dataset <- make_mobility(dataset, current_year, current_grade, print_plot = FALSE)$Data
+    names(dataset) <- tolower(names(dataset))  # Re-standardize after update
   }
   
-  # Check for GENDER and ETHNICITY variables (handling cases like GENDER.x/y from joins)
-  colnames_lower <- tolower(names(dataset))
-  if (!"gender" %in% colnames_lower || !"ethnicity" %in% colnames_lower) {
-    dataset$GENDER <- factor(
-      ifelse(!is.na(dataset$GENDER.x), dataset$GENDER.x, dataset$GENDER.y),
-      levels = unique(na.omit(c(dataset$GENDER.x, dataset$GENDER.y)))
-    )
-    dataset$ETHNICITY <- factor(
-      ifelse(!is.na(dataset$ETHNICITY.x), dataset$ETHNICITY.x, dataset$ETHNICITY.y),
-      levels = unique(na.omit(c(dataset$ETHNICITY.x, dataset$ETHNICITY.y)))
-    )
+  # Combining Gender
+  if (!"gender" %in% names(dataset)) {
+    if ("gender.x" %in% names(dataset) && "gender.y" %in% names(dataset)) {
+      # Convert factors to characters first
+      gx <- as.character(dataset$gender.x)
+      gy <- as.character(dataset$gender.y)
+      
+      # Combine by choosing gender.y if not NA, else gender.x
+      combined <- ifelse(!is.na(gy), gy, gx)
+      
+      # Convert back to factor with all unique levels from both columns
+      levels_gender <- levels(dataset$gender.y)
+      dataset$gender <- factor(combined, levels = levels_gender)
+    } else if ("gender.x" %in% names(dataset)) {
+      dataset$gender <- factor(as.character(dataset$gender.x))
+    } else if ("gender.y" %in% names(dataset)) {
+      dataset$gender <- factor(as.character(dataset$gender.y))
+    }
   }
   
-  # Generate academic year text strings
+  # Combining Ethnicity
+  if (!"ethnicity" %in% names(dataset)) {
+    if ("ethnicity.x" %in% names(dataset) && "ethnicity.y" %in% names(dataset)) {
+      ex <- as.character(dataset$ethnicity.x)
+      ey <- as.character(dataset$ethnicity.y)
+      combined <- ifelse(!is.na(ey), ey, ex)
+      levels_ethnicity <- levels(dataset$ethnicity.y)
+      dataset$ethnicity <- factor(combined, levels = levels_ethnicity)
+    } else if ("ethnicity.x" %in% names(dataset)) {
+      dataset$ethnicity <- factor(as.character(dataset$ethnicity.x))
+    } else if ("ethnicity.y" %in% names(dataset)) {
+      dataset$ethnicity <- factor(as.character(dataset$ethnicity.y))
+    }
+  }
+  
+  # Convert variables to factors
+  dataset$mobility_status <- as.factor(dataset$mobility_status)
+  
+  # Create year label strings
   last_year_grade <- numeric_grade - 1
   last_year_grade <- ifelse(last_year_grade == 0, "K",
                             ifelse(last_year_grade == -1, "PreK", last_year_grade))
-  last_year_text <- paste0(as.numeric(substr(current_year, 1, 4)) - 1, "-", 
+  last_year_text <- paste0(as.numeric(substr(current_year, 1, 4)) - 1, "-",
                            as.numeric(substr(current_year, 1, 4)))
-  current_year_text <- paste0(as.numeric(substr(current_year, 1, 4)), "-", 
+  current_year_text <- paste0(as.numeric(substr(current_year, 1, 4)), "-",
                               as.numeric(substr(current_year, 1, 4)) + 1)
   
-  # Construct alluvial plot data from contingency table
-  TABLE <- table(dataset$MOBILITY_STATUS, dataset$GENDER, dataset$ETHNICITY)
-  DATAFRAME <- as.data.frame(TABLE)
-  names(DATAFRAME) <- c("Mobility", "Gender", "Ethnicity", "Frequency")
+  # Construct alluvial plot data
+  tab <- table(dataset$mobility_status, dataset$gender, dataset$ethnicity)
+  df <- as.data.frame(tab)
+  names(df) <- c("Mobility", "Gender", "Ethnicity", "Frequency")
   
-  # Create the alluvial plot
-  PLOT1 <- ggplot(DATAFRAME, aes(axis1 = Mobility, axis2 = Gender, axis3 = Ethnicity, y = Frequency)) +
-    geom_alluvium(aes(fill = Mobility)) +
-    geom_stratum() +
-    geom_text(stat = ggalluvial::StatStratum, aes(label = after_stat(stratum))) +
+  # Filter out zero-frequency rows
+  df <- subset(df, Frequency > 0)
+  
+  # If there are not enough levels for a plot, skip
+  if (length(unique(df$Mobility)) < 2 ||
+      length(unique(df$Gender)) < 2 ||
+      length(unique(df$Ethnicity)) < 2) {
+    warning("Not enough levels in one or more dimensions to build an alluvial plot.")
+    return(invisible(NULL))
+  }
+  
+  # Ensure variables are factors
+  df$Mobility <- factor(df$Mobility)
+  df$Gender <- factor(df$Gender, levels = levels_gender)
+  df$Ethnicity <- factor(df$Ethnicity, levels = levels_ethnicity)
+  
+  # Build alluvial plot
+  plot <- ggplot(df,
+                 aes(axis1 = Mobility, axis2 = Gender, axis3 = Ethnicity, y = Frequency)) +
+    ggalluvial::geom_alluvium(aes(fill = Mobility)) +
+    ggalluvial::geom_stratum() +
+    ggplot2::geom_text(stat = ggalluvial::StatStratum, aes(label = after_stat(stratum)), size = 3) +
     theme_void() +
     theme(legend.position = "none") +
     labs(title = paste("Grade", current_grade, "in", current_year_text))
   
-  # Create proportion tables for additional insights
-  mobility_ethnicity <- round(prop.table(table(dataset$MOBILITY_STATUS, dataset$ETHNICITY), 
-                                         margin = 2), 3) * 100
-  mobility_ethnicity <- apply(mobility_ethnicity, c(1, 2), function(x) sprintf("%.1f%%", x))
+  # Create proportion tables
+  by_ethnicity <- round(prop.table(table(dataset$mobility_status, dataset$ethnicity), margin = 2), 3) * 100
+  by_gender <- round(prop.table(table(dataset$mobility_status, dataset$gender), margin = 2), 3) * 100
   
-  mobility_gender <- round(prop.table(table(dataset$MOBILITY_STATUS, dataset$GENDER), 
-                                      margin = 2), 3) * 100
-  mobility_gender <- apply(mobility_gender, c(1, 2), function(x) sprintf("%.1f%%", x))
+  by_ethnicity <- apply(by_ethnicity, c(1, 2), function(x) sprintf("%.1f%%", x))
+  by_gender <- apply(by_gender, c(1, 2), function(x) sprintf("%.1f%%", x))
   
-  # Prepare output object
-  OUT <- list()
-  OUT$Data <- dataset
-  OUT$Data_Table <- TABLE
-  OUT$Table_by_Ethnicity <- mobility_ethnicity
-  OUT$Table_by_Gender <- mobility_gender
-  OUT$Caption <- paste(
-    "Demographics of Students from Grade", last_year_grade, "in", last_year_text,
-    "to Grade", current_grade, "in", current_year_text
+  # Return results
+  out <- list(
+    Data = dataset,
+    Data_Table = tab,
+    Table_by_Ethnicity = by_ethnicity,
+    Table_by_Gender = by_gender,
+    Caption = paste("Demographics of Students from Grade", last_year_grade, "in", last_year_text,
+                    "to Grade", current_grade, "in", current_year_text),
+    Plot = plot
   )
-  OUT$Plot <- PLOT1
   
-  if (print_plot) print(PLOT1)
+  if (print_plot) print(plot)
   
-  return(invisible(OUT))
+  return(invisible(out))
 }
+
 

@@ -34,21 +34,22 @@ Based on the table below, the overall trend for students for the 2023-2024 acade
 ```{r table_of_years}
 #| echo: false
 
-change = plot_distribution_mobility(dataset = math, year = "2022_2023", start_grade = 4, end_grade = 6, print_table = FALSE, data_out = TRUE, print_plot = FALSE)
+change <- plot_distribution_mobility(dataset = math, 
+                                     current_year = "2023_2024",
+                                     start_grade = 4, 
+                                     end_grade = 6, 
+                                     print_plot = FALSE)
 
-new.table = xtabs(PERCENT ~ MOBILITY + GRADE, data = change)
-colnames(new.table) = c("Grade 3", "Grade 4", "Grade 5")
-new.table = apply(new.table, c(1, 2), function(x) {
-  sprintf("%.1f%%", x)  # formats with 2 decimal places and adds '%'
-})
-
-knitr::kable(new.table, caption = "Mobility Status by Grade for 2023-2024", align = rep("r", ncol(new.table)))
+knitr::kable(change$Table, 
+             caption = change$Caption, 
+             align = rep("r", ncol(change$Table)))
 ```
 
 Also of interest is how these cohorts of students compare to one another and to previous cohorts of students. This is evident in the plot shown below. Until more recently, it was common for the percent proficient to increase from Grade 3 to Grade 4. However, this appears to have reversed post-COVID. Additionally, it appears that the percent proficient decreases between Grade 4 and Grade 5, with a much sharper decline in the recent years. It also appears that while most cohorts start with approximately the same proficiency rate in Grade 3, the gap tends to widen as the grade levels increase.
 
 ```{r spaghetti}
 #| echo: false
+#| eval: FALSE
 
 prof1 = make_proficiency_levels(dataset = math, n_proficiencies = 2, print_table = FALSE, 
                                 make_plot = FALSE)
@@ -107,23 +108,20 @@ This section focuses on the students who were in Grade 4 during the 2022-2023 ac
 ```{r alluvial}
 #| echo: FALSE
 
-grade4 = plot_alluvial_mobility(dataset = math, 
-                                start_year = "2022_2023", 
-                                start_grade = 4, print_table = FALSE, data_out = TRUE)
+grade5 = plot_alluvial_mobility(dataset = math, 
+                                current_year = "2023_2024", 
+                                current_grade = 5)
 ```
 
 As shown in the table below, the non-white student population generally experiences a higher rate of student mobility. This is incredibly evident with a much higher proportion of African American students leaving between the 2022-2023 and 2023-2024 academic years. Similarly, students who are Native American also experience a higher rate of student mobility in both directions.
 
 ```{r ethnicity_table}
 #| echo: FALSE
+#| eval: FALSE
 
-mobility_ethnicity = round(prop.table(table(grade4$MOBILITY_STATUS, 
-                                            grade4$ETHNICITY), margin = 2), 3) * 100
-mobility_ethnicity = apply(mobility_ethnicity, c(1, 2), function(x) {
-  sprintf("%.1f%%", x)  # formats with 2 decimal places and adds '%'
-})
-
-knitr::kable(mobility_ethnicity, align = rep("r", ncol(mobility_ethnicity)))
+knitr::kable(grade5$Table_by_Ethnicity, 
+             caption = grade5$Caption, 
+             align = rep("r", ncol(grade5$Table_by_Ethnicity)))
 
 ```
 
@@ -131,6 +129,7 @@ As research suggests, student mobility has an impact on student performance. To 
 
 ```{r student_performance}
 #| echo: FALSE
+#| eval: FALSE
 
 grade4.x = grade4[!is.na(grade4$ACHIEVEMENT_LEVEL.x) & 
                     grade4$ACHIEVEMENT_LEVEL.x != "No Score", ]

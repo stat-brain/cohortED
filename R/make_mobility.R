@@ -51,25 +51,27 @@
 #' 
 
 make_mobility <- function(dataset, current_year, current_grade, print_plot = FALSE) {
-  # Validate and standardize column names
-  colnames_lower <- tolower(names(dataset))
+  # Standardize column names to lowercase
+  names(dataset) <- tolower(names(dataset))
+  colnames_lower <- names(dataset)
+  
+  # Required variable check
   required_variables <- c("id", "grade", "year")
   missing_variables <- required_variables[!required_variables %in% colnames_lower]
-  
-  if(length(missing_variables) > 0) {
+  if (length(missing_variables) > 0) {
     stop(paste("Missing required variable(s):", paste(missing_variables, collapse = ", ")))
   }
   
-  name_map <- setNames(names(dataset), colnames_lower)
-  id_col <- name_map["id"]
-  grade_col <- name_map["grade"]
-  year_col <- name_map["year"]
+  # Work directly with lowercased names
+  id_col <- "id"
+  grade_col <- "grade"
+  year_col <- "year"
   
   NEW <- as.data.frame(dataset)
   NEW <- NEW[!is.na(NEW[[grade_col]]) & !is.na(NEW[[year_col]]), ]
   
-  NEW$NUMERIC_YEAR <- as.numeric(substr(NEW[[year_col]], 1, 4))
-  if(is.character(current_year)) {
+  NEW$numeric_year <- as.numeric(substr(NEW[[year_col]], 1, 4))
+  if (is.character(current_year)) {
     current_year <- as.numeric(substr(current_year, 1, 4))
   }
   
@@ -80,32 +82,31 @@ make_mobility <- function(dataset, current_year, current_grade, print_plot = FAL
   previous_year <- current_year - 1
   previous_grade <- current_grade - 1
   
-  START <- NEW[NEW$NUMERIC_YEAR == previous_year & NEW[[grade_col]] == previous_grade, ]
-  END <- NEW[NEW$NUMERIC_YEAR == current_year & NEW[[grade_col]] == current_grade, ]
+  START <- NEW[NEW$numeric_year == previous_year & NEW[[grade_col]] == previous_grade, ]
+  END <- NEW[NEW$numeric_year == current_year & NEW[[grade_col]] == current_grade, ]
   
-  START$NUMERIC_YEAR <- NULL
-  END$NUMERIC_YEAR <- NULL
+  START$numeric_year <- NULL
+  END$numeric_year <- NULL
   
   START_ID <- unique(START[[id_col]])
   END_ID <- unique(END[[id_col]])
-  
   ALL_ID <- union(START_ID, END_ID)
   
   MOBILITY <- ifelse(
     ALL_ID %in% START_ID & ALL_ID %in% END_ID, "Stay",
     ifelse(ALL_ID %in% START_ID, "Leave", "Join")
   )
-  
   MOBILITY <- factor(MOBILITY, levels = c("Leave", "Stay", "Join"))
   
-  MOBILITY_df <- data.frame(ID = ALL_ID, MOBILITY_STATUS = MOBILITY)
+  MOBILITY_df <- data.frame(id = ALL_ID, mobility_status = MOBILITY)
   
+  # Merge START and END, then join with mobility labels
   OUT <- list()
-  
   OUT$Data <- merge(x = START, y = END, by = id_col, all = TRUE)
-  OUT$Data <- merge(x = OUT$Data, y = MOBILITY_df, by = "ID", all = TRUE)
+  OUT$Data <- merge(x = OUT$Data, y = MOBILITY_df, by = id_col, all = TRUE)
   
-  TABLE1_raw <- prop.table(table(OUT$Data$MOBILITY_STATUS)) * 100
+  # Proportion summary table
+  TABLE1_raw <- prop.table(table(OUT$Data$mobility_status)) * 100
   TABLE1 <- setNames(rep(0, 3), c("Leave", "Stay", "Join"))
   TABLE1[names(TABLE1_raw)] <- round(TABLE1_raw[names(TABLE1_raw)], 1)
   TABLE2 <- sapply(TABLE1, function(x) sprintf("%.1f%%", x))
@@ -129,9 +130,11 @@ make_mobility <- function(dataset, current_year, current_grade, print_plot = FAL
     )) +
     labs(title = "Mobility Distribution", subtitle = OUT$Caption, y = "Percent", x = NULL) +
     theme_minimal()
+  
   OUT$Barplot <- PLOT1
   
   if (print_plot) print(PLOT1)
   
   return(invisible(OUT))
 }
+

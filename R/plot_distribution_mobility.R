@@ -159,6 +159,8 @@ plot_distribution_mobility <- function(dataset, current_year, start_grade = NULL
   table_df <- xtabs(PERCENT ~ MOBILITY + GRADE, data = OUT$Data)
   table_matrix <- as.matrix(table_df)
   table_matrix <- apply(table_matrix, c(1, 2), function(x) sprintf("%.1f%%", x))
+  table_heading <- paste("Grade", (GRADE_SEQUENCE - 1))
+  colnames(table_matrix) <- table_heading
   OUT$Table <- table_matrix
   
   # Make a caption
