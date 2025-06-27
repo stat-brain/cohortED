@@ -49,54 +49,15 @@ Also of interest is how these cohorts of students compare to one another and to 
 
 ```{r spaghetti}
 #| echo: false
-#| eval: FALSE
 
-prof1 = make_proficiency_levels(dataset = math, n_proficiencies = 2, print_table = FALSE, 
-                                make_plot = FALSE)
+prof1 = plot_cohort2_proficiency(dataset = math, 
+                                 year_range = c(2020, 2021, 2022, 2023, 2024), 
+                                 grade_range = c(3, 4, 5), 
+                                 n_proficiencies = 2,
+                                 achievement = "ACHIEVEMENT_LEVEL")
 
-df.new = data.frame(
-  grade = integer(), 
-  year = integer(), 
-  np = numeric(), 
-  p = numeric(), 
-  stringsAsFactors = FALSE
-)
-
-g = rep(c(5, 4, 3), 5)
-y = rep(c(2024, 2023, 2022, 2021, 2020), each = 3)
-
-year_char = paste0((y-1), "_", y)
-
-for(i in 1:length(g)) {
-  table.new = table(prof1[prof1$GRADE == g[i] & prof1$YEAR == year_char[i],
-                          "PROFICIENCY_LEVELS"])
-  proptable.new = round(prop.table(table.new), 3) * 100
-  TEMP = data.frame(
-    grade = g[i], 
-    year = y[i], 
-    np = as.numeric(proptable.new["Not Proficient"]), 
-    p = as.numeric(proptable.new["Proficient"])
-  )
-  df.new = rbind(df.new, TEMP)
-}
-
-df.new$cohort = df.new$year - df.new$grade + 3
-
-ggplot(df.new, aes(x = grade, y = p, group = cohort, color = as.factor(cohort))) +
-  geom_point(size = 3) +
-  geom_line(linewidth = 1) +
-  scale_color_brewer(palette = "Dark2") +  
-  scale_x_continuous(breaks = seq(min(df.new$grade), max(df.new$grade), 1)) +
-  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
-  labs(
-    x = "Grade",
-    y = "Percent Proficient",
-    title = "Percent Proficient by Cohort",
-    color = "Grade 3 in "  # <-- Custom legend title here
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(legend.position = "bottom")
-
+print(prof1$Plot)
+  
 ```
 
 
@@ -117,7 +78,6 @@ As shown in the table below, the non-white student population generally experien
 
 ```{r ethnicity_table}
 #| echo: FALSE
-#| eval: FALSE
 
 knitr::kable(grade5$Table_by_Ethnicity, 
              caption = grade5$Caption, 

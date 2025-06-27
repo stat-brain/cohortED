@@ -13,6 +13,7 @@
   utils::globalVariables(c(
     "Mobility", "Gender", "Ethnicity", "Frequency", "stratum",
     "ACHIEVEMENT_LEVEL", "PERCENT", "Grade", "Count", "Cohort", "Year",
-    "GRADE", "MOBILITY"
+    "GRADE", "MOBILITY", "% Proficient"
   ))
 }
+

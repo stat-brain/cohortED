@@ -114,10 +114,10 @@ plot_distribution_mobility <- function(dataset, current_year, start_grade = NULL
     )
     
     # Factor levels
-    levels(NEW_STEP$Data$MOBILITY_STATUS) <- STATUS
+    levels(NEW_STEP$Data$mobility_status) <- STATUS
     
     # Make a proportions table
-    TABLE1 <- table(NEW_STEP$Data$MOBILITY_STATUS)
+    TABLE1 <- table(NEW_STEP$Data$mobility_status)
     TABLE2 <- prop.table(TABLE1)
     
     # A temporary data frame for managing the output

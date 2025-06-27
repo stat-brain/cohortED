@@ -117,7 +117,7 @@ make_mobility <- function(dataset, current_year, current_grade, print_plot = FAL
   OUT$Caption <- paste("From ", previous_text, " to ", current_text)
   
   PLOT_df <- data.frame(
-    MOBILITY = names(TABLE1),
+    MOBILITY = factor(names(TABLE1), levels = c("Leave", "Stay", "Join")),
     PERCENT = as.numeric(TABLE1)
   )
   
