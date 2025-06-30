@@ -90,8 +90,15 @@ As research suggests, student mobility has an impact on student performance. To 
 ```{r student_performance}
 #| echo: FALSE
 
-compare_achievement_mobility(dataset = math, current_year = 2023, current_grade = 5,
-                             achievement_levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory"))
+achievement5 = compare_achievement_mobility(dataset = math, 
+                                            current_year = 2023, 
+                                            current_grade = 5, 
+                                            achievement_levels = c("Advanced", 
+                                                                   "Proficient", 
+                                                                   "Partially Proficient", 
+                                                                   "Unsatisfactory")
+                                            )
+print(achievement5$Plot)
 
 ```
 
