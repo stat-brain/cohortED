@@ -4,8 +4,11 @@ author: "Brian Harrold"
 format: 
   html: 
     self-contained: true
+  docx: default
+
 execute: 
   cache: false
+
 ---
 
 ```{r setup}
