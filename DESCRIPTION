@@ -14,7 +14,8 @@ Suggests:
   SGPdata, 
   quarto
 Imports: 
-  ggplot2 (>= 3.4.0), 
+  ggplot2 (>= 3.4.0),
+  cowplot,
   ggalluvial, 
   utils
 URL: 

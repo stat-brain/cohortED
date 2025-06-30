@@ -89,52 +89,9 @@ As research suggests, student mobility has an impact on student performance. To 
 
 ```{r student_performance}
 #| echo: FALSE
-#| eval: FALSE
 
-grade4.x = grade4[!is.na(grade4$ACHIEVEMENT_LEVEL.x) & 
-                    grade4$ACHIEVEMENT_LEVEL.x != "No Score", ]
-grade4.y = grade4[!is.na(grade4$ACHIEVEMENT_LEVEL.y) & 
-                    grade4$ACHIEVEMENT_LEVEL.y != "No Score", ]
-
-table1 = table(grade4.x$MOBILITY_STATUS, grade4.x$ACHIEVEMENT_LEVEL.x)
-df1 = data.frame(round(prop.table(table1, margin = 1), 3))
-df1 = df1[!is.nan(df1$Freq), ]
-df1$Var2 = factor(df1$Var2, 
-                  levels = c("Advanced", "Proficient", 
-                             "Partially Proficient", "Unsatisfactory"))
-
-table2 = table(grade4.y$MOBILITY_STATUS, grade4.y$ACHIEVEMENT_LEVEL.y)
-df2 = data.frame(round(prop.table(table2, margin = 1), 3))
-df2 = df2[!is.nan(df2$Freq), ]
-df2$Var2 = factor(df2$Var2, 
-                  levels = c("Advanced", "Proficient", 
-                             "Partially Proficient", "Unsatisfactory"))
-
-plot1 = ggplot(df1, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_bar(stat = "identity") + 
-  labs(title = "2022-2023", y = "Value", x = "Mobility Status", 
-       fill = "Achievement Level") + 
-  theme_minimal() +
-  scale_fill_manual(values = c(
-    "Advanced" = "#2E8B57",
-    "Proficient" = "#66CDAA",
-    "Partially Proficient" = "#E57373",
-    "Unsatisfactory" = "#B22222"
-  ))
-
-plot2 = ggplot(df2, aes(x = Var1, y = Freq, fill = Var2)) + 
-  geom_bar(stat = "identity") + 
-  labs(title = "2023-2024", y = "Value", x = "Mobility Status", 
-       fill = "Achievement Level") + 
-  theme_minimal() +
-  scale_fill_manual(values = c(
-    "Advanced" = "#2E8B57",
-    "Proficient" = "#66CDAA",
-    "Partially Proficient" = "#E57373",
-    "Unsatisfactory" = "#B22222"
-  ))
-
-plot_grid(plot1, plot2, ncol = 2)
+compare_achievement_mobility(dataset = math, current_year = 2023, current_grade = 5,
+                             achievement_levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory"))
 
 ```
 
