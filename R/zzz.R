@@ -15,9 +15,9 @@
     "ACHIEVEMENT_LEVEL", "PERCENT", "Grade", "Count", "Cohort", "Year",
     "GRADE", "MOBILITY", "% Proficient",
     "Mobility_Status", "Achievement_Level", "Percent",
-    # Add these for analyze_cohort_persistence:
     "COUNT", "Cohort_Label", "JOIN_YEAR_LABEL", "JOIN_GRADE",
     "Years_Since_Join", "FillValue", "Label", "LabelColor", "AcademicYear",
-    "Cohort_Label_Stack", "YearsSinceJoin", "PercentRetained"
+    "Cohort_Label_Stack", "YearsSinceJoin", "PercentRetained",
+    "Change"
   ))
 }

@@ -42,11 +42,6 @@
 #' 
 
 analyze_cohort_persistence <- function(dataset, start_grade, start_year, end_grade = NULL, subset_expr = NULL) {
-  # Helper: convert numeric year to academic year string (e.g., "2019-2020")
-  to_academic_year <- function(year_numeric) {
-    paste0(year_numeric, "-", year_numeric + 1)
-  }
-  
   # Subset dataset if subset_expr is provided
   if (!is.null(subset_expr)) {
     dataset <- subset(dataset, eval(substitute(subset_expr), dataset, parent.frame()))
@@ -67,16 +62,16 @@ analyze_cohort_persistence <- function(dataset, start_grade, start_year, end_gra
   year_col <- name_map["year"]
   
   # Normalize columns
-  dataset[[grade_col]] <- normalize_grade(dataset[[grade_col]])
-  dataset[[year_col]] <- as.numeric(substr(as.character(dataset[[year_col]]), 1, 4))
+  dataset[[grade_col]] <- .normalize_grade(dataset[[grade_col]])
+  dataset[[year_col]] <- .parse_year(dataset[[year_col]])
   
   # Normalize inputs
-  start_grade <- as.numeric(normalize_grade(start_grade))
-  start_year <- as.numeric(substr(as.character(start_year), 1, 4))
-  if(is.null(end_grade)) {
+  start_grade <- as.numeric(.normalize_grade(start_grade))
+  start_year <- as.numeric(.parse_year(start_year))
+  if (is.null(end_grade)) {
     end_grade <- max(dataset[[grade_col]], na.rm = TRUE)
   } else {
-    end_grade <- as.numeric(normalize_grade(end_grade))
+    end_grade <- as.numeric(.normalize_grade(end_grade))
   }
   
   # Sequences for grades and years
@@ -204,15 +199,15 @@ analyze_cohort_persistence <- function(dataset, start_grade, start_year, end_gra
   combined_summary <- combined_summary[order(combined_summary$JOIN_YEAR, combined_summary$JOIN_GRADE,
                                              combined_summary$YEAR, combined_summary$GRADE), ]
   
-  combined_summary$YEAR_LABEL <- to_academic_year(combined_summary$YEAR)
-  combined_summary$JOIN_YEAR_LABEL <- to_academic_year(combined_summary$JOIN_YEAR)
+  combined_summary$YEAR_LABEL <- .to_academic_year(combined_summary$YEAR)
+  combined_summary$JOIN_YEAR_LABEL <- .to_academic_year(combined_summary$JOIN_YEAR)
   combined_summary$Years_Since_Join <- combined_summary$YEAR - combined_summary$JOIN_YEAR
   combined_summary$Cohort_Label <- paste0("Grade ", combined_summary$JOIN_GRADE,
                                           " (", combined_summary$JOIN_YEAR_LABEL, ")")
   cohort_levels <- unique(combined_summary[order(combined_summary$JOIN_YEAR, 
                                                  combined_summary$JOIN_GRADE), "Cohort_Label"])
   combined_summary$Cohort_Label <- factor(combined_summary$Cohort_Label, levels = rev(cohort_levels))
-  combined_summary$AcademicYear <- to_academic_year(combined_summary$YEAR)
+  combined_summary$AcademicYear <- .to_academic_year(combined_summary$YEAR)
   
   # Output list
   OUT <- list()
@@ -231,7 +226,7 @@ analyze_cohort_persistence <- function(dataset, start_grade, start_year, end_gra
   
   # Enrollment summary for plots
   total_enrollment <- aggregate(COUNT ~ YEAR + GRADE, data = combined_summary, sum)
-  total_enrollment$YEAR_LABEL <- to_academic_year(total_enrollment$YEAR)
+  total_enrollment$YEAR_LABEL <- .to_academic_year(total_enrollment$YEAR)
   
   # Enrollment Plot: lines for each cohort + total black line
   EnrollmentPlot <- ggplot() +
@@ -285,7 +280,7 @@ analyze_cohort_persistence <- function(dataset, start_grade, start_year, end_gra
                         limits = c(0, 100)) +
     scale_x_continuous(breaks = 0:max(heatmap_df$Years_Since_Join), expand = c(0, 0)) +
     labs(title = paste0("Cohort Persistence Heatmap\nStarting Cohort: Grade ", 
-                        start_grade, " (", to_academic_year(start_year), ")"),
+                        start_grade, " (", .to_academic_year(start_year), ")"),
          x = "Years Since Join", y = "Join Cohort", fill = "Persistence %") +
     theme_minimal(base_size = 14) +
     theme(panel.grid = element_blank())

@@ -28,8 +28,10 @@ A list with the following elements:
 \item{\code{Data}}{A combined long-format data frame of achievement level percentages by mobility group across both years.}
 \item{\code{Group_Sizes}}{A list of data frames showing the number of students per mobility group for each year.}
 \item{\code{Most_Common_Level}}{A list of data frames showing the most common achievement level for each mobility group in each year.}
-\item{\code{Change_Summary}}{A data frame showing the percent change in each achievement level by mobility group across years.}
-\item{\code{Plot}}{A side-by-side bar plot comparing achievement distributions by mobility status for each year.}
+\item{\code{Achievement_Change_Summary}}{A data frame showing the percent change in each achievement level by mobility group across years.}
+\item{\code{Stay_Change_Summary}}{A data frame showing how "Stay" students' achievement changed (Improved, No Change, Declined).}
+\item{\code{Comparison_Plot}}{A side-by-side bar plot comparing achievement distributions by mobility status for each year.}
+\item{\code{Stay_Change_Plot}}{A bar plot showing the direction of change for "Stay" students.}
 \item{\code{Caption}}{A character string describing the comparison.}
 \item{\code{Note}}{A short note clarifying that "Stay" represents a true cohort; "Join" and "Leave" are not tracked longitudinally.}
 }

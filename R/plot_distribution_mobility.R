@@ -40,7 +40,7 @@
 #'
 #' Missing data for `grade` or `year` is excluded prior to analysis.
 #'
-#' @seealso \code{\link{make_mobility}}, \code{\link{normalize_grade}}
+#' @seealso \code{\link{make_mobility}}
 #'
 #' @import ggplot2
 #' @importFrom stats xtabs
@@ -75,15 +75,15 @@ plot_distribution_mobility <- function(dataset, current_year, start_grade = NULL
   }
   
   # Normalize grades
-  NEW[[grade_col]] <- normalize_grade(NEW[[grade_col]])
+  NEW[[grade_col]] <- .normalize_grade(NEW[[grade_col]])
   
   # If the input is not provided
   if(is.null(start_grade)) start_grade <- 2
   if(is.null(end_grade)) end_grade <- 12
   
   # Normalize grades
-  from_grade <- normalize_grade(start_grade)
-  to_grade <- normalize_grade(end_grade)
+  from_grade <- .normalize_grade(start_grade)
+  to_grade <- .normalize_grade(end_grade)
   
   # Generate the sequence of grades to pass through loop
   GRADE_SEQUENCE <- seq(from = from_grade, to = to_grade, by = 1)

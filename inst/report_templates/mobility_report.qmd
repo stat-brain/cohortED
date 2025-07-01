@@ -101,7 +101,7 @@ achievement5 = compare_achievement_mobility(dataset = math,
                                                                    "Partially Proficient", 
                                                                    "Unsatisfactory")
                                             )
-print(achievement5$Plot)
+print(achievement5$Comparison_Plot)
 
 ```
 

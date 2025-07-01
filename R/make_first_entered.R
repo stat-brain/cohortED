@@ -56,7 +56,7 @@ make_first_entered <- function(dataset, print_plot = FALSE) {
   OUT$Data <- as.data.frame(dataset)
   
   # Normalize grade values to numeric for sorting and manipulation
-  OUT$Data[[grade_col]] <- normalize_grade(OUT$Data[[grade_col]])
+  OUT$Data[[grade_col]] <- .normalize_grade(OUT$Data[[grade_col]])
   
   # Ensure YEAR is character and extract numeric start year
   OUT$Data[[year_col]] <- as.character(OUT$Data[[year_col]])
@@ -78,7 +78,7 @@ make_first_entered <- function(dataset, print_plot = FALSE) {
   OUT$Data <- merge(dataset, FIRST_INFO[, c(id_col, "FIRST_ENTERED")], by = id_col, all.x = TRUE)
   
   # Make contingency table with totals
-  grade_data <- normalize_grade(OUT$Data[[grade_col]])
+  grade_data <- .normalize_grade(OUT$Data[[grade_col]])
   year_data <- OUT$Data[[year_col]]
   FIRST_ENTRY_TABLE <- table(grade_data, year_data)
   # Add totals to rows and columns

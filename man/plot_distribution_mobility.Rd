@@ -61,5 +61,5 @@ plot_distribution_mobility(dataset = math, current_year = 2022, start_grade = 4,
 
 }
 \seealso{
-\code{\link{make_mobility}}, \code{\link{normalize_grade}}
+\code{\link{make_mobility}}
 }

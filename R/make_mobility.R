@@ -76,8 +76,8 @@ make_mobility <- function(dataset, current_year, current_grade, print_plot = FAL
   }
   
   # Normalize grades
-  NEW[[grade_col]] <- normalize_grade(NEW[[grade_col]])
-  current_grade <- normalize_grade(current_grade)
+  NEW[[grade_col]] <- .normalize_grade(NEW[[grade_col]])
+  current_grade <- .normalize_grade(current_grade)
   
   previous_year <- current_year - 1
   previous_grade <- current_grade - 1

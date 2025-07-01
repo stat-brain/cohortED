@@ -29,7 +29,7 @@
 
 plot_alluvial_mobility <- function(dataset, current_year, current_grade, print_plot = TRUE) {
   # Normalize current grade input
-  numeric_grade <- normalize_grade(current_grade)
+  numeric_grade <- .normalize_grade(current_grade)
   
   # Standardize column names to lowercase
   names(dataset) <- tolower(names(dataset))

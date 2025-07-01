@@ -18,8 +18,10 @@
 #'   \item{\code{Data}}{A combined long-format data frame of achievement level percentages by mobility group across both years.}
 #'   \item{\code{Group_Sizes}}{A list of data frames showing the number of students per mobility group for each year.}
 #'   \item{\code{Most_Common_Level}}{A list of data frames showing the most common achievement level for each mobility group in each year.}
-#'   \item{\code{Change_Summary}}{A data frame showing the percent change in each achievement level by mobility group across years.}
-#'   \item{\code{Plot}}{A side-by-side bar plot comparing achievement distributions by mobility status for each year.}
+#'   \item{\code{Achievement_Change_Summary}}{A data frame showing the percent change in each achievement level by mobility group across years.}
+#'   \item{\code{Stay_Change_Summary}}{A data frame showing how "Stay" students' achievement changed (Improved, No Change, Declined).}
+#'   \item{\code{Comparison_Plot}}{A side-by-side bar plot comparing achievement distributions by mobility status for each year.}
+#'   \item{\code{Stay_Change_Plot}}{A bar plot showing the direction of change for "Stay" students.}
 #'   \item{\code{Caption}}{A character string describing the comparison.}
 #'   \item{\code{Note}}{A short note clarifying that "Stay" represents a true cohort; "Join" and "Leave" are not tracked longitudinally.}
 #' }
@@ -42,7 +44,6 @@
 #' )
 #'  
 
-
 compare_achievement_mobility <- function(dataset, current_year, current_grade, achievement_levels) {
   # Get student-level data with mobility and achievement levels
   NEW_DATA <- plot_alluvial_mobility(
@@ -52,10 +53,10 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
     print_plot = FALSE
   )$Data
   
-  # Extract numeric year and create label strings
-  current_year_num <- as.numeric(substr(current_year, 1, 4))
-  last_year_text <- paste0(current_year_num - 1, "-", current_year_num)
-  current_year_text <- paste0(current_year_num, "-", current_year_num + 1)
+  # Using an internal function to handle current year
+  current_year_num <- .parse_year(current_year)
+  last_year_text <- .to_academic_year(current_year_num - 1)
+  current_year_text <- .to_academic_year(current_year_num)
   
   # Filter valid scores (remove "No Score" and NA)
   DATA_prev <- NEW_DATA[!is.na(NEW_DATA$achievement_level.x) & NEW_DATA$achievement_level.x != "No Score", ]
@@ -129,8 +130,8 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
   
   # Most common achievement level
   most_common <- list(
-    Previous = get_most_common(df_prev),
-    Current = get_most_common(df_curr)
+    Previous = .get_most_common(df_prev),
+    Current = .get_most_common(df_curr)
   )
   
   # Percent change from previous to current
@@ -144,6 +145,44 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
   change_df[is.na(change_df)] <- 0
   change_df$Percent_Change <- round(change_df$Percent_Current - change_df$Percent_Previous, 1)
   
+  # Stay group change analysis
+  stay_data <- NEW_DATA[NEW_DATA$mobility_status == "Stay", ]
+  
+  # Ensure levels match provided order
+  stay_data$achievement_level.x <- factor(stay_data$achievement_level.x, levels = achievement_levels)
+  stay_data$achievement_level.y <- factor(stay_data$achievement_level.y, levels = achievement_levels)
+  
+  # Remove cases with missing or "No Score"
+  stay_data <- stay_data[!is.na(stay_data$achievement_level.x) &
+                           !is.na(stay_data$achievement_level.y) &
+                           stay_data$achievement_level.x != "No Score" &
+                           stay_data$achievement_level.y != "No Score", ]
+  
+  # Compute change direction
+  stay_data$change_direction <- factor(sign(
+    as.integer(stay_data$achievement_level.y) - as.integer(stay_data$achievement_level.x)
+  ),
+  levels = c(-1, 0, 1),
+  labels = c("Declined", "No Change", "Improved"))
+  
+  # Summary table of changes
+  stay_change_summary <- as.data.frame(table(stay_data$change_direction))
+  names(stay_change_summary) <- c("Change", "Count")
+  stay_change_summary$Percent <- round(100 * stay_change_summary$Count / sum(stay_change_summary$Count), 1)
+  
+  
+  # The Change Plot for "Stay" Students
+  stay_change_plot <- ggplot(stay_change_summary, aes(x = Change, y = Percent, fill = Change)) +
+    geom_col(width = 0.6) +
+    geom_text(aes(label = paste0(Percent, "%")), vjust = -0.5) +
+    scale_fill_manual(values = c("Improved" = "#2E8B57", "No Change" = "#CCCCCC", "Declined" = "#B22222")) +
+    labs(
+      title = "Achievement Change for 'Stay' Students",
+      y = "Percent of Students",
+      x = "Direction of Change"
+    ) +
+    theme_minimal()
+  
   # Output list
   OUT <- list(
     Previous_Table = previous_table,
@@ -151,13 +190,17 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
     Data = combined_df,
     Group_Sizes = group_sizes,
     Most_Common_Level = most_common,
-    Change_Summary = change_df,
-    Plot = cowplot::plot_grid(plot_prev, plot_curr, ncol = 2),
+    Achievement_Change_Summary = change_df,
+    Comparison_Plot = cowplot::plot_grid(plot_prev, plot_curr, ncol = 2),
+    Stay_Change_Plot = stay_change_plot, 
+    Stay_Change_Summary = stay_change_summary,
     Caption = paste(
       "Comparison of achievement by mobility status for students in Grade", current_grade - 1,
       "(", last_year_text, ") and Grade", current_grade, "(", current_year_text, ")."), 
-    Note = "The 'Stay' group represents a true cohort of students observed in both years, while",
-    "'Join' and 'Leave' represent those entering or exiting the cohort."
+    Note = paste(
+      "The 'Stay' group represents a true cohort of students observed in both years,",
+      "'Join' and 'Leave' represent those entering or exiting the cohort."
+    )
   )
   
   # Produce the output
