@@ -6,7 +6,116 @@ format:
     number-sections: false 
 ---
 
-## How to Perform Analysis
+## Analytic Functions
 
-Still working on this section...
+::: {.callout-note icon = false}
 
+## `analyze_cohort_persistence()`
+
+Tracks retention and persistence of a single student cohort from its entry grade and year onward, including new joiners.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing at least id, grade, and year columns.
+- `start_grade`: Numeric or string representing the cohort’s entry grade.
+- `start_year`: Numeric or string representing the academic year the cohort begins.
+- `end_grade`: Optional; final grade to track (default is highest in dataset).
+- `subset_expr`: Optional logical expression to subset the dataset before analysis.
+
+**Returns:** A named list invisibly containing:
+
+- `Summary`: Long-format data frame showing cohort size and retention at each step.
+- `Persistence_Data`: List of filtered data frames for students retained each year.
+- `Entry_Data`: List of new joiners and their persistence outcomes.
+- `Entry_Trajectories`: List of retention trajectories for new joiners.
+- `Statistics`: Summary stats (initial/final counts, overall and average annual rates).
+- `Heatmap_Plot`, `Line_Plot`, `Retention_Plot`: Visualizations of cohort retention.
+- `Enrollment_Plot`, `Enrollment_BarPlot`: Enrollment trends by cohort and year.
+- `Retention_Table`: Wide-format table of percent retained by cohort and grade.
+
+**Example:**
+
+```r
+analyze_cohort_persistence(my_data, start_grade = 3, start_year = 2020)
+```
+</details>
+
+:::
+
+::: {.callout-note icon = false}
+## `analyze_student_cohorts()`
+
+Analyzes multiple student cohorts’ trajectories and retention patterns across grades and years.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**  
+
+- `dataset`: A data frame with at least `id`, `grade`, and `year` columns.  
+- `details`: Logical; if `TRUE`, includes intermediate data objects. *(Reserved for future use.)*  
+- `extra_variables`: Optional character vector of additional student-level variables to merge (e.g., `"GENDER"`, `"ETHNICITY"`).
+
+**Returns:** A named list invisibly containing:
+
+- `Trajectories`: Cleaned long-format data tracking valid grade progression over time.  
+- `Data`: Nested list of student IDs by cohort and year.  
+- `Summary`: Table of student counts and retention percentages by cohort-year-grade.  
+- `Heatmaps`: A list of `ggplot` heatmaps, one per cohort join year.
+
+**Example:**
+
+```r
+analyze_student_cohorts(dataset = my_data,
+                        extra_variables = c("GENDER", "ETHNICITY"))
+```
+</details>
+
+:::
+
+
+## Comparative Functions
+
+::: {.callout-note icon = false}
+## `compare_achievement_mobility()`
+
+Compares student achievement levels by mobility status across two consecutive years.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing student-level records with achievement and mobility info.
+- `current_year`: The focal academic year (numeric or string).
+- `current_grade`: The grade level for the current year (numeric).
+- `achievement_levels`: Ordered character vector specifying achievement level categories.
+
+**Returns:** A named list invisibly containing:
+
+- `Previous_Table`, `Current_Table`: Cross-tabulated percent distributions of achievement by mobility status for the two years.
+- `Data`: Combined data frame of achievement percentages by group and year.
+- `Group_Sizes`: Counts of students by mobility group for each year.
+- `Most_Common_Level`: Most frequent achievement level per mobility group and year.
+- `Achievement_Change_Summary`: Changes in achievement percentages between years.
+- `Comparison_Plot`: Side-by-side bar plots of achievement distributions for previous and current year.
+- `Stay_Change_Plot`, `Stay_Change_Summary`: Visualization and summary of achievement changes for the stable (“Stay”) group.
+- `Caption`: Descriptive text summarizing the analysis.
+- `Note`: Additional context about mobility groups.
+
+**Example:**
+
+```r
+compare_achievement_mobility(
+  dataset = my_data,
+  current_year = 2023,
+  current_grade = 5,
+  achievement_levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory")
+)
+```
+</details>
+
+:::

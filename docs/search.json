@@ -151,7 +151,7 @@
     "href": "analysis_functions.html",
     "title": "Analysis Functions",
     "section": "",
-    "text": "Still working on this section…"
+    "text": "analyze_cohort_persistence()\n\n\n\nTracks retention and persistence of a single student cohort from its entry grade and year onward, including new joiners.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing at least id, grade, and year columns.\nstart_grade: Numeric or string representing the cohort’s entry grade.\nstart_year: Numeric or string representing the academic year the cohort begins.\nend_grade: Optional; final grade to track (default is highest in dataset).\nsubset_expr: Optional logical expression to subset the dataset before analysis.\n\nReturns: A named list invisibly containing:\n\nSummary: Long-format data frame showing cohort size and retention at each step.\nPersistence_Data: List of filtered data frames for students retained each year.\nEntry_Data: List of new joiners and their persistence outcomes.\nEntry_Trajectories: List of retention trajectories for new joiners.\nStatistics: Summary stats (initial/final counts, overall and average annual rates).\nHeatmap_Plot, Line_Plot, Retention_Plot: Visualizations of cohort retention.\nEnrollment_Plot, Enrollment_BarPlot: Enrollment trends by cohort and year.\nRetention_Table: Wide-format table of percent retained by cohort and grade.\n\nExample:\nanalyze_cohort_persistence(my_data, start_grade = 3, start_year = 2020)\n\n\n\n\n\n\n\n\n\nanalyze_student_cohorts()\n\n\n\nAnalyzes multiple student cohorts’ trajectories and retention patterns across grades and years.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame with at least id, grade, and year columns.\n\ndetails: Logical; if TRUE, includes intermediate data objects. (Reserved for future use.)\n\nextra_variables: Optional character vector of additional student-level variables to merge (e.g., \"GENDER\", \"ETHNICITY\").\n\nReturns: A named list invisibly containing:\n\nTrajectories: Cleaned long-format data tracking valid grade progression over time.\n\nData: Nested list of student IDs by cohort and year.\n\nSummary: Table of student counts and retention percentages by cohort-year-grade.\n\nHeatmaps: A list of ggplot heatmaps, one per cohort join year.\n\nExample:\nanalyze_student_cohorts(dataset = my_data,\n                        extra_variables = c(\"GENDER\", \"ETHNICITY\"))"
   },
   {
     "objectID": "analysis_functions.html#how-to-perform-analysis",
@@ -257,5 +257,26 @@
     "title": "Presentations",
     "section": "Intern Update #2",
     "text": "Intern Update #2"
+  },
+  {
+    "objectID": "analysis_functions.html#analytic-functions",
+    "href": "analysis_functions.html#analytic-functions",
+    "title": "Analysis Functions",
+    "section": "",
+    "text": "analyze_cohort_persistence()\n\n\n\nTracks retention and persistence of a single student cohort from its entry grade and year onward, including new joiners.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing at least id, grade, and year columns.\nstart_grade: Numeric or string representing the cohort’s entry grade.\nstart_year: Numeric or string representing the academic year the cohort begins.\nend_grade: Optional; final grade to track (default is highest in dataset).\nsubset_expr: Optional logical expression to subset the dataset before analysis.\n\nReturns: A named list invisibly containing:\n\nSummary: Long-format data frame showing cohort size and retention at each step.\nPersistence_Data: List of filtered data frames for students retained each year.\nEntry_Data: List of new joiners and their persistence outcomes.\nEntry_Trajectories: List of retention trajectories for new joiners.\nStatistics: Summary stats (initial/final counts, overall and average annual rates).\nHeatmap_Plot, Line_Plot, Retention_Plot: Visualizations of cohort retention.\nEnrollment_Plot, Enrollment_BarPlot: Enrollment trends by cohort and year.\nRetention_Table: Wide-format table of percent retained by cohort and grade.\n\nExample:\nanalyze_cohort_persistence(my_data, start_grade = 3, start_year = 2020)\n\n\n\n\n\n\n\n\n\nanalyze_student_cohorts()\n\n\n\nAnalyzes multiple student cohorts’ trajectories and retention patterns across grades and years.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame with at least id, grade, and year columns.\n\ndetails: Logical; if TRUE, includes intermediate data objects. (Reserved for future use.)\n\nextra_variables: Optional character vector of additional student-level variables to merge (e.g., \"GENDER\", \"ETHNICITY\").\n\nReturns: A named list invisibly containing:\n\nTrajectories: Cleaned long-format data tracking valid grade progression over time.\n\nData: Nested list of student IDs by cohort and year.\n\nSummary: Table of student counts and retention percentages by cohort-year-grade.\n\nHeatmaps: A list of ggplot heatmaps, one per cohort join year.\n\nExample:\nanalyze_student_cohorts(dataset = my_data,\n                        extra_variables = c(\"GENDER\", \"ETHNICITY\"))"
+  },
+  {
+    "objectID": "analysis_functions.html#comparative-functions",
+    "href": "analysis_functions.html#comparative-functions",
+    "title": "Analysis Functions",
+    "section": "Comparative Functions",
+    "text": "Comparative Functions\n\n\n\n\n\n\ncompare_achievement_mobility()\n\n\n\nCompares student achievement levels by mobility status across two consecutive years.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing student-level records with achievement and mobility info.\ncurrent_year: The focal academic year (numeric or string).\ncurrent_grade: The grade level for the current year (numeric).\nachievement_levels: Ordered character vector specifying achievement level categories.\n\nReturns: A named list invisibly containing:\n\nPrevious_Table, Current_Table: Cross-tabulated percent distributions of achievement by mobility status for the two years.\nData: Combined data frame of achievement percentages by group and year.\nGroup_Sizes: Counts of students by mobility group for each year.\nMost_Common_Level: Most frequent achievement level per mobility group and year.\nAchievement_Change_Summary: Changes in achievement percentages between years.\nComparison_Plot: Side-by-side bar plots of achievement distributions for previous and current year.\nStay_Change_Plot, Stay_Change_Summary: Visualization and summary of achievement changes for the stable (“Stay”) group.\nCaption: Descriptive text summarizing the analysis.\nNote: Additional context about mobility groups.\n\nExample:\ncompare_achievement_mobility(\n  dataset = my_data,\n  current_year = 2023,\n  current_grade = 5,\n  achievement_levels = c(\"Advanced\", \"Proficient\", \"Partially Proficient\", \"Unsatisfactory\")\n)"
+  },
+  {
+    "objectID": "helper_functions.html#analysis-related",
+    "href": "helper_functions.html#analysis-related",
+    "title": "Helper Functions",
+    "section": "Analysis Related",
+    "text": "Analysis Related\n\n\n\n\n\n\nsummarize_entry_cohorts()\n\n\n\nIdentifies the first year and grade level that each student appears in the dataset."
   }
 ]

@@ -37,13 +37,12 @@ Identifies the first year and grade level that each student appears in the datas
 :::
 
 
-
-## Format Related
+## Analysis Related
 
 ::: {.callout-note icon = false}
-## `normalize_grade()`
+## `summarize_entry_cohorts()`
 
-Converts character-based grade labels (e.g., "K", "PreK") into standardized numeric grade values to support consistent analysis.
+Identifies the first year and grade level that each student appears in the dataset.
 
 :::
 

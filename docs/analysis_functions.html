@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -71,7 +106,6 @@ ul.task-list li input[type="checkbox"] {
 
 <link rel="stylesheet" href="assets/css/website-styles.css">
 <meta property="og:title" content="Analysis Functions – A GitHub Repository for a Cohort Analysis in Education">
-<meta property="og:description" content="">
 <meta property="og:image" content="https://stat-brain.github.io/cohortED/assets/img/logo_grey.png">
 <meta property="og:site_name" content="A GitHub Repository for a Cohort Analysis in Education">
 <meta property="og:image:alt" content="packageSkeleton logo">
@@ -175,7 +209,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-perform-analysis" id="toc-how-to-perform-analysis" class="nav-link active" data-scroll-target="#how-to-perform-analysis">How to Perform Analysis</a></li>
+  <li><a href="#analytic-functions" id="toc-analytic-functions" class="nav-link active" data-scroll-target="#analytic-functions">Analytic Functions</a></li>
+  <li><a href="#comparative-functions" id="toc-comparative-functions" class="nav-link" data-scroll-target="#comparative-functions">Comparative Functions</a></li>
   </ul>
 </nav>
     </div>
@@ -201,9 +236,133 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="how-to-perform-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-perform-analysis">How to Perform Analysis</h2>
-<p>Still working on this section…</p>
+<section id="analytic-functions" class="level2">
+<h2 class="anchored" data-anchor-id="analytic-functions">Analytic Functions</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>analyze_cohort_persistence()</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tracks retention and persistence of a single student cohort from its entry grade and year onward, including new joiners.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame containing at least id, grade, and year columns.</li>
+<li><code>start_grade</code>: Numeric or string representing the cohort’s entry grade.</li>
+<li><code>start_year</code>: Numeric or string representing the academic year the cohort begins.</li>
+<li><code>end_grade</code>: Optional; final grade to track (default is highest in dataset).</li>
+<li><code>subset_expr</code>: Optional logical expression to subset the dataset before analysis.</li>
+</ul>
+<p><strong>Returns:</strong> A named list invisibly containing:</p>
+<ul>
+<li><code>Summary</code>: Long-format data frame showing cohort size and retention at each step.</li>
+<li><code>Persistence_Data</code>: List of filtered data frames for students retained each year.</li>
+<li><code>Entry_Data</code>: List of new joiners and their persistence outcomes.</li>
+<li><code>Entry_Trajectories</code>: List of retention trajectories for new joiners.</li>
+<li><code>Statistics</code>: Summary stats (initial/final counts, overall and average annual rates).</li>
+<li><code>Heatmap_Plot</code>, <code>Line_Plot</code>, <code>Retention_Plot</code>: Visualizations of cohort retention.</li>
+<li><code>Enrollment_Plot</code>, <code>Enrollment_BarPlot</code>: Enrollment trends by cohort and year.</li>
+<li><code>Retention_Table</code>: Wide-format table of percent retained by cohort and grade.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_cohort_persistence</span>(my_data, <span class="at">start_grade =</span> <span class="dv">3</span>, <span class="at">start_year =</span> <span class="dv">2020</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>analyze_student_cohorts()</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Analyzes multiple student cohorts’ trajectories and retention patterns across grades and years.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame with at least <code>id</code>, <code>grade</code>, and <code>year</code> columns.<br>
+</li>
+<li><code>details</code>: Logical; if <code>TRUE</code>, includes intermediate data objects. <em>(Reserved for future use.)</em><br>
+</li>
+<li><code>extra_variables</code>: Optional character vector of additional student-level variables to merge (e.g., <code>"GENDER"</code>, <code>"ETHNICITY"</code>).</li>
+</ul>
+<p><strong>Returns:</strong> A named list invisibly containing:</p>
+<ul>
+<li><code>Trajectories</code>: Cleaned long-format data tracking valid grade progression over time.<br>
+</li>
+<li><code>Data</code>: Nested list of student IDs by cohort and year.<br>
+</li>
+<li><code>Summary</code>: Table of student counts and retention percentages by cohort-year-grade.<br>
+</li>
+<li><code>Heatmaps</code>: A list of <code>ggplot</code> heatmaps, one per cohort join year.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_student_cohorts</span>(<span class="at">dataset =</span> my_data,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">extra_variables =</span> <span class="fu">c</span>(<span class="st">"GENDER"</span>, <span class="st">"ETHNICITY"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+<section id="comparative-functions" class="level2">
+<h2 class="anchored" data-anchor-id="comparative-functions">Comparative Functions</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>compare_achievement_mobility()</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Compares student achievement levels by mobility status across two consecutive years.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame containing student-level records with achievement and mobility info.</li>
+<li><code>current_year</code>: The focal academic year (numeric or string).</li>
+<li><code>current_grade</code>: The grade level for the current year (numeric).</li>
+<li><code>achievement_levels</code>: Ordered character vector specifying achievement level categories.</li>
+</ul>
+<p><strong>Returns:</strong> A named list invisibly containing:</p>
+<ul>
+<li><code>Previous_Table</code>, <code>Current_Table</code>: Cross-tabulated percent distributions of achievement by mobility status for the two years.</li>
+<li><code>Data</code>: Combined data frame of achievement percentages by group and year.</li>
+<li><code>Group_Sizes</code>: Counts of students by mobility group for each year.</li>
+<li><code>Most_Common_Level</code>: Most frequent achievement level per mobility group and year.</li>
+<li><code>Achievement_Change_Summary</code>: Changes in achievement percentages between years.</li>
+<li><code>Comparison_Plot</code>: Side-by-side bar plots of achievement distributions for previous and current year.</li>
+<li><code>Stay_Change_Plot</code>, <code>Stay_Change_Summary</code>: Visualization and summary of achievement changes for the stable (“Stay”) group.</li>
+<li><code>Caption</code>: Descriptive text summarizing the analysis.</li>
+<li><code>Note</code>: Additional context about mobility groups.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_achievement_mobility</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> my_data,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">current_year =</span> <span class="dv">2023</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">current_grade =</span> <span class="dv">5</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">achievement_levels =</span> <span class="fu">c</span>(<span class="st">"Advanced"</span>, <span class="st">"Proficient"</span>, <span class="st">"Partially Proficient"</span>, <span class="st">"Unsatisfactory"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
 
 
 </section>
