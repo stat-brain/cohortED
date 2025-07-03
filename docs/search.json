@@ -130,21 +130,21 @@
     "href": "plotting_functions.html",
     "title": "Plotting Functions",
     "section": "",
-    "text": "plot_distribution_mobility()\n\n\n\nCreates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.\n\n\n\n\n\n\n\n\nplot_alluvial_mobility()\n\n\n\nGenerates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay)."
+    "text": "plot_distribution_mobility()\n\n\n\nCreates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing student-level records with achievement and mobility info.\n\n\nReturns: A named list invisibly containing:\nExample:\nplot_distribution_mobility()\n)\n\n\n\n\n\n\n\n\n\nplot_alluvial_mobility()\n\n\n\nGenerates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay).\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing student-level records with achievement and mobility info.\n\n\nReturns: A named list invisibly containing:\nExample:\nplot_alluvial_mobility()"
   },
   {
     "objectID": "plotting_functions.html#mobility-related",
     "href": "plotting_functions.html#mobility-related",
     "title": "Plotting Functions",
     "section": "",
-    "text": "plot_distribution_mobility()\n\n\n\nCreates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.\n\n\n\n\n\n\n\n\nplot_alluvial_mobility()\n\n\n\nGenerates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay)."
+    "text": "plot_distribution_mobility()\n\n\n\nCreates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing student-level records with achievement and mobility info.\n\n\nReturns: A named list invisibly containing:\nExample:\nplot_distribution_mobility()\n)\n\n\n\n\n\n\n\n\n\nplot_alluvial_mobility()\n\n\n\nGenerates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay).\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing student-level records with achievement and mobility info.\n\n\nReturns: A named list invisibly containing:\nExample:\nplot_alluvial_mobility()"
   },
   {
     "objectID": "plotting_functions.html#performance-related",
     "href": "plotting_functions.html#performance-related",
     "title": "Plotting Functions",
     "section": "Performance Related",
-    "text": "Performance Related\n\n\n\n\n\n\nplot_cohort2_proficiency()\n\n\n\nCreates a line chart that visualizes percent proficient over time for each synthetic cohort, tracking longitudinal proficiency trends."
+    "text": "Performance Related\n\n\n\n\n\n\nplot_cohort2_proficiency()\n\n\n\nCreates a line chart that visualizes percent proficient over time for each synthetic cohort, tracking longitudinal proficiency trends.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing student-level records with achievement and mobility info.\n:\n\nReturns: A named list invisibly containing:\nExample:\nplot_cohort2_proficiency()"
   },
   {
     "objectID": "analysis_functions.html",
@@ -278,5 +278,40 @@
     "title": "Helper Functions",
     "section": "Analysis Related",
     "text": "Analysis Related\n\n\n\n\n\n\nsummarize_entry_cohorts()\n\n\n\nIdentifies the first year and grade level that each student appears in the dataset."
+  },
+  {
+    "objectID": "reporting_functions.html",
+    "href": "reporting_functions.html",
+    "title": "Reporting Functions",
+    "section": "",
+    "text": "report_students_by_grade_year()\n\n\n\nGenerates a narrative text report summarizing student enrollment trends by grade and year, based on the output of summarize_students_by_grade_year().\n\n⚠️ Warning: Please make sure to run summarize_students_by_grade_year() before using this function.\n\n\n\nMore details\n\nArguments:\n\nsummary_output: A named list output from summarize_students_by_grade_year(), containing at least the elements:\n\nSummary_Long: a data frame with enrollment counts by grade and year\nTotal_Enrollment: a data frame with total enrollment counts per year\nGrade_Statistics: a data frame with summary statistics (mean, SD) per grade\n\npct_change_threshold: Numeric. The minimum percent change in total enrollment from the previous year to trigger inclusion in the summary narrative (default: 10).\ngrade_transition_threshold: Numeric. The minimum percent change in enrollment between grades to be considered notable (default: 20).\nzscore_threshold: Numeric. The number of standard deviations from the mean to consider an enrollment count an outlier (default: 2).\n\nReturns: An invisible named list with the following components:\n\nParagraph_Summary: A concise executive-style paragraph summarizing key enrollment patterns without detailed numbers.\nParagraph_Detailed: A longer paragraph describing enrollment changes, grade-level variations, and outlier occurrences, including specific figures and trends.\nEnrollment_Trends: A sentence summarizing total enrollment and recent year changes.\nGrade_Level_Changes: A sentence describing average and largest changes in enrollment by grade.\nOutlier_Summary: A summary of any detected unusual enrollment patterns.\nNote: A suggested pointer to plots or tables for further exploration.\n\n\n\n# Step 1: Summarize the dataset by grade and year\nsummary_data &lt;- summarize_students_by_grade_year(dataset = math)\n\n# Step 2: Generate a narrative report based on the summary\nreport &lt;- report_students_by_grade_year(summary_data)"
+  },
+  {
+    "objectID": "reporting_functions.html#analytic-functions",
+    "href": "reporting_functions.html#analytic-functions",
+    "title": "Reporting Functions",
+    "section": "",
+    "text": "analyze_cohort_persistence()\n\n\n\nTracks retention and persistence of a single student cohort from its entry grade and year onward, including new joiners.\n\n\nMore details\n\nArguments:\n\ndataset: A data frame containing at least id, grade, and year columns.\nstart_grade: Numeric or string representing the cohort’s entry grade.\nstart_year: Numeric or string representing the academic year the cohort begins.\nend_grade: Optional; final grade to track (default is highest in dataset).\nsubset_expr: Optional logical expression to subset the dataset before analysis.\n\nReturns: A named list invisibly containing:\n\nSummary: Long-format data frame showing cohort size and retention at each step.\nPersistence_Data: List of filtered data frames for students retained each year.\nEntry_Data: List of new joiners and their persistence outcomes.\nEntry_Trajectories: List of retention trajectories for new joiners.\nStatistics: Summary stats (initial/final counts, overall and average annual rates).\nHeatmap_Plot, Line_Plot, Retention_Plot: Visualizations of cohort retention.\nEnrollment_Plot, Enrollment_BarPlot: Enrollment trends by cohort and year.\nRetention_Table: Wide-format table of percent retained by cohort and grade.\n\nExample:\nanalyze_cohort_persistence(my_data, start_grade = 3, start_year = 2020)"
+  },
+  {
+    "objectID": "reporting_functions.html#general-reports",
+    "href": "reporting_functions.html#general-reports",
+    "title": "Reporting Functions",
+    "section": "",
+    "text": "report_students_by_grade_year()\n\n\n\nGenerates a narrative text report summarizing student enrollment trends by grade and year, based on the output of summarize_students_by_grade_year().\n\n⚠️ Warning: Please make sure to run summarize_students_by_grade_year() before using this function.\n\n\n\nMore details\n\nArguments:\n\nsummary_output: A named list output from summarize_students_by_grade_year(), containing at least the elements:\n\nSummary_Long: a data frame with enrollment counts by grade and year\nTotal_Enrollment: a data frame with total enrollment counts per year\nGrade_Statistics: a data frame with summary statistics (mean, SD) per grade\n\npct_change_threshold: Numeric. The minimum percent change in total enrollment from the previous year to trigger inclusion in the summary narrative (default: 10).\ngrade_transition_threshold: Numeric. The minimum percent change in enrollment between grades to be considered notable (default: 20).\nzscore_threshold: Numeric. The number of standard deviations from the mean to consider an enrollment count an outlier (default: 2).\n\nReturns: An invisible named list with the following components:\n\nParagraph_Summary: A concise executive-style paragraph summarizing key enrollment patterns without detailed numbers.\nParagraph_Detailed: A longer paragraph describing enrollment changes, grade-level variations, and outlier occurrences, including specific figures and trends.\nEnrollment_Trends: A sentence summarizing total enrollment and recent year changes.\nGrade_Level_Changes: A sentence describing average and largest changes in enrollment by grade.\nOutlier_Summary: A summary of any detected unusual enrollment patterns.\nNote: A suggested pointer to plots or tables for further exploration.\n\n\n\n# Step 1: Summarize the dataset by grade and year\nsummary_data &lt;- summarize_students_by_grade_year(dataset = math)\n\n# Step 2: Generate a narrative report based on the summary\nreport &lt;- report_students_by_grade_year(summary_data)"
+  },
+  {
+    "objectID": "reporting_functions.html#cohort-reports",
+    "href": "reporting_functions.html#cohort-reports",
+    "title": "Reporting Functions",
+    "section": "Cohort Reports",
+    "text": "Cohort Reports"
+  },
+  {
+    "objectID": "reporting_functions.html#performance-reports",
+    "href": "reporting_functions.html#performance-reports",
+    "title": "Reporting Functions",
+    "section": "Performance Reports",
+    "text": "Performance Reports"
   }
 ]

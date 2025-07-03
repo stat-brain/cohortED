@@ -46,6 +46,8 @@ website:
             href: plotting_functions.qmd
           - text: Analysis Functions
             href: analysis_functions.qmd
+          - text: Reporting Functions
+            href: reporting_functions.qmd
       - text: Resources
         menu:
           - text: Documents

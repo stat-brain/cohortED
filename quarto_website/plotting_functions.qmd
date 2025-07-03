@@ -13,12 +13,51 @@ format:
 
 Creates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.
 
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing student-level records with achievement and mobility info.
+- ` `
+
+**Returns:** A named list invisibly containing:
+
+
+
+**Example:**
+
+```r
+plot_distribution_mobility()
+)
+```
+</details>
+
 :::
 
 ::: {.callout-note icon = false}
 ## `plot_alluvial_mobility()`
 
 Generates an alluvial diagram to illustrate the relationship between student demographics and mobility categories (leave, join, stay).
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing student-level records with achievement and mobility info.
+- ` `
+
+**Returns:** A named list invisibly containing:
+
+
+
+**Example:**
+
+```r
+plot_alluvial_mobility()
+```
+</details>
 
 :::
 
@@ -29,6 +68,25 @@ Generates an alluvial diagram to illustrate the relationship between student dem
 ## `plot_cohort2_proficiency()`
 
 Creates a line chart that visualizes percent proficient over time for each synthetic cohort, tracking longitudinal proficiency trends.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing student-level records with achievement and mobility info.
+- ` `:
+
+**Returns:** A named list invisibly containing:
+
+
+
+**Example:**
+
+```r
+plot_cohort2_proficiency()
+```
+</details>
 
 :::
 

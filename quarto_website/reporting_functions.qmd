@@ -1,0 +1,79 @@
+---
+title: "Reporting Functions"
+format:
+  html:
+    toc: true
+    number-sections: false 
+---
+
+## General Reports
+
+::: {.callout-note icon = false}
+
+## `report_students_by_grade_year()`
+
+Generates a narrative text report summarizing student enrollment trends by grade and year, based on the output of `summarize_students_by_grade_year()`.  
+
+<div style="
+  color: red; 
+  text-decoration: underline; 
+  font-weight: bold; 
+  margin-bottom: 1em;
+">
+  ⚠️ Warning: Please make sure to run <code style="
+    color: inherit; 
+    background: transparent; 
+    padding: 0; 
+    font-weight: bold;
+    border: none;
+  ">summarize_students_by_grade_year()</code> before using this function.
+</div>
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `summary_output`: A named list output from `summarize_students_by_grade_year()`, containing at least the elements:
+  - `Summary_Long`: a data frame with enrollment counts by grade and year
+  - `Total_Enrollment`: a data frame with total enrollment counts per year
+  - `Grade_Statistics`: a data frame with summary statistics (mean, SD) per grade
+
+- `pct_change_threshold`: Numeric. The minimum percent change in total enrollment from the previous year to trigger inclusion in the summary narrative (default: 10).
+
+- `grade_transition_threshold`: Numeric. The minimum percent change in enrollment between grades to be considered notable (default: 20).
+
+- `zscore_threshold`: Numeric. The number of standard deviations from the mean to consider an enrollment count an outlier (default: 2).
+
+**Returns:** An invisible named list with the following components:
+
+- `Paragraph_Summary`: A concise executive-style paragraph summarizing key enrollment patterns without detailed numbers.
+- `Paragraph_Detailed`: A longer paragraph describing enrollment changes, grade-level variations, and outlier occurrences, including specific figures and trends.
+- `Enrollment_Trends`: A sentence summarizing total enrollment and recent year changes.
+- `Grade_Level_Changes`: A sentence describing average and largest changes in enrollment by grade.
+- `Outlier_Summary`: A summary of any detected unusual enrollment patterns.
+- `Note`: A suggested pointer to plots or tables for further exploration.
+
+### Example
+
+```r
+# Step 1: Summarize the dataset by grade and year
+summary_data <- summarize_students_by_grade_year(dataset = math)
+
+# Step 2: Generate a narrative report based on the summary
+report <- report_students_by_grade_year(summary_data)
+```
+</details>
+
+:::
+
+## Cohort Reports
+
+
+
+
+## Performance Reports
+
+
+
+

@@ -26,9 +26,13 @@ This short report provides a brief summary of the trends in the student cohorts 
 
 ## Definitions
 
+A student has a mobility status of:
+
 - **Leave** A student has a mobility status of "leave" if there was a record for the previous academic year, but the student is not present in the data for the current academic year.
 - **Stay** A student is classified as having a "stay" mobility status if they are present in the data set for both the previous academic year and the current academic year.
 - **Join** A student has a mobility status of "join" when the student is present in the current academic year's data set, but the student did not appear in the previous data set.
+- **Repeat** if a student is in the same grade in the previous and current academic year.
+- **Advance** if a student is in advances
 
 ## General Trends in Student Mobility and Cohorts
 

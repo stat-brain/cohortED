@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Presentations – A GitHub Repository for a Cohort Analysis in Education</title>
+<title>Reporting Functions – A GitHub Repository for a Cohort Analysis in Education</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,8 +105,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="assets/css/website-styles.css">
-<link rel="stylesheet" href="assets/css/embed-style.css">
-<meta property="og:title" content="Presentations – A GitHub Repository for a Cohort Analysis in Education">
+<meta property="og:title" content="Reporting Functions – A GitHub Repository for a Cohort Analysis in Education">
 <meta property="og:image" content="https://stat-brain.github.io/cohortED/assets/img/logo_grey.png">
 <meta property="og:site_name" content="A GitHub Repository for a Cohort Analysis in Education">
 <meta property="og:image:alt" content="packageSkeleton logo">
@@ -179,8 +213,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#intern-update-1" id="toc-intern-update-1" class="nav-link active" data-scroll-target="#intern-update-1">Intern Update #1</a></li>
-  <li><a href="#intern-update-2" id="toc-intern-update-2" class="nav-link" data-scroll-target="#intern-update-2">Intern Update #2</a></li>
+  <li><a href="#general-reports" id="toc-general-reports" class="nav-link active" data-scroll-target="#general-reports">General Reports</a></li>
+  <li><a href="#cohort-reports" id="toc-cohort-reports" class="nav-link" data-scroll-target="#cohort-reports">Cohort Reports</a></li>
+  <li><a href="#performance-reports" id="toc-performance-reports" class="nav-link" data-scroll-target="#performance-reports">Performance Reports</a></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Presentations</h1>
+<h1 class="title">Reporting Functions</h1>
 </div>
 
 
@@ -206,34 +241,80 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="intern-update-1" class="level2">
-<h2 class="anchored" data-anchor-id="intern-update-1">Intern Update #1</h2>
-<div class="iframe-container" onclick="openPresentationInNewWindow()" aria-label="Embedded presentation: Intern Update #1">
-<p><iframe src="content/presentations/intern_update1.html" allowfullscreen="" title="Intern Update #1 presentation"> </iframe></p>
+<section id="general-reports" class="level2">
+<h2 class="anchored" data-anchor-id="general-reports">General Reports</h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="presentation-controls">
-<p><button class="btn-presentation" onclick="openPresentationInNewWindow()" aria-label="Open Intern Update #1 presentation in full screen"> <svg class="btn-icon" fill="currentColor" viewbox="0 0 20 20"> <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path> </svg> Open Full Screen </button></p>
+<div class="callout-title-container flex-fill">
+<code>report_students_by_grade_year()</code>
 </div>
-<script>
-function openPresentationInNewWindow() {
-  const presentationUrl = 'content/presentations/intern_update1.html';
-  const newWindow = window.open(presentationUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+</div>
+<div class="callout-body-container callout-body">
+<p>Generates a narrative text report summarizing student enrollment trends by grade and year, based on the output of <code>summarize_students_by_grade_year()</code>.</p>
+<div style="
+  color: red; 
+  text-decoration: underline; 
+  font-weight: bold; 
+  margin-bottom: 1em;
+">
+<p>⚠️ Warning: Please make sure to run <code style="
+    color: inherit; 
+    background: transparent; 
+    padding: 0; 
+    font-weight: bold;
+    border: none;
+  ">summarize_students_by_grade_year()</code> before using this function.</p>
+</div>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><p><code>summary_output</code>: A named list output from <code>summarize_students_by_grade_year()</code>, containing at least the elements:</p>
+<ul>
+<li><code>Summary_Long</code>: a data frame with enrollment counts by grade and year</li>
+<li><code>Total_Enrollment</code>: a data frame with total enrollment counts per year</li>
+<li><code>Grade_Statistics</code>: a data frame with summary statistics (mean, SD) per grade</li>
+</ul></li>
+<li><p><code>pct_change_threshold</code>: Numeric. The minimum percent change in total enrollment from the previous year to trigger inclusion in the summary narrative (default: 10).</p></li>
+<li><p><code>grade_transition_threshold</code>: Numeric. The minimum percent change in enrollment between grades to be considered notable (default: 20).</p></li>
+<li><p><code>zscore_threshold</code>: Numeric. The number of standard deviations from the mean to consider an enrollment count an outlier (default: 2).</p></li>
+</ul>
+<p><strong>Returns:</strong> An invisible named list with the following components:</p>
+<ul>
+<li><code>Paragraph_Summary</code>: A concise executive-style paragraph summarizing key enrollment patterns without detailed numbers.</li>
+<li><code>Paragraph_Detailed</code>: A longer paragraph describing enrollment changes, grade-level variations, and outlier occurrences, including specific figures and trends.</li>
+<li><code>Enrollment_Trends</code>: A sentence summarizing total enrollment and recent year changes.</li>
+<li><code>Grade_Level_Changes</code>: A sentence describing average and largest changes in enrollment by grade.</li>
+<li><code>Outlier_Summary</code>: A summary of any detected unusual enrollment patterns.</li>
+<li><code>Note</code>: A suggested pointer to plots or tables for further exploration.</li>
+</ul>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Summarize the dataset by grade and year</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>summary_data <span class="ot">&lt;-</span> <span class="fu">summarize_students_by_grade_year</span>(<span class="at">dataset =</span> math)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Generate a narrative report based on the summary</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>report <span class="ot">&lt;-</span> <span class="fu">report_students_by_grade_year</span>(summary_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></details>
+</div></div></section>
+</main></div>
 
-  if (newWindow) {
-    newWindow.focus();
-  } else {
-    window.open(presentationUrl, '_blank');
-  }
-}
-</script>
+
+<section id="cohort-reports" class="level2">
+<h2 data-anchor-id="cohort-reports">Cohort Reports</h2>
 </section>
-<section id="intern-update-2" class="level2">
-<h2 class="anchored" data-anchor-id="intern-update-2">Intern Update #2</h2>
+<section id="performance-reports" class="level2">
+<h2 data-anchor-id="performance-reports">Performance Reports</h2>
 
 
 </section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -633,7 +714,7 @@ function openPresentationInNewWindow() {
     }
   });
   </script>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">

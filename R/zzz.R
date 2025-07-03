@@ -18,6 +18,6 @@
     "COUNT", "Cohort_Label", "JOIN_YEAR_LABEL", "JOIN_GRADE",
     "Years_Since_Join", "FillValue", "Label", "LabelColor", "AcademicYear",
     "Cohort_Label_Stack", "YearsSinceJoin", "PercentRetained",
-    "Change", "grade"
+    "Change", "grade", "YEAR", "GRADE_NUMERIC", "YEAR_LABEL"
   ))
 }
