@@ -3,7 +3,7 @@ Version: 0.1
 Date: 2025-6-5
 Title: Cohort Analysis for Education
 Description: A package designed to assist with analyzing student cohorts by state education agencies.
-Authors@R: c(person(given="Brian", family="Betebenner", email="bharrold@email.sc.edu", role=c("aut", "cre"), 
+Authors@R: c(person(given="Brian", family="Harrold", email="bharrold@email.sc.edu", role=c("aut", "cre"), 
 		comment = c(ORCID = "0009-0009-8680-1709")))
 Maintainer: Brian Harrold <bharrold@email.sc.edu>
 Contact: <bharrold@email.sc.edu>
