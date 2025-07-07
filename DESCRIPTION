@@ -18,7 +18,7 @@ Imports:
   cowplot,
   ggalluvial, 
   utils
-URL: 
+URL: https://stat-brain.github.io/cohortED/
 BugReports: https://github.com/stat-brain/cohortED/issues
 LazyData: Yes
 LazyDataCompression: xz

@@ -112,8 +112,13 @@ print(achievement5$Comparison_Plot)
 
 ## Data Notes
 
-This is an example report based on the sgpData_Long that is contained in the SGPData package, which has been subset to only include the data associated the **Mathematics** Content Area. While the data does not truly represent student attendance, the general functionality  readily accounts for student entering and exiting the data.
 
+```{r data_note}
+#| echo: FALSE
+
+cat(attr(math, "data_note"))
+
+```
 
 
 
