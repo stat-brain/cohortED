@@ -1,0 +1,32 @@
+---
+title: "State Support Tools"
+format: 
+  html:
+    toc: false
+    page-layout: full
+---
+
+**State Support Tools** is an R-based ecosystem designed to support agile, reproducible reporting for state education agencies. It offers modular functions to explore policy-relevant questions around student performance, equity, participation, and more. Built to work with R, Quarto, and GitHub, these tools streamline analysis and enable shareable reports that can be adapted and reused across states.
+
+## Packages
+
+```{=html}
+<div class="d-flex align-items-center mb-4" style="gap: 1.5rem;">
+  <img src="assets/img/cohortED_badge.png" alt="cohortED badge" style="width: 100px; height: auto; border-radius: 0.5rem;">
+  <div>
+    <h5 style="margin-bottom: 0.25rem;">cohortED</h5>
+    <p style="margin-bottom: 0.5rem;">Analyze and visualize student cohort persistence across years and grades.</p>
+    <a href="https://stat-brain.github.io/cohortED/" class="btn btn-sm btn-primary">Learn more →</a>
+  </div>
+</div>
+
+<div class="d-flex align-items-center mb-4" style="gap: 1.5rem;">
+  <img src="assets/img/bueller_hex2.png" alt="bueller badge" style="width: 100px; height: auto; border-radius: 0.5rem;">
+  <div>
+    <h5 style="margin-bottom: 0.25rem;">bueller</h5>
+    <p style="margin-bottom: 0.5rem;">Analyze student engagement through assessment participation and chronic absenteeism data.</p>
+    <a href="https://erwx.github.io/bueller/" class="btn btn-sm btn-primary">Learn more →</a>
+  </div>
+</div>
+
+```

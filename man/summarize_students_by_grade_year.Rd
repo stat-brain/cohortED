@@ -30,6 +30,7 @@ A named list with the following components:
 \item \strong{Heatmap}: ggplot heatmap of student counts
 \item \strong{Enrollment_LinePlot}: ggplot line plot of enrollment trends by grade
 \item \strong{Enrollment_BarPlot}: ggplot stacked bar chart of grade enrollment per year
+\item \strong{Caption}: general caption related to the output
 }
 }
 \description{

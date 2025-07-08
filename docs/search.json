@@ -320,5 +320,33 @@
     "title": "Presentations",
     "section": "Intern Update #3",
     "text": "Intern Update #3"
+  },
+  {
+    "objectID": "landing.html",
+    "href": "landing.html",
+    "title": "State Support Tools",
+    "section": "",
+    "text": "State Support Tools is an R-based ecosystem designed to support agile, reproducible reporting for state education agencies. It offers modular functions to explore policy-relevant questions around student performance, equity, participation, and more. Built to work with R, Quarto, and GitHub, these tools streamline analysis and enable shareable reports that can be adapted and reused across states."
+  },
+  {
+    "objectID": "landing.html#packages",
+    "href": "landing.html#packages",
+    "title": "State Support Tools",
+    "section": "Packages",
+    "text": "Packages\n\n  \n  \n    cohortED\n    Analyze and visualize student cohort persistence across years and grades.\n    Learn more →\n  \n\n\n\n  \n  \n    bueller\n    Analyze student engagement through assessment participation and chronic absenteeism data.\n    Learn more →"
+  },
+  {
+    "objectID": "check.html",
+    "href": "check.html",
+    "title": "A GitHub Repository for a Cohort Analysis in Education",
+    "section": "",
+    "text": "Short description of what this package does.\n        Learn more →"
+  },
+  {
+    "objectID": "check.html#packages",
+    "href": "check.html#packages",
+    "title": "A GitHub Repository for a Cohort Analysis in Education",
+    "section": "",
+    "text": "Short description of what this package does.\n        Learn more →"
   }
 ]

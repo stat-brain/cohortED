@@ -38,6 +38,7 @@ July 10, 2025
 - Focus on transparency, reproducibility, and efficiency
 - Build tools for cohort tracking, participation metrics, and student mobility
 - Provide interactive, well-documented outputs for users
+- **Shift the role of the state analyst from creator to reviewer**
 
 ## Insert Landing Page Here
 
@@ -62,15 +63,7 @@ July 10, 2025
 
 ## Significance of `cohortED`
 
-![](assets/img/package_workflow.png){alt="Package Workflow" style="width: 90%"}
-
-## Potential Extensions (Later)
-
-- Alternative Assessments
-- Support Services
-- Dropout vs. Graduation
-- Chronic Absenteeism
-- Any other **transition**!
+![](assets/img/package_workflow.png){alt="Package workflow showing data preparation, plotting, analysis, and reporting" style="width: 90%"}
 
 ## Recent Improvements
 
@@ -85,17 +78,24 @@ July 10, 2025
   + Describing the population in terms of cohorts
 * Persistence-based analysis
   + Visualizing the changes in the population
+  
+## Visualizing Changes
+
+
 
 ## Bolster Reporting
 
 * Auto-generated text
-  + Compares output from analysis functions
-  + Conditionally constructs responses
-  + Combines responses for reporting
-* User-oriented decisions
-  + Suggest plots or tables
-  + Based on conditional logic
-* Report-ready output
+  - Compares outputs from analysis functions  
+  - Conditionally constructs and combines responses  
+* User-oriented logic
+  - Suggests plots or tables as needed  
+  - Driven by conditional rules  
+* Report-ready narrative
+
+## Within the Report
+
+
 
 ## Clarifying Support
 
@@ -103,7 +103,17 @@ July 10, 2025
   + Searchable website with explanations
   + Summaries with collapsible details
   
-![](assets/img/documentation_screenshot.png){alt="Example Documentation" style="width: 90%"}
+## Live Example
+
+![](assets/img/documentation_screenshot.png){alt="Screenshot of online documentation showing Quarto-generated collapsible function descriptions" style="width: 90%"}
+
+<p style="text-align: center; margin-top: 1em;">
+  <a href="https://stat-brain.github.io/cohortED/analysis_functions.html" target="_blank"
+     style="padding: 0.6em 1.2em; background-color: #004488; color: white; text-decoration: none; border-radius: 6px;">
+    Open Live Example ↗
+  </a>
+</p>
+
 
 ## Defining Workflow
 
@@ -112,6 +122,10 @@ July 10, 2025
   + Streamlined procedures
 * Input-structuring tools
   + Facilitate formatting data
+  
+## Workflow Concept
+
+![](assets/img/functions_workflow.png){alt="Diagram of the cohortED package workflow with four stages: make_ and summarize_, then plot_, then analyze_ and compare_, and finally report_" style="width: 90%"}
 
 ## Example Report
 
@@ -142,12 +156,19 @@ July 10, 2025
 * Prepare NCME Proposals:
   + Mini (2-hour) Training Session
   + Innovative Demonstration
+* Apply Package to Mississippi Assessment Data
+
+## Potential Extensions (Later)
+
+- Alternative Assessments
+- Support Services
+- Dropout vs. Graduation
+- Chronic Absenteeism
+- Any other **transition**!
 
 ## Desired Feedback
 
 - Frequently asked questions about student mobility
 - Related reports or articles to guide future work
 - Advice concerning NCME Proposals
-
-
 

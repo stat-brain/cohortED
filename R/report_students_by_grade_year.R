@@ -63,7 +63,6 @@ report_students_by_grade_year <- function(
     grade_transition_threshold = 20,
     zscore_threshold = 2
 ) {
-  # Validate input
   required_names <- c("Summary_Long", "Total_Enrollment", "Grade_Statistics")
   missing <- setdiff(required_names, names(summary_output))
   if (length(missing) > 0) {
@@ -77,7 +76,7 @@ report_students_by_grade_year <- function(
   
   OUT <- list()
   
-  # --- Total Enrollment Trends ---
+  # Compute total enrollment percent changes
   total_table$PctChange <- c(
     NA,
     round(100 * diff(total_table$Count) / total_table$Count[-nrow(total_table)], 1)
@@ -97,13 +96,18 @@ report_students_by_grade_year <- function(
   recent_is_max <- recent_enroll == max_enroll
   recent_is_min <- recent_enroll == min_enroll
   
-  recent_enrollment_sentence <- paste0(
-    "In ", recent_label, ", total enrollment was ", recent_enroll,
-    if (!is.na(pct_change_recent)) {
-      paste0(", a ", ifelse(pct_change_recent >= 0, "increase", "decrease"),
-             " of ", abs(pct_change_recent), "% from the previous year.")
-    } else "."
-  )
+  direction <- if (pct_change_recent >= 0) "increase" else "decrease"
+  article <- if (tolower(substr(direction, 1, 1)) %in% c("a", "e", "i", "o", "u")) "an" else "a"
+  
+  recent_enrollment_sentence <- if (!is.na(pct_change_recent)) {
+    paste0(
+      "In ", recent_label, ", total enrollment was ", formatC(recent_enroll, big.mark = ","),
+      ", ", article, " ", direction,
+      " of ", abs(pct_change_recent), "% from the previous year."
+    )
+  } else {
+    paste0("In ", recent_label, ", total enrollment was ", formatC(recent_enroll, big.mark = ","), ".")
+  }
   
   recent_extreme_sentence <- ""
   if (recent_is_max) {
@@ -112,7 +116,7 @@ report_students_by_grade_year <- function(
     recent_extreme_sentence <- paste0(recent_label, " had the lowest enrollment on record.")
   }
   
-  # --- Grade-to-Grade Changes ---
+  # Grade-to-grade transitions
   grades <- sort(unique(long_table$GRADE_NUMERIC))
   prev_year_data <- subset(long_table, YEAR == prev_year)
   recent_year_data <- subset(long_table, YEAR == recent_year)
@@ -139,7 +143,7 @@ report_students_by_grade_year <- function(
     max_change_row <- grade_changes[which.max(abs(grade_changes$PctChange)), ]
     grade_change_sentence <- paste0(
       "On average, enrollment by grade changed about ", round(avg_change, 1),
-      "% compared to the prior grade the year before. The largest change was in grade ",
+      "% compared to the same grade's feeder level in the prior year. The largest change was in grade ",
       max_change_row$Grade, " with a ", round(max_change_row$PctChange, 1), "% ",
       ifelse(max_change_row$PctChange > 0, "increase", "decrease"), "."
     )
@@ -148,7 +152,7 @@ report_students_by_grade_year <- function(
     grade_change_sentence <- "Grade-level enrollment remained stable compared to the prior year."
   }
   
-  # --- Outlier Detection ---
+  # Outlier detection
   outlier_sentences <- c()
   for (g in grades) {
     grade_data <- subset(long_table, GRADE_NUMERIC == g)
@@ -166,81 +170,61 @@ report_students_by_grade_year <- function(
     }
   }
   
-  if (length(outlier_sentences) == 0) {
-    outlier_summary <- "No unusual enrollment patterns were detected in any grade."
+  outlier_summary <- if (length(outlier_sentences) == 0) {
+    "No unusual enrollment patterns were detected in any grade."
   } else {
-    outlier_summary <- paste(outlier_sentences, collapse = " ")
+    paste(outlier_sentences, collapse = " ")
   }
   
-  # --- Summary Paragraph (Executive Summary Style) ---
-  summary_sentences <- c("Student enrollment patterns showed notable changes and developments over time.")
+  # Grades with major increases/decreases
+  big_increases <- grade_changes[grade_changes$PctChange >= grade_transition_threshold, ]
+  big_decreases <- grade_changes[grade_changes$PctChange <= -grade_transition_threshold, ]
   
-  if (!is.na(pct_change_recent) && abs(pct_change_recent) >= pct_change_threshold) {
-    summary_sentences <- c(summary_sentences, "Overall enrollment shifted noticeably from the previous year.")
+  list_format <- function(x) {
+    if (length(x) == 1) return(x)
+    if (length(x) == 2) return(paste(x, collapse = " and "))
+    paste(paste(x[-length(x)], collapse = ", "), "and", x[length(x)])
   }
   
-  if (recent_is_max) {
-    summary_sentences <- c(summary_sentences, "The most recent year reached the highest enrollment on record.")
-  } else if (recent_is_min) {
-    summary_sentences <- c(summary_sentences, "The most recent year had the lowest enrollment on record.")
+  # Grades with high average enrollment
+  high_avg_grades <- grade_stats$GRADE_NUMERIC[which(grade_stats$MEAN > mean(grade_stats$MEAN))]
+  high_labels <- unique(long_table$GRADE[long_table$GRADE_NUMERIC %in% high_avg_grades])
+  
+  # Consistency measure
+  consistency_sentence <- ""
+  if (nrow(grade_changes) > 1) {
+    abs_changes_sd <- sd(abs(grade_changes$PctChange), na.rm = TRUE)
+    if (!is.na(abs_changes_sd)) {
+      if (abs_changes_sd < 5) {
+        consistency_sentence <- "Changes in enrollment were fairly consistent across grades."
+      } else {
+        consistency_sentence <- "Some grades experienced larger shifts than others."
+      }
+    }
   }
   
-  if (avg_change >= grade_transition_threshold) {
-    summary_sentences <- c(summary_sentences, "Enrollment varied notably across grade levels.")
-  } else {
-    summary_sentences <- c(summary_sentences, "Grade-level enrollment remained fairly steady.")
-  }
-  
-  if (length(outlier_sentences) > 0) {
-    summary_sentences <- c(summary_sentences, "Some grades experienced enrollment levels outside the typical range.")
-  } else {
-    summary_sentences <- c(summary_sentences, "No major unusual enrollment patterns were detected.")
-  }
-  
-  if (length(summary_sentences) == 1) {
-    summary_sentences <- c(summary_sentences, "Overall, enrollment remained steady without major shifts.")
-  }
-  
-  Paragraph_Summary <- paste(summary_sentences, collapse = " ")
-  
-  # --- Detailed Paragraph (Full Detail) ---
+  # Final detailed paragraph
   detailed_sentences <- c(
     recent_enrollment_sentence,
     recent_extreme_sentence,
     grade_change_sentence
   )
   
-  big_increases <- grade_changes[grade_changes$PctChange >= grade_transition_threshold, ]
-  big_decreases <- grade_changes[grade_changes$PctChange <= -grade_transition_threshold, ]
-  
   if (nrow(big_increases) > 0) {
     detailed_sentences <- c(detailed_sentences,
-                            paste("Grades with the largest increases include:", paste(big_increases$Grade, collapse = ", "), "."))
+                            paste("The largest enrollment increases occurred in grades", list_format(big_increases$Grade), "."))
   }
   if (nrow(big_decreases) > 0) {
     detailed_sentences <- c(detailed_sentences,
-                            paste("Grades with the largest decreases include:", paste(big_decreases$Grade, collapse = ", "), "."))
+                            paste("The largest enrollment decreases occurred in grades", list_format(big_decreases$Grade), "."))
   }
-  
-  high_avg_grades <- grade_stats$GRADE_NUMERIC[which(grade_stats$MEAN > mean(grade_stats$MEAN))]
-  if (length(high_avg_grades) > 0) {
-    high_labels <- long_table$GRADE[long_table$GRADE_NUMERIC %in% high_avg_grades]
-    detailed_sentences <- c(detailed_sentences, paste("Grades with consistently higher enrollment include:",
-                                                      paste(unique(high_labels), collapse = ", "), "."))
+  if (length(high_labels) > 0) {
+    detailed_sentences <- c(detailed_sentences,
+                            paste("Grades with consistently higher enrollment across years included", list_format(high_labels), "."))
   }
-  
-  # New: Comment on similarity of grade changes
-  if (nrow(grade_changes) > 1) {
-    abs_changes_sd <- sd(abs(grade_changes$PctChange), na.rm = TRUE)
-    if (!is.na(abs_changes_sd)) {
-      if (abs_changes_sd < 5) {
-        detailed_sentences <- c(detailed_sentences, "Changes in enrollment were fairly consistent across grades.")
-      } else {
-        detailed_sentences <- c(detailed_sentences, "Some grades experienced larger shifts than others.")
-      }
-    }
+  if (consistency_sentence != "") {
+    detailed_sentences <- c(detailed_sentences, consistency_sentence)
   }
-  
   detailed_sentences <- c(detailed_sentences, outlier_summary)
   
   enroll_sd <- sd(total_table$Count, na.rm = TRUE)
@@ -249,22 +233,43 @@ report_students_by_grade_year <- function(
                             paste0("Enrollment varied by about ", round(enroll_sd, 0), " students across years."))
   }
   
-  Paragraph_Detailed <- paste(detailed_sentences, collapse = " ")
+  OUT$Paragraph_Detailed <- paste(detailed_sentences, collapse = " ")
   
-  # --- Optional Suggestion Note ---
-  note_message <- NULL
-  if (length(high_avg_grades) > 0) {
-    note_message <- "View Heatmap or Grade_Statistics to examine grades with consistently high enrollment."
-  } else if (nrow(big_increases) > 0 || nrow(big_decreases) > 0) {
-    note_message <- "View Enrollment_LinePlot or Enrollment_BarPlot to explore grade-level trends."
+  # Executive summary paragraph
+  summary_sentences <- c("Student enrollment patterns showed notable changes and developments over time.")
+  
+  if (!is.na(pct_change_recent) && abs(pct_change_recent) >= pct_change_threshold) {
+    summary_sentences <- c(summary_sentences, "Overall enrollment shifted noticeably from the previous year.")
+  }
+  if (recent_is_max) {
+    summary_sentences <- c(summary_sentences, "The most recent year reached the highest enrollment on record.")
+  } else if (recent_is_min) {
+    summary_sentences <- c(summary_sentences, "The most recent year had the lowest enrollment on record.")
+  }
+  if (avg_change >= grade_transition_threshold) {
+    summary_sentences <- c(summary_sentences, "Enrollment varied notably across grade levels.")
+  } else {
+    summary_sentences <- c(summary_sentences, "Grade-level enrollment remained fairly steady.")
+  }
+  if (length(outlier_sentences) > 0) {
+    summary_sentences <- c(summary_sentences, "Some grades experienced enrollment levels outside the typical range.")
+  } else {
+    summary_sentences <- c(summary_sentences, "No major unusual enrollment patterns were detected.")
   }
   
-  OUT$Paragraph_Summary <- Paragraph_Summary
-  OUT$Paragraph_Detailed <- Paragraph_Detailed
+  OUT$Paragraph_Summary <- paste(summary_sentences, collapse = " ")
   OUT$Enrollment_Trends <- recent_enrollment_sentence
   OUT$Grade_Level_Changes <- grade_change_sentence
   OUT$Outlier_Summary <- outlier_summary
-  OUT$Note <- note_message
+  
+  OUT$Note <- if (length(high_labels) > 0) {
+    "View Heatmap or Grade_Statistics to examine grades with consistently high enrollment."
+  } else if (nrow(big_increases) > 0 || nrow(big_decreases) > 0) {
+    "View Enrollment_LinePlot or Enrollment_BarPlot to explore grade-level trends."
+  } else {
+    NULL
+  }
   
   invisible(OUT)
 }
+

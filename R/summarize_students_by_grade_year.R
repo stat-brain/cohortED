@@ -23,6 +23,7 @@
 #' - **Heatmap**: ggplot heatmap of student counts
 #' - **Enrollment_LinePlot**: ggplot line plot of enrollment trends by grade
 #' - **Enrollment_BarPlot**: ggplot stacked bar chart of grade enrollment per year
+#' - **Caption**: general caption related to the output
 #'
 #' @details
 #' Grade levels are normalized to numeric values using the internal helper
@@ -105,7 +106,7 @@ summarize_students_by_grade_year <- function(
   # Save long format table to output
   OUT$Summary_Long <- long_table
   
-  # Reshape to wide format with numeric grade as row ID and year as columns
+  # Reshape to wide format: Grade × Year
   wide_table <- reshape(
     long_table[c("GRADE_NUMERIC", "YEAR", "Count")],
     timevar = "YEAR",
@@ -116,22 +117,26 @@ summarize_students_by_grade_year <- function(
   # Replace any NAs with 0
   wide_table[is.na(wide_table)] <- 0
   
-  # Rename "Count.2022" to "2022-2023"
+  # Rename columns from Count.YYYY to academic year format
   names(wide_table) <- sub("^Count\\.", "", names(wide_table))
   year_cols <- setdiff(names(wide_table), "GRADE_NUMERIC")
-  new_names <- to_academic_year(as.integer(year_cols))
+  new_names <- to_academic_year(as.integer(year_cols))  # use your internal function
   names(wide_table)[match(year_cols, names(wide_table))] <- new_names
   
-  # Add original grade labels back and reorder
+  # Merge in original grade labels and reorder
   wide_table <- merge(grade_labels, wide_table, by = "GRADE_NUMERIC", all.x = TRUE)
   wide_table <- wide_table[order(wide_table$GRADE_NUMERIC), ]
   
-  # Clean final wide table for display
-  rownames(wide_table) <- wide_table$GRADE
-  wide_table$GRADE <- NULL
-  wide_table$GRADE_NUMERIC <- NULL
+  # Add "Grade Level" column and move it to front
+  wide_table <- wide_table[, c("GRADE", setdiff(names(wide_table), c("GRADE", "GRADE_NUMERIC")))]
+  names(wide_table)[1] <- "Grade Level"
   
-  # Save to output
+  # Add total row
+  total_vals <- colSums(wide_table[ , -1], na.rm = TRUE)
+  total_row <- c("Total", total_vals)
+  wide_table <- rbind(wide_table, total_row)
+  
+  # Assign to output
   OUT$Summary_Wide <- wide_table
   
   # Compute summary statistics
@@ -216,6 +221,9 @@ summarize_students_by_grade_year <- function(
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
   OUT$Enrollment_BarPlot <- bar_plot
+  
+  # Adding a caption
+  OUT$Caption <- "Student enrollment summary by grade and year. Diagonals may be interpreted as cohorts."
   
   # Return everything
   return(invisible(OUT))

@@ -17,6 +17,8 @@ execute:
 library(cohortED)
 library(ggplot2)
 library(cowplot)
+library(knitr)
+library(kableExtra)
 
 ```
 
@@ -45,17 +47,54 @@ num_students <- format(length(unique(math$ID)), big.mark = ",")
 #| results: asis
 
 cat(paste0(
-  "This short report summarizes trends in student cohorts and mobility, focusing on participation in the state ",
-  tolower(content_area), " assessment during the ", latest_label, " academic year. ",
-  "While ", latest_label, " serves as the primary lens, the dataset spans from ", year_str,
-  ", allowing for the identification of longer-term patterns across academic years. ",
-  "The analysis is based on the presence or absence of individual ", record_type, "s in each year, ",
+  "This short report summarizes trends in student cohorts and mobility, focusing on participation in the state *",
+  tolower(content_area), "* assessment during the *", latest_label, "* academic year. ",
+  "While *", latest_label, "* serves as the primary lens, the dataset spans from *", year_str,
+  "*, allowing for the identification of longer-term patterns across academic years. ",
+  "The analysis is based on the presence or absence of individual *", record_type, "*s in each year, ",
   "which serves as a proxy for enrollment or participation. ",
   "However, it may not fully capture students represented in the system in other ways—such as through partial-year enrollment ",
   "or administrative records without assessment data—and therefore may underrepresent true enrollment. ",
   "Future analyses may benefit from incorporating dedicated enrollment records for more complete insights. ",
-  "This report draws on ", num_students, " unique students from the ", data_source, " dataset."
+  "This report draws on *", num_students, "* unique students from the `", data_source, "` dataset."
 ))
+```
+
+## Student Population
+
+```{r student_population}
+#| echo: false
+
+student_population <- summarize_students_by_grade_year(dataset = math)
+
+```
+
+This section provides an overview of the available student data, including enrollment counts by grade and year. These figures establish the foundation for understanding cohort patterns, mobility trends, and the scope of analysis in subsequent sections.
+
+```{r student_report}
+#| echo: false
+#| results: asis
+
+# Combine your static sentence with the output paragraph
+full_text <- paste0(
+  "The table below provides the number of students by year and grade levels based on the available data. ",
+  report_students_by_grade_year(student_population)$Paragraph_Detailed
+)
+
+cat(full_text)
+
+```
+
+
+```{r student_table}
+#| echo: false
+
+kable(student_population$Summary_Wide, 
+             caption = student_population$Caption, 
+             align = "l", 
+             booktabs = TRUE) %>% 
+  kable_styling(full_width = FALSE)
+  
 ```
 
 ## Definitions
@@ -76,12 +115,12 @@ Based on the table below, the overall trend for students for the 2023-2024 acade
 #| echo: false
 
 change <- plot_distribution_mobility(dataset = math, 
-                                     current_year = "2023_2024",
+                                     current_year = latest_year,
                                      start_grade = 4, 
                                      end_grade = 6, 
                                      print_plot = FALSE)
 
-knitr::kable(change$Table, 
+kable(change$Table, 
              caption = change$Caption, 
              align = rep("r", ncol(change$Table)))
 ```
@@ -91,8 +130,8 @@ Also of interest is how these cohorts of students compare to one another and to 
 ```{r spaghetti}
 #| echo: false
 
-prof1 = plot_cohort2_proficiency(dataset = math, 
-                                 year_range = c(2020, 2021, 2022, 2023, 2024), 
+prof1 <- plot_cohort2_proficiency(dataset = math, 
+                                 year_range = c(earliest_year:latest_year), 
                                  grade_range = c(3, 4, 5), 
                                  n_proficiencies = 2,
                                  achievement = "ACHIEVEMENT_LEVEL")
@@ -111,7 +150,7 @@ This section focuses on the students who were in Grade 4 during the 2022-2023 ac
 #| echo: FALSE
 
 grade5 = plot_alluvial_mobility(dataset = math, 
-                                current_year = "2023_2024", 
+                                current_year = latest_year, 
                                 current_grade = 5)
 ```
 
@@ -120,7 +159,7 @@ As shown in the table below, the non-white student population generally experien
 ```{r ethnicity_table}
 #| echo: FALSE
 
-knitr::kable(grade5$Table_by_Ethnicity, 
+kable(grade5$Table_by_Ethnicity, 
              caption = grade5$Caption, 
              align = rep("r", ncol(grade5$Table_by_Ethnicity)))
 
@@ -132,7 +171,7 @@ As research suggests, student mobility has an impact on student performance. To 
 #| echo: FALSE
 
 achievement5 = compare_achievement_mobility(dataset = math, 
-                                            current_year = 2023, 
+                                            current_year = latest_year, 
                                             current_grade = 5, 
                                             achievement_levels = c("Advanced", 
                                                                    "Proficient", 

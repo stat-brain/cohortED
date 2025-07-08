@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Presentations – cohortED</title>
+<title>check – A GitHub Repository for a Cohort Analysis in Education</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/img/logo_color.png" rel="icon" type="image/png">
+<link href="././assets/img/logo_color.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -40,9 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-a62a53684e5ef22a280b3f99efc0171d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
-  "copy-button": false,
+  "copy-button": true,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
@@ -69,15 +70,22 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="assets/css/website-styles.css">
-<link rel="stylesheet" href="assets/css/embed-style.css">
-<meta property="og:title" content="Presentations – cohortED">
-<meta property="og:description" content="A GitHub repository and reporting toolkit for cohort analysis in education.">
-<meta property="og:image" content="https://stat-brain.github.io/cohortED/assets/img/cohortED_badge.png">
-<meta property="og:site_name" content="cohortED">
-<meta property="og:image:alt" content="cohortED logo">
-<meta property="og:image:height" content="1024">
-<meta property="og:image:width" content="1024">
+<meta property="og:title" content="A GitHub Repository for a Cohort Analysis in Education">
+<meta property="og:image" content="https://stat-brain.github.io/cohortED/assets/img/logo_grey.png">
+<meta property="og:site_name" content="A GitHub Repository for a Cohort Analysis in Education">
+<meta property="og:image:alt" content="packageSkeleton logo">
+<meta property="og:image:height" content="237">
+<meta property="og:image:width" content="246">
 <meta property="og:locale" content="en-US">
+<meta name="twitter:title" content="packageSkeleton">
+<meta name="twitter:description" content="A GitHub repository featuring a starter template for R package development, paired with a Quarto-powered website">
+<meta name="twitter:image" content="https://stat-brain.github.io/cohortED/assets/img/logo_grey.png">
+<meta name="twitter:image:alt" content="packageSkeleton logo">
+<meta name="twitter:creator" content="dbetebenner">
+<meta name="twitter:site" content="nciea1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="237">
+<meta name="twitter:image-width" content="246">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -88,7 +96,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://stat-brain.github.io/cohortED/" class="navbar-brand navbar-brand-logo">
-    <img src="./assets/img/logo_grey.png" alt="cohortED Package Homepage" class="navbar-logo">
+    <img src="././assets/img/logo_grey.png" alt="cohortED Package Homepage" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="https://stat-brain.github.io/cohortED/">
     <span class="navbar-title">cohortED</span>
@@ -151,13 +159,12 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./landing.html"> 
-<span class="menu-text">State Support Tools</span></a>
+    <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank"> 
+<span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:github" style="font-size: 28px;" aria-label="The packageSkeleton GitHub Repo" title="GitHub Repo"></iconify-icon></span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank"> <i class="bi bi-github" role="img" aria-label="cohortED GitHub Repository">
-</i> 
-<span class="menu-text"></span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./landing.html"> 
+<span class="menu-text">landing</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -175,64 +182,33 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#intern-update-1" id="toc-intern-update-1" class="nav-link active" data-scroll-target="#intern-update-1">Intern Update #1</a></li>
-  <li><a href="#intern-update-2" id="toc-intern-update-2" class="nav-link" data-scroll-target="#intern-update-2">Intern Update #2</a></li>
-  <li><a href="#intern-update-3" id="toc-intern-update-3" class="nav-link" data-scroll-target="#intern-update-3">Intern Update #3</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link active" data-scroll-target="#packages">Packages</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Presentations</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="row">
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <img src="https://www.r-project.org/logo/Rlogo.png" class="card-img-top" alt="R logo">
+      <div class="card-body">
+        <h5 class="card-title anchored">testPkg</h5>
+        <p class="card-text">Short description of what this package does.</p>
+        <a href="https://example.com" class="btn btn-primary">Learn more →</a>
+      </div>
+    </div>
   </div>
-  
 
+</div>
 
-</header>
-
-
-<section id="intern-update-1" class="level2">
-<h2 class="anchored" data-anchor-id="intern-update-1">Intern Update #1</h2>
-<div class="iframe-container" onclick="openPresentationInNewWindow('content/presentations/intern_update1.html')" aria-label="Embedded presentation: Intern Update #1">
-<p><iframe src="content/presentations/intern_update1.html" allowfullscreen="" title="Intern Update #1 presentation"> </iframe></p>
-</div>
-<div class="presentation-controls">
-<p><button class="btn-presentation" onclick="openPresentationInNewWindow('content/presentations/intern_update1.html')" aria-label="Open Intern Update #1 presentation in full screen"> <svg class="btn-icon" fill="currentColor" viewbox="0 0 20 20"> <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path> </svg> Open Full Screen </button></p>
-</div>
-</section>
-<section id="intern-update-2" class="level2">
-<h2 class="anchored" data-anchor-id="intern-update-2">Intern Update #2</h2>
-<div class="iframe-container" onclick="openPresentationInNewWindow('content/presentations/intern_update2.html')" aria-label="Embedded presentation: Intern Update #2">
-<p><iframe src="content/presentations/intern_update2.html" allowfullscreen="" title="Intern Update #2 presentation"> </iframe></p>
-</div>
-<div class="presentation-controls">
-<p><button class="btn-presentation" onclick="openPresentationInNewWindow('content/presentations/intern_update2.html')" aria-label="Open Intern Update #2 presentation in full screen"> <svg class="btn-icon" fill="currentColor" viewbox="0 0 20 20"> <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path> </svg> Open Full Screen </button></p>
-</div>
-<script>
-function openPresentationInNewWindow(presentationUrl) {
-  const newWindow = window.open(presentationUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
-  if (newWindow) {
-    newWindow.focus();
-  } else {
-    window.open(presentationUrl, '_blank');
-  }
-}
-</script>
-</section>
-<section id="intern-update-3" class="level2">
-<h2 class="anchored" data-anchor-id="intern-update-3">Intern Update #3</h2>
 
 
 </section>
@@ -645,17 +621,15 @@ function openPresentationInNewWindow(presentationUrl) {
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://stat-brain.github.io/cohortED/" target="_blank">
-      <i class="bi bi-info-square-fill" role="img" aria-label="About packageSkeleton">
-</i> 
-    </a>
+    <li class="nav-item">
+    <a class="nav-link" href="https://centerforassessment.github.io/packageSkeleton/">
+<p><iconify-icon role="img" inline="" icon="bi:info-square-fill" style="font-size: 28px;" aria-label="About packageSkeleton" title="About packageSkeleton"></iconify-icon></p>
+</a>
   </li>  
-    <li class="nav-item compact">
+    <li class="nav-item">
     <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank">
-      <i class="bi bi-github" role="img" aria-label="cohortED GitHub Repository">
-</i> 
-    </a>
+<p><iconify-icon role="img" inline="" icon="jam:github-square" style="font-size: 33.5px;" aria-label="The packageSkeleton GitHub Repo" title="GitHub Repo"></iconify-icon></p>
+</a>
   </li>  
 </ul>
     </div>

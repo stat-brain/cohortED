@@ -26,11 +26,16 @@ definitions$mobility <- list(
   )
 )
 
+definitions$mobility$bullets <- paste0(
+  "- **", names(definitions$mobility$items), "**: ", definitions$mobility$items
+)
+
+# Step 2: Join with intro using \n separator
 definitions$mobility$bullet_text <- paste(
   "A student has a mobility status of:",
   "",
-  paste0("- **", names(definitions$mobility$items), "**: ", definitions$mobility$items),
-  collapse = "\n"
+  paste(definitions$mobility$bullets, collapse = "\n"),
+  sep = "\n"
 )
 
 definitions$achievement_levels = list(

@@ -98,20 +98,22 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
   DF_NEW$cohort <- DF_NEW$year - DF_NEW$grade + start_grade
   colnames(DF_NEW) <- c("Grade", "Year", "% Not Proficient", "% Proficient", "Cohort")
   
-  # Create the plot using ggplot2::
-  PLOT <- ggplot2::ggplot(DF_NEW, ggplot2::aes(x = Grade, y = `% Proficient`, group = Cohort, color = as.factor(Cohort))) +
-    ggplot2::geom_point(size = 3) +
-    ggplot2::geom_line(linewidth = 1) +
-    ggplot2::scale_color_brewer(palette = "Dark2") +
-    ggplot2::scale_x_continuous(breaks = seq(min(DF_NEW$Grade), max(DF_NEW$Grade), 1)) +
-    ggplot2::labs(
+  DF_NEW <- subset(DF_NEW, !is.na(`% Proficient`))
+  
+  # Create the plot using 
+  PLOT <- ggplot(DF_NEW, aes(x = Grade, y = `% Proficient`, group = Cohort, color = as.factor(Cohort))) +
+    geom_point(size = 3) +
+    geom_line(linewidth = 1) +
+    scale_color_brewer(palette = "Dark2") +
+    scale_x_continuous(breaks = seq(min(DF_NEW$Grade), max(DF_NEW$Grade), 1)) +
+    labs(
       x = "Grade",
       y = "Percent Proficient",
       title = "Percent Proficient by Cohort",
       color = paste0("Grade ", start_grade, " Cohort")
     ) +
-    ggplot2::theme_minimal(base_size = 14) +
-    ggplot2::theme(legend.position = "bottom")
+    theme_minimal(base_size = 14) +
+    theme(legend.position = "bottom")
   
   # Wide-format table: grade x year with % Proficient values
   TABLE <- xtabs(`% Proficient` ~ Grade + Year, data = DF_NEW)

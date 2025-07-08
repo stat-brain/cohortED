@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Plotting Functions – A GitHub Repository for a Cohort Analysis in Education</title>
+<title>Plotting Functions – cohortED</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="././assets/img/logo_color.png" rel="icon" type="image/png">
+<link href="./assets/img/logo_color.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -75,10 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-a62a53684e5ef22a280b3f99efc0171d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
-  "copy-button": true,
+  "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
@@ -105,22 +104,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="assets/css/website-styles.css">
-<meta property="og:title" content="Plotting Functions – A GitHub Repository for a Cohort Analysis in Education">
-<meta property="og:image" content="https://stat-brain.github.io/cohortED/assets/img/logo_grey.png">
-<meta property="og:site_name" content="A GitHub Repository for a Cohort Analysis in Education">
-<meta property="og:image:alt" content="packageSkeleton logo">
-<meta property="og:image:height" content="237">
-<meta property="og:image:width" content="246">
+<meta property="og:title" content="Plotting Functions – cohortED">
+<meta property="og:description" content="A GitHub repository and reporting toolkit for cohort analysis in education.">
+<meta property="og:image" content="https://stat-brain.github.io/cohortED/assets/img/cohortED_badge.png">
+<meta property="og:site_name" content="cohortED">
+<meta property="og:image:alt" content="cohortED logo">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1024">
 <meta property="og:locale" content="en-US">
-<meta name="twitter:title" content="packageSkeleton">
-<meta name="twitter:description" content="A GitHub repository featuring a starter template for R package development, paired with a Quarto-powered website">
-<meta name="twitter:image" content="https://stat-brain.github.io/cohortED/assets/img/logo_grey.png">
-<meta name="twitter:image:alt" content="packageSkeleton logo">
-<meta name="twitter:creator" content="dbetebenner">
-<meta name="twitter:site" content="nciea1">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image-height" content="237">
-<meta name="twitter:image-width" content="246">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -131,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="https://stat-brain.github.io/cohortED/" class="navbar-brand navbar-brand-logo">
-    <img src="././assets/img/logo_grey.png" alt="cohortED Package Homepage" class="navbar-logo">
+    <img src="./assets/img/logo_grey.png" alt="cohortED Package Homepage" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="https://stat-brain.github.io/cohortED/">
     <span class="navbar-title">cohortED</span>
@@ -194,8 +185,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank"> 
-<span class="menu-text"><iconify-icon role="img" inline="" icon="fa6-brands:github" style="font-size: 28px;" aria-label="The packageSkeleton GitHub Repo" title="GitHub Repo"></iconify-icon></span></a>
+    <a class="nav-link" href="./landing.html"> 
+<span class="menu-text">State Support Tools</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank"> <i class="bi bi-github" role="img" aria-label="cohortED GitHub Repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -736,15 +732,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
-    <li class="nav-item">
-    <a class="nav-link" href="https://centerforassessment.github.io/packageSkeleton/">
-<p><iconify-icon role="img" inline="" icon="bi:info-square-fill" style="font-size: 28px;" aria-label="About packageSkeleton" title="About packageSkeleton"></iconify-icon></p>
-</a>
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://stat-brain.github.io/cohortED/" target="_blank">
+      <i class="bi bi-info-square-fill" role="img" aria-label="About packageSkeleton">
+</i> 
+    </a>
   </li>  
-    <li class="nav-item">
+    <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/stat-brain/cohortED/" target="_blank">
-<p><iconify-icon role="img" inline="" icon="jam:github-square" style="font-size: 33.5px;" aria-label="The packageSkeleton GitHub Repo" title="GitHub Repo"></iconify-icon></p>
-</a>
+      <i class="bi bi-github" role="img" aria-label="cohortED GitHub Repository">
+</i> 
+    </a>
   </li>  
 </ul>
     </div>
