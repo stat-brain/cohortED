@@ -119,7 +119,7 @@ plot_alluvial_mobility <- function(dataset, current_year, current_grade, print_p
     labs(title = paste("Grade", current_grade, "in", current_year_text))
   
   # Create proportion tables
-  by_ethnicity <- round(propFor.table(table(dataset$mobility_status, dataset$ethnicity), margin = 2), 3) * 100
+  by_ethnicity <- round(prop.table(table(dataset$mobility_status, dataset$ethnicity), margin = 2), 3) * 100
   by_gender <- round(prop.table(table(dataset$mobility_status, dataset$gender), margin = 2), 3) * 100
   
   by_ethnicity <- apply(by_ethnicity, c(1, 2), function(x) sprintf("%.1f%%", x))
