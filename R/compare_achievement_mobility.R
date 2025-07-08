@@ -54,9 +54,9 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
   )$Data
   
   # Using an internal function to handle current year
-  current_year_num <- .parse_year(current_year)
-  last_year_text <- .to_academic_year(current_year_num - 1)
-  current_year_text <- .to_academic_year(current_year_num)
+  current_year_num <- parse_year(current_year)
+  last_year_text <- to_academic_year(current_year_num - 1)
+  current_year_text <- to_academic_year(current_year_num)
   
   # Filter valid scores (remove "No Score" and NA)
   DATA_prev <- NEW_DATA[!is.na(NEW_DATA$achievement_level.x) & NEW_DATA$achievement_level.x != "No Score", ]

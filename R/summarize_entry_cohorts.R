@@ -88,7 +88,7 @@ summarize_entry_cohorts <- function(trajectories, demographic_variables = NULL) 
     join_grade <- gsub("Grade(\\d+)_.*", "\\1", cohort_label)
     join_year <- gsub(".*_(\\d{4})", "\\1", cohort_label)
     
-    title_text <- paste0("Entry: Grade ", join_grade, " in ", .to_academic_year(as.numeric(join_year)))
+    title_text <- paste0("Entry: Grade ", join_grade, " in ", to_academic_year(as.numeric(join_year)))
     
     ggplot(percent_df, aes(x = Years_Since_Join, y = Percent)) +
       geom_col(fill = "steelblue") +

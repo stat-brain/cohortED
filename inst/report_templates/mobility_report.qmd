@@ -22,17 +22,51 @@ library(cowplot)
 
 ## Overview
 
-This short report provides a brief summary of the trends in the student cohorts and student mobility. This will focus on the state mathematics assessment from the 2023-2024 academic year, but illustrate trends over previous academic years.
+```{r setup-overview}
+#| include: false
+
+years <- parse_year(math$YEAR)
+latest_year <- max(years, na.rm = TRUE)
+earliest_year <- min(years, na.rm = TRUE)
+
+latest_label <- to_academic_year(latest_year)
+earliest_label <- to_academic_year(earliest_year)
+year_str <- paste(earliest_label, "to", latest_label)
+
+content_area <- attr(math, "content_area")
+record_type <- attr(math, "record_type")
+data_source <- attr(math, "data_source")
+num_students <- format(length(unique(math$ID)), big.mark = ",")
+
+```
+
+```{r overview-text}
+#| echo: false
+#| results: asis
+
+cat(paste0(
+  "This short report summarizes trends in student cohorts and mobility, focusing on participation in the state ",
+  tolower(content_area), " assessment during the ", latest_label, " academic year. ",
+  "While ", latest_label, " serves as the primary lens, the dataset spans from ", year_str,
+  ", allowing for the identification of longer-term patterns across academic years. ",
+  "The analysis is based on the presence or absence of individual ", record_type, "s in each year, ",
+  "which serves as a proxy for enrollment or participation. ",
+  "However, it may not fully capture students represented in the system in other ways—such as through partial-year enrollment ",
+  "or administrative records without assessment data—and therefore may underrepresent true enrollment. ",
+  "Future analyses may benefit from incorporating dedicated enrollment records for more complete insights. ",
+  "This report draws on ", num_students, " unique students from the ", data_source, " dataset."
+))
+```
 
 ## Definitions
 
-A student has a mobility status of:
+```{r definitions}
+#| echo: false
+#| results: asis
 
-- **Leave** A student has a mobility status of "leave" if there was a record for the previous academic year, but the student is not present in the data for the current academic year.
-- **Stay** A student is classified as having a "stay" mobility status if they are present in the data set for both the previous academic year and the current academic year.
-- **Join** A student has a mobility status of "join" when the student is present in the current academic year's data set, but the student did not appear in the previous data set.
-- **Repeat** if a student is in the same grade in the previous and current academic year.
-- **Advance** if a student is in advances
+cat(definitions$mobility$bullet_text)
+
+```
 
 ## General Trends in Student Mobility and Cohorts
 
@@ -114,12 +148,12 @@ print(achievement5$Comparison_Plot)
 
 
 ```{r data_note}
-#| echo: FALSE
+#| echo: false
+#| results: asis
 
-cat(attr(math, "data_note"))
+cat(attr(math, "data_note"), sep = "\n\n")
 
 ```
-
 
 
 

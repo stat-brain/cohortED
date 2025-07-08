@@ -39,7 +39,7 @@ long and wide formats, along with heatmaps, line plots, and stacked bar charts f
 }
 \details{
 Grade levels are normalized to numeric values using the internal helper
-\code{.normalize_grade()} for correct ordering. Year values are parsed using \code{.parse_year()}
+\code{.normalize_grade()} for correct ordering. Year values are parsed using \code{parse_year()}
 and converted to academic year labels (e.g., "2022-2023") for use in tables and plots.
 
 This function is designed for use in automated reporting workflows (e.g., Quarto)

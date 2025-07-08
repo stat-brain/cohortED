@@ -26,7 +26,7 @@
 #'
 #' @details
 #' Grade levels are normalized to numeric values using the internal helper
-#' \code{.normalize_grade()} for correct ordering. Year values are parsed using \code{.parse_year()}
+#' \code{.normalize_grade()} for correct ordering. Year values are parsed using \code{parse_year()}
 #' and converted to academic year labels (e.g., "2022-2023") for use in tables and plots.
 #'
 #' This function is designed for use in automated reporting workflows (e.g., Quarto)
@@ -77,7 +77,7 @@ summarize_students_by_grade_year <- function(
   names(data_standard)[names(data_standard) == year_variable]       <- "YEAR"
   
   # Normalize YEAR to numeric using internal helper
-  data_standard$YEAR <- .parse_year(data_standard$YEAR)
+  data_standard$YEAR <- parse_year(data_standard$YEAR)
   
   # Normalize GRADE to numeric using internal helper for sorting
   data_standard$GRADE_NUMERIC <- .normalize_grade(data_standard$GRADE)
@@ -100,7 +100,7 @@ summarize_students_by_grade_year <- function(
   long_table <- long_table[order(long_table$GRADE_NUMERIC, long_table$YEAR), ]
   
   # Add academic year label (e.g., "2022-2023")
-  long_table$YEAR_LABEL <- .to_academic_year(long_table$YEAR)
+  long_table$YEAR_LABEL <- to_academic_year(long_table$YEAR)
   
   # Save long format table to output
   OUT$Summary_Long <- long_table
@@ -119,7 +119,7 @@ summarize_students_by_grade_year <- function(
   # Rename "Count.2022" to "2022-2023"
   names(wide_table) <- sub("^Count\\.", "", names(wide_table))
   year_cols <- setdiff(names(wide_table), "GRADE_NUMERIC")
-  new_names <- .to_academic_year(as.integer(year_cols))
+  new_names <- to_academic_year(as.integer(year_cols))
   names(wide_table)[match(year_cols, names(wide_table))] <- new_names
   
   # Add original grade labels back and reorder

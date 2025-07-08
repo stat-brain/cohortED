@@ -25,18 +25,19 @@
 }
 
 
-#' Internal helper to parse various year input formats
+#' Parse Academic Year Strings to Start Year
 #'
-#' Attempts to extract the start numeric year from inputs like:
-#' - numeric year (e.g. 2021)
-#' - string year (e.g. "2021", "2021_2022", "2021-2022", "2021/22")
+#' Converts a numeric or string-based year (e.g., `"2021_2022"`, `"2021-22"`) into a numeric start year (e.g., `2021`).
+#' Useful when working with academic year formats across data sources.
 #'
-#' @param year_input Numeric or string representing a year or academic year range
-#' @return Integer start year
+#' @param year_input A numeric or character vector representing academic years.
+#' @return An integer vector of starting years.
+#' 
+#' @export
 #' @keywords internal
-#'
 
-.parse_year <- function(year_input) {
+
+parse_year <- function(year_input) {
   sapply(year_input, function(yi) {
     if (is.numeric(yi)) {
       return(as.integer(yi))
@@ -97,21 +98,18 @@
   return(result)
 }
 
-#' Convert Numeric Year to Academic Year String
+#' Convert Numeric Year to Academic Year Label
 #'
-#' Converts a numeric year (e.g., 2019) to a formatted academic year string
-#' (e.g., "2019-2020"). Handles vector inputs as well.
-#'
-#' This function is intended for internal use within the package.
+#' Converts a numeric year (e.g., `2019`) to a formatted academic year string (e.g., `"2019-2020"`).
+#' Useful for labeling time periods in reports or plots.
 #'
 #' @param year_numeric A numeric vector of years representing the start year.
-#'
 #' @return A character vector of academic year strings in the form "YYYY-YYYY+1".
-#' 
-#' @keywords internal
 #'
+#' @export
+#' @keywords internal
 
-.to_academic_year <- function(year_numeric) {
+to_academic_year <- function(year_numeric) {
   if (!is.numeric(year_numeric)) {
     stop("Input to .to_academic_year() must be numeric.")
   }

@@ -54,7 +54,7 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   }
   
   #--- Coerce year and grade ---
-  df$year <- .parse_year(df$year)
+  df$year <- parse_year(df$year)
   df$grade <- as.numeric(as.character(df$grade))
   
   #--- Identify join point for each student ---
