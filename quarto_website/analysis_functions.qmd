@@ -3,7 +3,7 @@ title: "Analysis Functions"
 format:
   html:
     toc: true
-    number-sections: false 
+    number-sections: false
 ---
 
 ## Analytic Functions

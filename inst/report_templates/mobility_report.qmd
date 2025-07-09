@@ -13,6 +13,7 @@ execute:
 
 ```{r setup}
 #| echo: false
+#| warning: false
 
 library(cohortED)
 library(ggplot2)

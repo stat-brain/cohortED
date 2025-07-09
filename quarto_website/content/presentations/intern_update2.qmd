@@ -40,7 +40,11 @@ July 10, 2025
 - Provide interactive, well-documented outputs for users
 - **Shift the role of the state analyst from creator to reviewer**
 
-## Insert Landing Page Here
+## {style="display: none;"}
+
+<a href="https://stat-brain.github.io/cohortED/landing.html" target="_blank">
+  <img src="assets/img/landing_page.png" style="width: 100%; height: auto; margin: 0; padding: 0;" />
+</a>
 
 
 # `cohortED` package
