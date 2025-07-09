@@ -85,7 +85,7 @@ July 10, 2025
   
 ## Visualizing Changes
 
-
+![](assets/img/visualizing_change.png){alt="Screenshot of example report showing new plotting capabilities" style="width: 90%"}
 
 ## Bolster Reporting
 
@@ -99,7 +99,7 @@ July 10, 2025
 
 ## Within the Report
 
-
+![](assets/img/bolster_reporting.png){alt="Screenshot of example report showing automatically generated text" style="width: 90%"}
 
 ## Clarifying Support
 
@@ -133,9 +133,7 @@ July 10, 2025
 
 ## Example Report
 
-*Continue to incorporate feedback*
-
-<iframe src="assets/mobility_report.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
+<iframe src="assets/mobility_report2.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
 
 <div style="margin-top: 12px; text-align: center;">
   <a href="https://stat-brain.github.io/cohortED/example_reports.html" target="_blank" style="font-weight: bold; text-decoration: none; color: #007acc;">
