@@ -288,6 +288,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <p>Summarizes the characteristics and duration-in-cohort of student entry cohorts, including demographic distributions and retention histograms.</p>
+<div style="
+  color: red; 
+  text-decoration: underline; 
+  font-weight: bold; 
+  margin-bottom: 1em;
+">
+<p>⚠️ Warning: Please make sure to run <code style="
+    color: inherit; 
+    background: transparent; 
+    padding: 0; 
+    font-weight: bold;
+    border: none;
+  ">analyze_student_cohorts()</code> before using this function.</p>
+</div>
 <details>
 <summary>
 <strong>More details</strong>
@@ -304,8 +318,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>DurationHistograms</code>: A list of <code>ggplot2</code> histogram plots showing cohort retention distributions by entry year and grade.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cohorts <span class="ot">&lt;-</span> <span class="fu">analyze_student_cohorts</span>(<span class="at">dataset =</span> math)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_entry_cohorts</span>(<span class="at">trajectories =</span> cohorts<span class="sc">$</span>Trajectories)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Use analyze_student_cohorts to get the Trajectories</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cohorts <span class="ot">&lt;-</span> <span class="fu">analyze_student_cohorts</span>(<span class="at">dataset =</span> math)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Use the Trajectories to analyze entry cohorts</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_entry_cohorts</span>(<span class="at">trajectories =</span> cohorts<span class="sc">$</span>Trajectories)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>

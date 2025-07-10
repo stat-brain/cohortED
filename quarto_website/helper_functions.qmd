@@ -77,17 +77,6 @@ make_achievement_levels(
 
 :::
 
-yaml
-Copy code
-
-
-::: {.callout-note icon = false}
-## `make_proficiency_levels()`
-
-Assigns students a binary proficiency category (e.g., proficient vs. not proficient) by classifying the top *n* achievement levels as "proficient" and the rest as "not proficient."
-
-:::
-
 ::: {.callout-note icon = false}
 ## `make_proficiency_levels()`
 

@@ -51,6 +51,21 @@ analyze_cohort_persistence(my_data, start_grade = 3, start_year = 2020)
 
 Summarizes the characteristics and duration-in-cohort of student entry cohorts, including demographic distributions and retention histograms.
 
+<div style="
+  color: red; 
+  text-decoration: underline; 
+  font-weight: bold; 
+  margin-bottom: 1em;
+">
+  ⚠️ Warning: Please make sure to run <code style="
+    color: inherit; 
+    background: transparent; 
+    padding: 0; 
+    font-weight: bold;
+    border: none;
+  ">analyze_student_cohorts()</code> before using this function.
+</div>
+
 <details>
 <summary><strong>More details</strong></summary>
 
@@ -68,7 +83,10 @@ Summarizes the characteristics and duration-in-cohort of student entry cohorts, 
 **Example:**
 
 ```r
+# Step 1: Use analyze_student_cohorts to get the Trajectories
 cohorts <- analyze_student_cohorts(dataset = math)
+
+# Step 2: Use the Trajectories to analyze entry cohorts
 analyze_entry_cohorts(trajectories = cohorts$Trajectories)
 ```
 </details>
