@@ -91,11 +91,9 @@ cat(full_text)
 #| echo: false
 
 kable(student_population$Summary_Wide, 
-             caption = student_population$Caption, 
-             align = "l", 
-             booktabs = TRUE) %>% 
-  kable_styling(full_width = FALSE)
-  
+      caption = student_population$Caption, 
+      align = "l")
+
 ```
 
 ## Definitions
@@ -112,22 +110,19 @@ cat(definitions$mobility$bullet_text)
 
 To better understand student mobility, consider the heatmap below, which tracks how long students remain in their expected educational trajectory. Each row represents a different grade level, and each column shows the number or percentage of students from the original cohort who are still enrolled in that grade in subsequent years. One cohort includes 4,323 students who were first observed in Grade 3 during the 2019–2020 school year. One year later, 89.8% of those students progressed to Grade 4. This number gradually declines each year, with only 74.4% of the original group reaching Grade 7 by 2023–2024.
 
-::: {.columns}
+```{r image}
+#| echo: false
 
-::: {.column width="35%"}
-![](cohort_explanation.png)
-:::
+knitr::include_graphics("cohort_explanation.png")
 
-::: {.column width="65%"}
+```
+
 
 ```{r cohorts}
 #| echo: false
 cohort1 <- analyze_student_cohorts(dataset = math)
 print(cohort1$Heatmaps$`2019`)
 ```
-:::
-
-:::
 
 Based on the table below, the overall trend for students for the 2023-2024 academic year seem to be that there is little difference in the mobility of students based on the grade level. Approximately 80% of students from each grade in 2023-2024 continued from the previous grade during the previous academic year. Students appear to be joining at a slightly higher rate than leaving.
 

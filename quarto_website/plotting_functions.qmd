@@ -9,27 +9,35 @@ format:
 ## Mobility Related
 
 ::: {.callout-note icon = false}
+
 ## `plot_distribution_mobility()`
 
-Creates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.
+Visualizes student mobility across grades between two academic years by showing the proportion of students who stayed, left, or joined.
 
 <details>
 <summary><strong>More details</strong></summary>
 
 **Arguments:**
 
-- `dataset`: A data frame containing student-level records with achievement and mobility info.
-- ` `
+- `dataset`: A data frame with at least the columns `id`, `grade`, and `year`.
+- `current_year`: Academic year of interest (numeric or character, e.g., `"2022-23"` or `2022`). Mobility is computed relative to the previous year.
+- `start_grade`: Optional; lowest grade to include (e.g., `"PK"`, `"K"`, `1`). Defaults to `2`.
+- `end_grade`: Optional; highest grade to include. Defaults to `12`.
+- `print_plot`: Logical; whether to print the resulting bar plot (default = `TRUE`).
 
-**Returns:** A named list invisibly containing:
+**Returns:** A named list (invisibly) containing:
 
-
+- `Data`: Data frame with one row per grade and mobility status, including:
+  - `MOBILITY` ("Leave", "Stay", "Join")
+  - `GRADE`, `COUNT`, `PROPORTION`, `PERCENT`
+- `Plot`: A `ggplot2` bar chart showing mobility distribution by grade.
+- `Table`: A matrix of formatted percentages with mobility status as rows and grades as columns.
+- `Caption`: Text string describing the academic year range displayed.
 
 **Example:**
 
 ```r
-plot_distribution_mobility()
-)
+plot_distribution_mobility(dataset = math, current_year = 2022, start_grade = 4, end_grade = 6)
 ```
 </details>
 
@@ -45,17 +53,24 @@ Generates an alluvial diagram to illustrate the relationship between student dem
 
 **Arguments:**
 
-- `dataset`: A data frame containing student-level records with achievement and mobility info.
-- ` `
+- `dataset`: A data frame that includes student-level `grade`, `year`, `gender`, and `ethnicity` variables.
+- `current_year`: Academic year of interest (e.g., `"2020_2021"`); used to determine mobility transitions.
+- `current_grade`: Grade level to evaluate (numeric or character, e.g., `4` or `"4"`).
+- `print_plot`: Logical; whether to print the plot to the graphics device (default = `TRUE`).
 
-**Returns:** A named list invisibly containing:
+**Returns:** A named list (invisibly) containing:
 
-
+- `Data`: The updated dataset with `mobility_status`, `gender`, and `ethnicity` standardized.
+- `Data_Table`: A contingency table of `Mobility × Gender × Ethnicity`.
+- `Table_by_Ethnicity`: A proportion table (in percentages) of mobility by ethnicity.
+- `Table_by_Gender`: A proportion table (in percentages) of mobility by gender.
+- `Caption`: A sentence summarizing the grade transition and year range.
+- `Plot`: A `ggplot2` alluvial diagram displaying the breakdown of mobility by gender and ethnicity.
 
 **Example:**
 
 ```r
-plot_alluvial_mobility()
+plot_alluvial_mobility(dataset = math, current_year = "2020_2021", current_grade = 4)
 ```
 </details>
 
@@ -74,17 +89,24 @@ Creates a line chart that visualizes percent proficient over time for each synth
 
 **Arguments:**
 
-- `dataset`: A data frame containing student-level records with achievement and mobility info.
-- ` `:
+- `dataset`: A data frame containing at least `grade` and `year` columns.
+- `year_range`: A numeric vector of years to include (e.g., `2020:2024`).
+- `grade_range`: A numeric vector of grade levels to include (e.g., `3:5`).
+- `n_proficiencies`: Optional. Number of proficiency levels to derive if not already present (default = `2`).
+- `achievement`: Optional. Column name for achievement levels (default = `"ACHIEVEMENT_LEVEL"`).
 
-**Returns:** A named list invisibly containing:
+**Returns:** A named list (invisibly) containing:
 
-
+- `Data`: A tidy data frame with percent proficient and not proficient by grade and year.
+- `Table`: A wide-format table (Grade × Year) with percent proficient values.
+- `Plot`: A `ggplot2` line chart showing synthetic cohort trends across grades.
+- `Caption`: Description of the plot’s content.
+- `Note`: Clarifies that the cohorts are synthetic and not student-level longitudinal.
 
 **Example:**
 
 ```r
-plot_cohort2_proficiency()
+plot_cohort2_proficiency(dataset = math, year_range = 2020:2024, grade_range = 3:5)
 ```
 </details>
 

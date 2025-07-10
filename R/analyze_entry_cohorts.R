@@ -19,7 +19,7 @@
 #' @export
 #' 
 
-summarize_entry_cohorts <- function(trajectories, demographic_variables = NULL) {
+analyze_entry_cohorts <- function(trajectories, demographic_variables = NULL) {
   # Validate input
   if (!is.data.frame(trajectories)) stop(
     "'trajectories' must be a data frame.\n",

@@ -248,20 +248,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Creates stacked bar plots to visualize the proportions of students who leave, join, or stay across grade levels.</p>
+<p>Visualizes student mobility across grades between two academic years by showing the proportion of students who stayed, left, or joined.</p>
 <details>
 <summary>
 <strong>More details</strong>
 </summary>
 <p><strong>Arguments:</strong></p>
 <ul>
-<li><code>dataset</code>: A data frame containing student-level records with achievement and mobility info.</li>
-<li><code></code></li>
+<li><code>dataset</code>: A data frame with at least the columns <code>id</code>, <code>grade</code>, and <code>year</code>.</li>
+<li><code>current_year</code>: Academic year of interest (numeric or character, e.g., <code>"2022-23"</code> or <code>2022</code>). Mobility is computed relative to the previous year.</li>
+<li><code>start_grade</code>: Optional; lowest grade to include (e.g., <code>"PK"</code>, <code>"K"</code>, <code>1</code>). Defaults to <code>2</code>.</li>
+<li><code>end_grade</code>: Optional; highest grade to include. Defaults to <code>12</code>.</li>
+<li><code>print_plot</code>: Logical; whether to print the resulting bar plot (default = <code>TRUE</code>).</li>
 </ul>
-<p><strong>Returns:</strong> A named list invisibly containing:</p>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Data</code>: Data frame with one row per grade and mobility status, including:
+<ul>
+<li><code>MOBILITY</code> (“Leave”, “Stay”, “Join”)</li>
+<li><code>GRADE</code>, <code>COUNT</code>, <code>PROPORTION</code>, <code>PERCENT</code></li>
+</ul></li>
+<li><code>Plot</code>: A <code>ggplot2</code> bar chart showing mobility distribution by grade.</li>
+<li><code>Table</code>: A matrix of formatted percentages with mobility status as rows and grades as columns.</li>
+<li><code>Caption</code>: Text string describing the academic year range displayed.</li>
+</ul>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_distribution_mobility</span>()</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="er">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_distribution_mobility</span>(<span class="at">dataset =</span> math, <span class="at">current_year =</span> <span class="dv">2022</span>, <span class="at">start_grade =</span> <span class="dv">4</span>, <span class="at">end_grade =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -282,12 +294,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </summary>
 <p><strong>Arguments:</strong></p>
 <ul>
-<li><code>dataset</code>: A data frame containing student-level records with achievement and mobility info.</li>
-<li><code></code></li>
+<li><code>dataset</code>: A data frame that includes student-level <code>grade</code>, <code>year</code>, <code>gender</code>, and <code>ethnicity</code> variables.</li>
+<li><code>current_year</code>: Academic year of interest (e.g., <code>"2020_2021"</code>); used to determine mobility transitions.</li>
+<li><code>current_grade</code>: Grade level to evaluate (numeric or character, e.g., <code>4</code> or <code>"4"</code>).</li>
+<li><code>print_plot</code>: Logical; whether to print the plot to the graphics device (default = <code>TRUE</code>).</li>
 </ul>
-<p><strong>Returns:</strong> A named list invisibly containing:</p>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Data</code>: The updated dataset with <code>mobility_status</code>, <code>gender</code>, and <code>ethnicity</code> standardized.</li>
+<li><code>Data_Table</code>: A contingency table of <code>Mobility × Gender × Ethnicity</code>.</li>
+<li><code>Table_by_Ethnicity</code>: A proportion table (in percentages) of mobility by ethnicity.</li>
+<li><code>Table_by_Gender</code>: A proportion table (in percentages) of mobility by gender.</li>
+<li><code>Caption</code>: A sentence summarizing the grade transition and year range.</li>
+<li><code>Plot</code>: A <code>ggplot2</code> alluvial diagram displaying the breakdown of mobility by gender and ethnicity.</li>
+</ul>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_alluvial_mobility</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_alluvial_mobility</span>(<span class="at">dataset =</span> math, <span class="at">current_year =</span> <span class="st">"2020_2021"</span>, <span class="at">current_grade =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -311,12 +333,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </summary>
 <p><strong>Arguments:</strong></p>
 <ul>
-<li><code>dataset</code>: A data frame containing student-level records with achievement and mobility info.</li>
-<li><code></code>:</li>
+<li><code>dataset</code>: A data frame containing at least <code>grade</code> and <code>year</code> columns.</li>
+<li><code>year_range</code>: A numeric vector of years to include (e.g., <code>2020:2024</code>).</li>
+<li><code>grade_range</code>: A numeric vector of grade levels to include (e.g., <code>3:5</code>).</li>
+<li><code>n_proficiencies</code>: Optional. Number of proficiency levels to derive if not already present (default = <code>2</code>).</li>
+<li><code>achievement</code>: Optional. Column name for achievement levels (default = <code>"ACHIEVEMENT_LEVEL"</code>).</li>
 </ul>
-<p><strong>Returns:</strong> A named list invisibly containing:</p>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Data</code>: A tidy data frame with percent proficient and not proficient by grade and year.</li>
+<li><code>Table</code>: A wide-format table (Grade × Year) with percent proficient values.</li>
+<li><code>Plot</code>: A <code>ggplot2</code> line chart showing synthetic cohort trends across grades.</li>
+<li><code>Caption</code>: Description of the plot’s content.</li>
+<li><code>Note</code>: Clarifies that the cohorts are synthetic and not student-level longitudinal.</li>
+</ul>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cohort2_proficiency</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cohort2_proficiency</span>(<span class="at">dataset =</span> math, <span class="at">year_range =</span> <span class="dv">2020</span><span class="sc">:</span><span class="dv">2024</span>, <span class="at">grade_range =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>

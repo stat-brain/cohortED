@@ -283,6 +283,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
+<code>analyze_entry_cohorts()</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Summarizes the characteristics and duration-in-cohort of student entry cohorts, including demographic distributions and retention histograms.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>trajectories</code>: A data frame, specifically the <code>$Trajectories</code> output from <code>analyze_student_cohorts()</code>.</li>
+<li><code>demographic_variables</code>: Optional character vector of demographic variables to summarize. If <code>NULL</code>, defaults to common variables such as <code>GENDER</code>, <code>ETHNICITY</code>, <code>ELL_STATUS</code>, etc.</li>
+</ul>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>GroupSummaries</code>: A list of data frames summarizing demographic or school characteristics by cohort.</li>
+<li><code>DurationTable</code>: A data frame with mean, median, and max years in cohort per entry group.</li>
+<li><code>DurationHistograms</code>: A list of <code>ggplot2</code> histogram plots showing cohort retention distributions by entry year and grade.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cohorts <span class="ot">&lt;-</span> <span class="fu">analyze_student_cohorts</span>(<span class="at">dataset =</span> math)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_entry_cohorts</span>(<span class="at">trajectories =</span> cohorts<span class="sc">$</span>Trajectories)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
 <code>analyze_student_cohorts()</code>
 </div>
 </div>
@@ -311,8 +343,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>Heatmaps</code>: A list of <code>ggplot</code> heatmaps, one per cohort join year.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_student_cohorts</span>(<span class="at">dataset =</span> my_data,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">extra_variables =</span> <span class="fu">c</span>(<span class="st">"GENDER"</span>, <span class="st">"ETHNICITY"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_student_cohorts</span>(<span class="at">dataset =</span> my_data,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">extra_variables =</span> <span class="fu">c</span>(<span class="st">"GENDER"</span>, <span class="st">"ETHNICITY"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -354,12 +386,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>Note</code>: Additional context about mobility groups.</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_achievement_mobility</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> my_data,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">current_year =</span> <span class="dv">2023</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">current_grade =</span> <span class="dv">5</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">achievement_levels =</span> <span class="fu">c</span>(<span class="st">"Advanced"</span>, <span class="st">"Proficient"</span>, <span class="st">"Partially Proficient"</span>, <span class="st">"Unsatisfactory"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_achievement_mobility</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> my_data,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">current_year =</span> <span class="dv">2023</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">current_grade =</span> <span class="dv">5</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">achievement_levels =</span> <span class="fu">c</span>(<span class="st">"Advanced"</span>, <span class="st">"Proficient"</span>, <span class="st">"Partially Proficient"</span>, <span class="st">"Unsatisfactory"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>

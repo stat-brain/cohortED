@@ -46,6 +46,36 @@ analyze_cohort_persistence(my_data, start_grade = 3, start_year = 2020)
 :::
 
 ::: {.callout-note icon = false}
+
+## `analyze_entry_cohorts()`
+
+Summarizes the characteristics and duration-in-cohort of student entry cohorts, including demographic distributions and retention histograms.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `trajectories`: A data frame, specifically the `$Trajectories` output from `analyze_student_cohorts()`.
+- `demographic_variables`: Optional character vector of demographic variables to summarize. If `NULL`, defaults to common variables such as `GENDER`, `ETHNICITY`, `ELL_STATUS`, etc.
+
+**Returns:** A named list (invisibly) containing:
+
+- `GroupSummaries`: A list of data frames summarizing demographic or school characteristics by cohort.
+- `DurationTable`: A data frame with mean, median, and max years in cohort per entry group.
+- `DurationHistograms`: A list of `ggplot2` histogram plots showing cohort retention distributions by entry year and grade.
+
+**Example:**
+
+```r
+cohorts <- analyze_student_cohorts(dataset = math)
+analyze_entry_cohorts(trajectories = cohorts$Trajectories)
+```
+</details>
+
+:::
+
+::: {.callout-note icon = false}
 ## `analyze_student_cohorts()`
 
 Analyzes multiple student cohorts’ trajectories and retention patterns across grades and years.

@@ -13,14 +13,73 @@ format:
 
 Calculates grade-to-grade student transitions (leave, join, stay) between two years for a specified cohort, based on the presence (or absence) of a student ID in the dataset.
 
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame with student-level data, including `id`, `grade`, and `year` columns (case-insensitive).
+- `current_year`: The academic year of the current grade (e.g., `"2020-2021"` or `2020`). If a string, the starting year is extracted.
+- `current_grade`: The grade level to evaluate (e.g., `4`, `"K"`, `"PK"`). Supports both numeric and common string formats.
+- `print_plot`: Logical; whether to display the resulting bar plot (default = `FALSE`).
+
+**Returns:** A named list (invisibly) containing:
+
+- `Data`: A merged data frame of students from the previous and current years, with `mobility_status` assigned.
+- `Table`: A one-row matrix of formatted percentage values for each mobility group.
+- `Caption`: A string summarizing the transition between grades and years.
+- `Barplot`: A `ggplot2` object showing mobility distribution by category.
+
+**Example:**
+
+```r
+make_mobility(dataset = math, current_year = 2022, current_grade = 4)
+```
+</details>
+
 :::
 
 ::: {.callout-note icon = false}
+
 ## `make_achievement_levels()`
 
-Categorizes student performance into achievement levels based on provided test scores and predefined cut scores.
+Categorizes numeric scores into ordered achievement levels using user-defined cutoffs and optional labels, returning a labeled dataset and a distribution summary.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame that contains a numeric score variable to categorize.
+- `score`: Name of the column in `dataset` that holds the numeric score values.
+- `cuts`: A numeric vector of cutoff points (including minimum and maximum score values). Must define `n + 1` boundaries for `n` levels.
+- `achievement_labels`: Optional. Character or factor vector of labels for achievement levels in increasing order. Defaults to numeric labels.
+- `print_plot`: Logical; whether to print a bar plot showing the distribution of achievement levels (default = `FALSE`).
+
+**Returns:** A named list (invisibly) containing:
+
+- `Data`: The original dataset with a new `ACHIEVEMENT_LEVELS` column as an ordered factor.
+- `Table`: A one-row matrix with the percentage of students in each level.
+- `Caption`: A string describing the distribution and score variable used.
+- `Barplot`: A `ggplot2` bar chart showing the achievement level distribution.
+
+**Example:**
+
+```r
+make_achievement_levels(
+  dataset = math,
+  score = "SCALE_SCORE",
+  cuts = c(0, 500, 700, 1000),
+  achievement_labels = c("Unsatisfactory", "Satisfactory", "Advanced")
+)
+```
+</details>
 
 :::
+
+yaml
+Copy code
+
 
 ::: {.callout-note icon = false}
 ## `make_proficiency_levels()`
@@ -30,9 +89,38 @@ Assigns students a binary proficiency category (e.g., proficient vs. not profici
 :::
 
 ::: {.callout-note icon = false}
-## `make_first_entered()`
+## `make_proficiency_levels()`
 
-Identifies the first year and grade level that each student appears in the dataset.
+Converts ordered achievement levels into binary proficiency categories, grouping the top levels as “Proficient” and the rest as “Not Proficient”.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing the achievement level variable.
+- `achievement`: Name of the ordered factor column representing achievement levels.
+- `n_proficiencies`: Number of highest achievement levels to count as “Proficient” (must be ≥1).
+- `print_plot`: Logical; whether to display the resulting bar plot (default = `FALSE`).
+- `proficiency_labels`: Character vector of length 2 giving labels for the two categories (default = `c("Not Proficient", "Proficient")`).
+
+**Returns:** A named list (invisibly) containing:
+
+- `Data`: The original dataset with a new `PROFICIENCY_LEVELS` column as a factor.
+- `Table`: A one-row matrix with the percentage of students in each proficiency category.
+- `Caption`: A text summary describing the proficiency rule applied.
+- `Plot`: A `ggplot2` bar chart showing the distribution of proficiency levels.
+
+**Example:**
+
+```r
+make_proficiency_levels(
+  dataset = math,
+  achievement = "ACHIEVEMENT_LEVEL",
+  n_proficiencies = 2
+)
+```
+</details>
 
 :::
 
@@ -40,9 +128,40 @@ Identifies the first year and grade level that each student appears in the datas
 ## Analysis Related
 
 ::: {.callout-note icon = false}
-## `summarize_entry_cohorts()`
 
-Identifies the first year and grade level that each student appears in the dataset.
+## `summarize_students_by_grade_year()`
+
+Summarizes student enrollment by grade and academic year, returning both tabular and visual outputs for use in reports and dashboards.
+
+<details>
+<summary><strong>More details</strong></summary>
+
+**Arguments:**
+
+- `dataset`: A data frame containing student records with grade and year information.
+- `id_variables`: A named list of column names for:
+  - `student_id`: Unique student identifier (default = `"ID"`)
+  - `grade`: Grade level (default = `"GRADE"`)
+  - `year`: Academic year (default = `"YEAR"`)
+
+**Returns:** A named list (invisibly) containing:
+
+- `Standard_Data`: Cleaned dataset with standardized column names and numeric grades.
+- `Summary_Long`: Long-format table of student counts by grade and year.
+- `Summary_Wide`: Wide-format table of student counts with academic years as columns.
+- `Grade_Statistics`: Summary statistics by grade (mean, SD, median, min, max).
+- `Total_Enrollment`: Total number of students per year.
+- `Heatmap`: A `ggplot2` heatmap showing student counts by grade and year.
+- `Enrollment_LinePlot`: A `ggplot2` line plot of enrollment trends over time.
+- `Enrollment_BarPlot`: A `ggplot2` stacked bar chart of enrollment by grade.
+- `Caption`: A caption noting that diagonals in the tables or plots may reflect student cohorts.
+
+**Example:**
+
+```r
+summarize_students_by_grade_year(dataset = math)
+```
+</details>
 
 :::
 

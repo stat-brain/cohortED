@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -214,6 +249,27 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container callout-body">
 <p>Calculates grade-to-grade student transitions (leave, join, stay) between two years for a specified cohort, based on the presence (or absence) of a student ID in the dataset.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame with student-level data, including <code>id</code>, <code>grade</code>, and <code>year</code> columns (case-insensitive).</li>
+<li><code>current_year</code>: The academic year of the current grade (e.g., <code>"2020-2021"</code> or <code>2020</code>). If a string, the starting year is extracted.</li>
+<li><code>current_grade</code>: The grade level to evaluate (e.g., <code>4</code>, <code>"K"</code>, <code>"PK"</code>). Supports both numeric and common string formats.</li>
+<li><code>print_plot</code>: Logical; whether to display the resulting bar plot (default = <code>FALSE</code>).</li>
+</ul>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Data</code>: A merged data frame of students from the previous and current years, with <code>mobility_status</code> assigned.</li>
+<li><code>Table</code>: A one-row matrix of formatted percentage values for each mobility group.</li>
+<li><code>Caption</code>: A string summarizing the transition between grades and years.</li>
+<li><code>Barplot</code>: A <code>ggplot2</code> object showing mobility distribution by category.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_mobility</span>(<span class="at">dataset =</span> math, <span class="at">current_year =</span> <span class="dv">2022</span>, <span class="at">current_grade =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -226,9 +282,37 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Categorizes student performance into achievement levels based on provided test scores and predefined cut scores.</p>
+<p>Categorizes numeric scores into ordered achievement levels using user-defined cutoffs and optional labels, returning a labeled dataset and a distribution summary.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame that contains a numeric score variable to categorize.</li>
+<li><code>score</code>: Name of the column in <code>dataset</code> that holds the numeric score values.</li>
+<li><code>cuts</code>: A numeric vector of cutoff points (including minimum and maximum score values). Must define <code>n + 1</code> boundaries for <code>n</code> levels.</li>
+<li><code>achievement_labels</code>: Optional. Character or factor vector of labels for achievement levels in increasing order. Defaults to numeric labels.</li>
+<li><code>print_plot</code>: Logical; whether to print a bar plot showing the distribution of achievement levels (default = <code>FALSE</code>).</li>
+</ul>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Data</code>: The original dataset with a new <code>ACHIEVEMENT_LEVELS</code> column as an ordered factor.</li>
+<li><code>Table</code>: A one-row matrix with the percentage of students in each level.</li>
+<li><code>Caption</code>: A string describing the distribution and score variable used.</li>
+<li><code>Barplot</code>: A <code>ggplot2</code> bar chart showing the achievement level distribution.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_achievement_levels</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> math,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="st">"SCALE_SCORE"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cuts =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">700</span>, <span class="dv">1000</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">achievement_labels =</span> <span class="fu">c</span>(<span class="st">"Unsatisfactory"</span>, <span class="st">"Satisfactory"</span>, <span class="st">"Advanced"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
+<p>yaml Copy code</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -248,11 +332,37 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>make_first_entered()</code>
+<code>make_proficiency_levels()</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Identifies the first year and grade level that each student appears in the dataset.</p>
+<p>Converts ordered achievement levels into binary proficiency categories, grouping the top levels as “Proficient” and the rest as “Not Proficient”.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame containing the achievement level variable.</li>
+<li><code>achievement</code>: Name of the ordered factor column representing achievement levels.</li>
+<li><code>n_proficiencies</code>: Number of highest achievement levels to count as “Proficient” (must be ≥1).</li>
+<li><code>print_plot</code>: Logical; whether to display the resulting bar plot (default = <code>FALSE</code>).</li>
+<li><code>proficiency_labels</code>: Character vector of length 2 giving labels for the two categories (default = <code>c("Not Proficient", "Proficient")</code>).</li>
+</ul>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Data</code>: The original dataset with a new <code>PROFICIENCY_LEVELS</code> column as a factor.</li>
+<li><code>Table</code>: A one-row matrix with the percentage of students in each proficiency category.</li>
+<li><code>Caption</code>: A text summary describing the proficiency rule applied.</li>
+<li><code>Plot</code>: A <code>ggplot2</code> bar chart showing the distribution of proficiency levels.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make_proficiency_levels</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset =</span> math,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">achievement =</span> <span class="st">"ACHIEVEMENT_LEVEL"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_proficiencies =</span> <span class="dv">2</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
 </section>
@@ -264,11 +374,40 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>summarize_entry_cohorts()</code>
+<code>summarize_students_by_grade_year()</code>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Identifies the first year and grade level that each student appears in the dataset.</p>
+<p>Summarizes student enrollment by grade and academic year, returning both tabular and visual outputs for use in reports and dashboards.</p>
+<details>
+<summary>
+<strong>More details</strong>
+</summary>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>dataset</code>: A data frame containing student records with grade and year information.</li>
+<li><code>id_variables</code>: A named list of column names for:
+<ul>
+<li><code>student_id</code>: Unique student identifier (default = <code>"ID"</code>)</li>
+<li><code>grade</code>: Grade level (default = <code>"GRADE"</code>)</li>
+<li><code>year</code>: Academic year (default = <code>"YEAR"</code>)</li>
+</ul></li>
+</ul>
+<p><strong>Returns:</strong> A named list (invisibly) containing:</p>
+<ul>
+<li><code>Standard_Data</code>: Cleaned dataset with standardized column names and numeric grades.</li>
+<li><code>Summary_Long</code>: Long-format table of student counts by grade and year.</li>
+<li><code>Summary_Wide</code>: Wide-format table of student counts with academic years as columns.</li>
+<li><code>Grade_Statistics</code>: Summary statistics by grade (mean, SD, median, min, max).</li>
+<li><code>Total_Enrollment</code>: Total number of students per year.</li>
+<li><code>Heatmap</code>: A <code>ggplot2</code> heatmap showing student counts by grade and year.</li>
+<li><code>Enrollment_LinePlot</code>: A <code>ggplot2</code> line plot of enrollment trends over time.</li>
+<li><code>Enrollment_BarPlot</code>: A <code>ggplot2</code> stacked bar chart of enrollment by grade.</li>
+<li><code>Caption</code>: A caption noting that diagonals in the tables or plots may reflect student cohorts.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_students_by_grade_year</span>(<span class="at">dataset =</span> math)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
 
