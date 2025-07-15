@@ -111,7 +111,8 @@ Analyzes multiple student cohorts’ trajectories and retention patterns across 
 
 - `Trajectories`: Cleaned long-format data tracking valid grade progression over time.  
 - `Data`: Nested list of student IDs by cohort and year.  
-- `Summary`: Table of student counts and retention percentages by cohort-year-grade.  
+- `Summary`: Table of student counts and retention percentages by cohort-year-grade.
+- `Table`: Table of student counts by cohort-year-grade in wide format
 - `Heatmaps`: A list of `ggplot` heatmaps, one per cohort join year.
 
 **Example:**

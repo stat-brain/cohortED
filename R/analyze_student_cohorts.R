@@ -17,9 +17,11 @@
 #'   \item{Trajectories}{Student-level data with cohort assignment}
 #'   \item{Data}{Nested list of student IDs by cohort and year}
 #'   \item{Summary}{Persistence summary table}
+#'   \item{Table}{Wide format table showing every cohort simultaneously}
 #'   \item{Heatmaps}{List of ggplot heatmaps, one per cohort}
 #' }
 #' 
+#' @importFrom stats reshape
 #' @import ggplot2
 #' @export
 #' 
@@ -105,6 +107,38 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   summary_df <- summary_df[order(summary_df$join_year, summary_df$grade), ]
   OUT$Summary <- summary_df
   
+  #--- Generate a wide-format summary table ---
+  # Make a new copy of the data frame for manipulation
+  df_table <- summary_df
+  
+  # cleaner cohort name and entry grade/year columns
+  df_table$Cohort <- paste0("Grade ", df_table$grade[df_table$year == df_table$join_year], 
+                              " in ", df_table$join_year)
+  
+  # Reshape to wide format: one row per cohort, columns by grade
+  wide_table <- reshape(
+    df_table[, c("Cohort", "grade", "n_students")],
+    idvar = "Cohort",
+    timevar = "grade",
+    direction = "wide"
+  )
+  
+  # Clean up column names
+  names(wide_table) <- gsub("n_students\\.", "Grade ", names(wide_table))
+  
+  # Order by Year Entered or Grade Entered
+  wide_table$`Year Entered` <- as.numeric(gsub(".* in ", "", wide_table$Cohort))
+  wide_table$`Grade Entered` <- as.numeric(gsub("Grade | in.*", "", wide_table$Cohort))
+  
+  # Reorder columns: Cohort, Year Entered, Grade Entered, then Grade X columns
+  grade_cols <- grep("^Grade ", names(wide_table), value = TRUE)
+  wide_table <- wide_table[ , c("Cohort", "Year Entered", "Grade Entered", grade_cols)]
+  
+  # Sort
+  wide_table <- wide_table[order(wide_table$`Year Entered`, wide_table$`Grade Entered`), ]
+  
+  OUT$Table <- wide_table
+  
   #--- Generate combined heatmaps by join_year ---
   heatmaps_by_year <- list()
   unique_join_years <- sort(unique(df$join_year))
@@ -170,6 +204,7 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   }
   
   OUT$Heatmaps <- heatmaps_by_year
+  
   
   return(invisible(OUT))
 }

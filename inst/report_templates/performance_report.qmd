@@ -1,0 +1,56 @@
+---
+title: "Performance Report"
+format: 
+  html: 
+    self-contained: true
+  docx: default
+
+execute: 
+  cache: false
+
+---
+
+```{r, child = "executive_summary.qmd"}
+
+```
+
+```{r, child = "background_and_purpose.qmd"}
+
+```
+
+```{r, child = "data_and_methods.qmd"}
+
+```
+
+```{r, child = "overall_performance.qmd"}
+
+```
+
+```{r, child = "mobility_analysis.qmd"}
+
+```
+
+```{r, child = "cohort_analysis.qmd"}
+
+```
+
+```{r, child = "grade_progression.qmd"}
+
+```
+
+```{r, child = "equity_considerations.qmd"}
+
+```
+
+```{r, child = "implications.qmd"}
+
+```
+
+```{r, child = "recommendations.qmd"}
+
+```
+
+```{r, child = "appendices.qmd"}
+
+```
+

@@ -120,8 +120,17 @@ knitr::include_graphics("cohort_explanation.png")
 
 ```{r cohorts}
 #| echo: false
+
 cohort1 <- analyze_student_cohorts(dataset = math)
 print(cohort1$Heatmaps$`2019`)
+
+```
+
+```{r more_cohorts}
+#| echo: false
+
+knitr::kable(cohort1$Table)
+
 ```
 
 Based on the table below, the overall trend for students for the 2023-2024 academic year seem to be that there is little difference in the mobility of students based on the grade level. Approximately 80% of students from each grade in 2023-2024 continued from the previous grade during the previous academic year. Students appear to be joining at a slightly higher rate than leaving.
@@ -158,18 +167,47 @@ print(prof1$Plot)
 
 ## Deep Dive into Student Mobility and Cohorts
 
-This section focuses on the students who were in Grade 4 during the 2022-2023 academic year and are currently Grade 5 during the 2023-2024 academic year. The alluvial diagram shows the interaction between student mobility, gender, and ethnicity for those students. From this diagram it appears that there is little difference in student mobility by gender, however there are some concerns regarding student mobility and ethnicity.
-
-
 ```{r alluvial}
 #| echo: FALSE
 
 grade5 = plot_alluvial_mobility(dataset = math, 
                                 current_year = latest_year, 
-                                current_grade = 5)
+                                current_grade = 5, 
+                                print_plot = FALSE)
+grade5_report = report_alluvial_mobility(alluvial_output = grade5)
+
 ```
 
-As shown in the table below, the non-white student population generally experiences a higher rate of student mobility. This is incredibly evident with a much higher proportion of African American students leaving between the 2022-2023 and 2023-2024 academic years. Similarly, students who are Native American also experience a higher rate of student mobility in both directions.
+```{r alluvial_report}
+#| echo: FALSE
+#| results: asis
+
+summary_paragraph <- paste(
+  grade5_report$Paragraph_Summary, 
+  grade5_report$Paragraph_Detailed
+)
+cat(summary_paragraph)
+
+```
+
+```{r alluvial_plot}
+#| echo: FALSE
+
+print(grade5$PLOT)
+
+```
+
+```{r more_reporting}
+#| echo: FALSE
+#| results: asis
+
+detailed_paragraph <- paste(
+  grade5_report$Mobility_By_Minority, 
+  grade5_report$Mobility_By_Ethnicity
+)
+cat(detailed_paragraph)
+
+```
 
 ```{r ethnicity_table}
 #| echo: FALSE
@@ -180,9 +218,8 @@ kable(grade5$Table_by_Ethnicity,
 
 ```
 
-As research suggests, student mobility has an impact on student performance. To further see these results, consider the plots below which show the achievement levels for the students who were in Grade 4 during 2022-2023 and Grade 5 during 2023-2024. That is, the "stay" mobility status are the same cohort of students. As expected, their achievement levels change slightly from one academic year to the next. However, there is a big difference in the achievement levels between the students who stayed as compared to those students who experience mobility. Those students who either left or joined between the 2022-2023 and 2023-2024 school years had lower proficiency and advanced rates, than their counterparts.
 
-```{r student_performance}
+```{r performance}
 #| echo: FALSE
 
 achievement5 = compare_achievement_mobility(dataset = math, 
@@ -192,7 +229,21 @@ achievement5 = compare_achievement_mobility(dataset = math,
                                                                    "Proficient", 
                                                                    "Partially Proficient", 
                                                                    "Unsatisfactory")
-                                            )
+)
+
+```
+
+```{r performance_report}
+#| echo: FALSE
+#| results: asis
+
+cat(report_achievement_mobility(mobility_output = achievement5)$Paragraph_Detailed)
+
+```
+
+```{r student_performance}
+#| echo: FALSE
+
 print(achievement5$Comparison_Plot)
 
 ```

@@ -19,6 +19,7 @@ A list with:
 \item{Trajectories}{Student-level data with cohort assignment}
 \item{Data}{Nested list of student IDs by cohort and year}
 \item{Summary}{Persistence summary table}
+\item{Table}{Wide format table showing every cohort simultaneously}
 \item{Heatmaps}{List of ggplot heatmaps, one per cohort}
 }
 }
