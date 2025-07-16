@@ -7,27 +7,35 @@
 analyze_student_cohorts(dataset, details = FALSE, extra_variables = NULL)
 }
 \arguments{
-\item{dataset}{A data.frame with at least \code{id}, \code{grade}, and \code{year}.}
+\item{dataset}{A data frame containing at least the variables \code{id}, \code{grade}, and \code{year}.}
 
 \item{details}{Logical; if TRUE, returns additional internal components like the cleaned trajectory data and nested cohort list.}
 
 \item{extra_variables}{Optional character vector of additional column names to carry through the output (e.g., demographics or school info).}
 }
 \value{
-A list with:
+A named list with the following elements:
+
 \describe{
-\item{Trajectories}{Student-level data with cohort assignment}
-\item{Data}{Nested list of student IDs by cohort and year}
-\item{Summary}{Persistence summary table}
-\item{Table}{Wide format table showing every cohort simultaneously}
-\item{Heatmaps}{List of ggplot heatmaps, one per cohort}
+\item{Trajectories}{A student-level data frame with cohort assignments and progression details (e.g., expected grade, years since join).}
+\item{Data}{A nested list of student IDs grouped by cohort and year, for reference or detailed tracking.}
+\item{Summary}{A long-format data frame summarizing cohort persistence year over year, with:
+\itemize{
+\item \code{cohort_label}: A string such as "Grade3_2019"
+\item \code{join_year}, \code{year}, \code{grade}, \code{n_students}
+\item \code{entry_size}: Initial cohort size
+\item \code{percent_retained}: Percent of original cohort retained each year
+}}
+\item{Table}{A wide-format summary showing one row per cohort (e.g., "Grade 3 in 2019") and one column per grade level (e.g., 3–10), with \code{NA} for missing grades. Useful for side-by-side cohort comparison.}
+\item{Heatmaps}{A named list of ggplot2 heatmaps, one per join year, showing grade-level persistence across years. Entry counts appear in the first column; all other cells show percent retained.}
 }
 }
 \description{
 Identifies student cohorts based on their first observed grade and year,
 then tracks their grade-level progression year over year. Students who do
 not progress by one grade per year are dropped from the cohort at the point
-of deviation.
+of deviation. Optionally includes extra variables such as demographics or
+school info for cohort-based comparisons.
 }
 \details{
 Analyze Student Cohorts with Persistence Summary and Visualizations

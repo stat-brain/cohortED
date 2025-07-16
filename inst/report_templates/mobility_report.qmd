@@ -1,6 +1,5 @@
 ---
 title: "State Level Mobility Report"
-author: "Brian Harrold"
 format: 
   html: 
     self-contained: true
@@ -258,7 +257,7 @@ cat(attr(math, "data_note"), sep = "\n\n")
 ```{r more_cohorts}
 #| echo: false
 
-knitr::kable(cohort1$Table)
+knitr::kable(cohort1$Table, na = "")
 
 ```
 

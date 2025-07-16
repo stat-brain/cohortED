@@ -1,28 +1,37 @@
 #' Analyze Student Cohorts with Persistence Summary and Visualizations
-#' 
+#'
 #' @title Analyze Student Cohorts
-#' 
+#'
 #' @description
 #' Identifies student cohorts based on their first observed grade and year,
 #' then tracks their grade-level progression year over year. Students who do
 #' not progress by one grade per year are dropped from the cohort at the point
-#' of deviation.
+#' of deviation. Optionally includes extra variables such as demographics or
+#' school info for cohort-based comparisons.
 #'
-#' @param dataset A data.frame with at least `id`, `grade`, and `year`.
+#' @param dataset A data frame containing at least the variables `id`, `grade`, and `year`.
 #' @param details Logical; if TRUE, returns additional internal components like the cleaned trajectory data and nested cohort list.
 #' @param extra_variables Optional character vector of additional column names to carry through the output (e.g., demographics or school info).
 #'
-#' @return A list with:
+#' @return A named list with the following elements:
+#'
 #' \describe{
-#'   \item{Trajectories}{Student-level data with cohort assignment}
-#'   \item{Data}{Nested list of student IDs by cohort and year}
-#'   \item{Summary}{Persistence summary table}
-#'   \item{Table}{Wide format table showing every cohort simultaneously}
-#'   \item{Heatmaps}{List of ggplot heatmaps, one per cohort}
+#'   \item{Trajectories}{A student-level data frame with cohort assignments and progression details (e.g., expected grade, years since join).}
+#'   \item{Data}{A nested list of student IDs grouped by cohort and year, for reference or detailed tracking.}
+#'   \item{Summary}{A long-format data frame summarizing cohort persistence year over year, with:
+#'     \itemize{
+#'       \item \code{cohort_label}: A string such as "Grade3_2019"
+#'       \item \code{join_year}, \code{year}, \code{grade}, \code{n_students}
+#'       \item \code{entry_size}: Initial cohort size
+#'       \item \code{percent_retained}: Percent of original cohort retained each year
+#'     }}
+#'   \item{Table}{A wide-format summary showing one row per cohort (e.g., "Grade 3 in 2019") and one column per grade level (e.g., 3–10), with \code{NA} for missing grades. Useful for side-by-side cohort comparison.}
+#'   \item{Heatmaps}{A named list of ggplot2 heatmaps, one per join year, showing grade-level persistence across years. Entry counts appear in the first column; all other cells show percent retained.}
 #' }
-#' 
+#'
 #' @importFrom stats reshape
 #' @import ggplot2
+#' 
 #' @export
 #' 
 
@@ -105,38 +114,45 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   summary_df <- merge(summary_df, entry_sizes, by = "cohort_label")
   summary_df$percent_retained <- round(100 * summary_df$n_students / summary_df$entry_size, 1)
   summary_df <- summary_df[order(summary_df$join_year, summary_df$grade), ]
+  row.names(summary_df) <- NULL
   OUT$Summary <- summary_df
   
-  #--- Generate a wide-format summary table ---
-  # Make a new copy of the data frame for manipulation
-  df_table <- summary_df
+  #--- Generate improved wide-format cohort table ---
+  table_df <- summary_df[, c("cohort_label", "grade", "n_students")]
   
-  # cleaner cohort name and entry grade/year columns
-  df_table$Cohort <- paste0("Grade ", df_table$grade[df_table$year == df_table$join_year], 
-                              " in ", df_table$join_year)
+  # Convert cohort_label to friendly name: "Grade X in YYYY"
+  table_df$Cohort <- gsub("^Grade(\\d+)_([0-9]{4})$", "Grade \\1 in \\2", table_df$cohort_label)
   
-  # Reshape to wide format: one row per cohort, columns by grade
+  # Pivot to wide format: rows = Cohort, columns = grade
   wide_table <- reshape(
-    df_table[, c("Cohort", "grade", "n_students")],
+    table_df[, c("Cohort", "grade", "n_students")],
     idvar = "Cohort",
     timevar = "grade",
     direction = "wide"
   )
   
-  # Clean up column names
-  names(wide_table) <- gsub("n_students\\.", "Grade ", names(wide_table))
+  # Clean up column names (remove prefix)
+  names(wide_table) <- gsub("n_students\\.", "", names(wide_table))
   
-  # Order by Year Entered or Grade Entered
+  # Extract entry year and grade for sorting
   wide_table$`Year Entered` <- as.numeric(gsub(".* in ", "", wide_table$Cohort))
   wide_table$`Grade Entered` <- as.numeric(gsub("Grade | in.*", "", wide_table$Cohort))
   
-  # Reorder columns: Cohort, Year Entered, Grade Entered, then Grade X columns
-  grade_cols <- grep("^Grade ", names(wide_table), value = TRUE)
-  wide_table <- wide_table[ , c("Cohort", "Year Entered", "Grade Entered", grade_cols)]
+  # Determine grade columns and sort numerically
+  all_cols <- names(wide_table)
+  grade_cols <- sort(as.numeric(setdiff(all_cols, c("Cohort", "Year Entered", "Grade Entered"))))
+  grade_cols <- as.character(grade_cols)  # convert back to character to match column names
   
-  # Sort
+  # Sort rows before dropping sorting helpers
   wide_table <- wide_table[order(wide_table$`Year Entered`, wide_table$`Grade Entered`), ]
   
+  # Reorder columns
+  wide_table <- wide_table[, c("Cohort", grade_cols)]
+  
+  # Remove temporary columns and row names
+  row.names(wide_table) <- NULL
+  
+  # Store in output
   OUT$Table <- wide_table
   
   #--- Generate combined heatmaps by join_year ---
