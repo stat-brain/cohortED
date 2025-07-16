@@ -126,13 +126,6 @@ print(cohort1$Heatmaps$`2019`)
 
 ```
 
-```{r more_cohorts}
-#| echo: false
-
-knitr::kable(cohort1$Table)
-
-```
-
 Based on the table below, the overall trend for students for the 2023-2024 academic year seem to be that there is little difference in the mobility of students based on the grade level. Approximately 80% of students from each grade in 2023-2024 continued from the previous grade during the previous academic year. Students appear to be joining at a slightly higher rate than leaving.
 
 ```{r table_of_years}
@@ -174,7 +167,7 @@ grade5 = plot_alluvial_mobility(dataset = math,
                                 current_year = latest_year, 
                                 current_grade = 5, 
                                 print_plot = FALSE)
-grade5_report = report_alluvial_mobility(alluvial_output = grade5)
+grade5_report <- report_alluvial_mobility(alluvial_output = grade5)
 
 ```
 
@@ -193,7 +186,7 @@ cat(summary_paragraph)
 ```{r alluvial_plot}
 #| echo: FALSE
 
-print(grade5$PLOT)
+print(grade5$Plot)
 
 ```
 
@@ -260,5 +253,12 @@ cat(attr(math, "data_note"), sep = "\n\n")
 
 ```
 
+## Appendices
 
+```{r more_cohorts}
+#| echo: false
+
+knitr::kable(cohort1$Table)
+
+```
 

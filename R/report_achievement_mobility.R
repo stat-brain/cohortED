@@ -3,20 +3,25 @@
 #' @description
 #' Generates a narrative summary comparing student achievement across mobility groups
 #' ("Stay", "Join", and "Leave") based on the output from `compare_achievement_mobility()`.
-#' The report highlights changes in performance among students who remained in the same
-#' school system and compares their outcomes to those who entered or exited between years.
+#' The summary highlights differences in proficiency rates, shifts in the most common
+#' achievement levels, and within-group changes among students who remained in the same
+#' school system across two years.
 #'
-#' @param mobility_output A named list from `compare_achievement_mobility()`.
+#' @param mobility_output A named list returned by `compare_achievement_mobility()`, containing
+#'   summary tables, percent values, and labels used to construct the narrative.
 #' @param proficiency_levels Character vector of levels considered "Proficient or above".
 #'   Default is `c("Proficient", "Advanced")`.
-#' @param gap_threshold Numeric. Minimum percent difference to flag a group-level difference (default = 5).
+#' @param gap_threshold Numeric. Minimum percent difference to flag a group-level difference
+#'   for use in visual or narrative comparisons (default = 5).
+#' @param diff_threshold Numeric. Minimum percent difference to trigger a tailored interpretation
+#'   of proficiency gaps in the narrative summary (default = 5).
 #'
-#' @return A named list with narrative summaries and comparisons.
+#' @return A named list containing narrative summaries for reporting:
 #'
 #' @export
 #' 
 
-report_achievement_mobility <- function(mobility_output, proficiency_levels = c("Proficient", "Advanced"), gap_threshold = 5) {
+report_achievement_mobility <- function(mobility_output, proficiency_levels = c("Proficient", "Advanced"), gap_threshold = 5, diff_threshold = 5) {
   # Extract key inputs
   df <- mobility_output$Data
   stay_summary <- mobility_output$Stay_Change_Summary
@@ -33,13 +38,24 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
   
   # Helper: percent proficient+advanced by group (current year only)
   current_df <- df[df$Grade == as.numeric(current_grade), ]
-  pa_summary <- aggregate(Percent ~ Mobility_Status, 
+  previous_df <- df[df$Grade == as.numeric(prior_grade), ]
+  leave_df <- df[df$Year == prior_year & df$Mobility_Status == "Leave" &
+                   df$Achievement_Level %in% proficiency_levels, ]
+  pa_summary1 <- aggregate(Percent ~ Mobility_Status, 
                           data = current_df[current_df$Achievement_Level %in% proficiency_levels, ],
                           sum)
-  pa_map <- setNames(round(pa_summary$Percent, 1), pa_summary$Mobility_Status)
-  pa_stay <- pa_map["Stay"]
-  pa_join <- pa_map["Join"]
-  pa_leave <- pa_map["Leave"]
+  pa_summary2 <- aggregate(Percent ~ Mobility_Status, 
+                           data = previous_df[previous_df$Achievement_Level %in% proficiency_levels, ],
+                           sum)
+  pa_map1 <- setNames(round(pa_summary1$Percent, 1), pa_summary1$Mobility_Status)
+  pa_map2 <- setNames(round(pa_summary2$Percent, 1), pa_summary2$Mobility_Status)
+  
+  get_or_na <- function(x, name) if (name %in% names(x)) x[name] else NA_real_
+  
+  pa_stay1 <- get_or_na(pa_map1, "Stay")
+  pa_join  <- get_or_na(pa_map1, "Join")
+  pa_stay2 <- get_or_na(pa_map2, "Stay")
+  pa_leave <- get_or_na(pa_map2, "Leave")
   
   # Change in Stay group
   improved <- stay_summary$Percent[stay_summary$Change == "Improved"]
@@ -51,25 +67,38 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
   common_curr <- most_common$Current
   
   # Compute differences relative to 'Stay' group
-  diff_join <- pa_stay - pa_join
-  diff_leave <- pa_stay - pa_leave
-  
-  # Threshold to consider a difference "notable"
-  diff_threshold <- 5
+  diff_join <- pa_stay1 - pa_join
+  diff_leave <- pa_stay2 - pa_leave
   
   # Tailored interpretation
-  if (diff_join >= diff_threshold && diff_leave >= diff_threshold) {
+  if (is.na(diff_join) || is.na(diff_leave)) {
+    perf_msg <- "Insufficient data to compare performance across mobility groups."
+  } else if (diff_join >= diff_threshold && diff_leave >= diff_threshold) {
     perf_msg <- "Students who remained in the same school system showed higher rates of proficiency and advanced achievement compared to those who joined or left during this period."
-  } else if (diff_join >= diff_threshold && diff_leave < diff_threshold) {
-    perf_msg <- "Students who stayed performed better than those who joined the school system, while students who left performed similarly to those who remained."
-  } else if (diff_leave >= diff_threshold && diff_join < diff_threshold) {
-    perf_msg <- "Students who stayed performed better than those who left the system, while joiners performed similarly to those who remained."
-  } else if (abs(diff_join) < diff_threshold && abs(diff_leave) < diff_threshold) {
-    perf_msg <- "Achievement levels were relatively similar across mobility groups, with no substantial differences between students who stayed, joined, or left."
   } else if (diff_join <= -diff_threshold && diff_leave <= -diff_threshold) {
     perf_msg <- "Interestingly, students who joined or left the system outperformed those who stayed, suggesting potential shifts in the composition of the cohort."
+  } else if (abs(diff_join) < diff_threshold && abs(diff_leave) < diff_threshold) {
+    perf_msg <- "Achievement levels were relatively similar across mobility groups, with no substantial differences between students who stayed, joined, or left."
+  } else if (diff_join >= diff_threshold && abs(diff_leave) < diff_threshold) {
+    perf_msg <- "Students who stayed performed better than those who joined the school system, while students who left performed similarly to those who remained."
+  } else if (diff_leave >= diff_threshold && abs(diff_join) < diff_threshold) {
+    perf_msg <- "Students who stayed performed better than those who left the system, while joiners performed similarly to those who remained."
+  } else if (diff_join <= -diff_threshold && abs(diff_leave) < diff_threshold) {
+    perf_msg <- "Students who joined the system outperformed those who stayed, while those who left performed similarly to stayers."
+  } else if (diff_leave <= -diff_threshold && abs(diff_join) < diff_threshold) {
+    perf_msg <- "Students who left the system outperformed those who stayed, while joiners performed similarly."
   } else {
     perf_msg <- "There were differences in achievement across mobility groups, though no clear pattern emerged across all groups."
+  }
+  
+  stay_trend_msg <- if (!is.na(pa_stay1) && !is.na(pa_stay2)) {
+    sprintf(
+      "Among students who stayed, the percent scoring at or above proficient %s from %.1f%% in %s to %.1f%% in %s.",
+      if (pa_stay1 > pa_stay2) "increased" else if (pa_stay1 < pa_stay2) "decreased" else "remained the same",
+      pa_stay2, prior_year, pa_stay1, current_year
+    )
+  } else {
+    NULL
   }
   
   # Final summary paragraph
@@ -79,41 +108,45 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
     "The 'Stay' group represents the same students observed in both years.",
     perf_msg
   )
+  
   # Detect largest difference
   largest_gap <- max(abs(diff_join), abs(diff_leave))
   
   # Determine proficiency comparison sentence
   if (diff_join >= gap_threshold && diff_leave >= gap_threshold) {
     group_compare <- paste(
-      "The 'Stay' group had a notably higher proficiency rate (", sprintf("%.1f%%", pa_stay), ")",
-      "compared to those who joined (", sprintf("%.1f%%", pa_join), ") and those who left (", sprintf("%.1f%%", pa_leave), ").",
+      "The 'Stay' group had higher proficiency rates in both years:",
+      "current year (", sprintf("%.1f%%", pa_stay1), ") compared to joiners (", sprintf("%.1f%%", pa_join), "), and",
+      "prior year (", sprintf("%.1f%%", pa_stay2), ") compared to leavers (", sprintf("%.1f%%", pa_leave), ").",
       "These gaps suggest potential academic disruption associated with student mobility."
     )
   } else if (diff_join >= gap_threshold && abs(diff_leave) < gap_threshold) {
     group_compare <- paste(
-      "Students who stayed (", sprintf("%.1f%%", pa_stay), ") performed better than those who joined (", sprintf("%.1f%%", pa_join), "),",
-      "while those who left (", sprintf("%.1f%%", pa_leave), ") performed similarly to the stayers."
+      "Students who stayed (", sprintf("%.1f%%", pa_stay1), ") performed better than those who joined (", sprintf("%.1f%%", pa_join), "),",
+      "while those who left (", sprintf("%.1f%%", pa_leave), ") performed similarly to stayers in the prior year."
     )
   } else if (diff_leave >= gap_threshold && abs(diff_join) < gap_threshold) {
     group_compare <- paste(
-      "Students who stayed (", sprintf("%.1f%%", pa_stay), ") outperformed those who left (", sprintf("%.1f%%", pa_leave), "),",
-      "but joiners (", sprintf("%.1f%%", pa_join), ") performed at a similar level to those who stayed."
+      "Students who stayed (", sprintf("%.1f%%", pa_stay2), ") outperformed those who left (", sprintf("%.1f%%", pa_leave), ") in the prior year,",
+      "while joiners (", sprintf("%.1f%%", pa_join), ") performed similarly to stayers in the current year."
     )
   } else if (abs(diff_join) < gap_threshold && abs(diff_leave) < gap_threshold) {
     group_compare <- paste(
       "Proficiency rates were similar across groups:",
-      "Stay (", sprintf("%.1f%%", pa_stay), "), Join (", sprintf("%.1f%%", pa_join), "), and Leave (", sprintf("%.1f%%", pa_leave), ")."
+      "Stay (", sprintf("%.1f%%", pa_stay1), "), Join (", sprintf("%.1f%%", pa_join), "), and Leave (", sprintf("%.1f%%", pa_leave), ")."
     )
   } else if (diff_join <= -gap_threshold && diff_leave <= -gap_threshold) {
     group_compare <- paste(
       "Interestingly, both joiners (", sprintf("%.1f%%", pa_join), ") and leavers (", sprintf("%.1f%%", pa_leave), 
-      ") had higher proficiency rates than those who stayed (", sprintf("%.1f%%", pa_stay), "),",
+      ") had higher proficiency rates than those who stayed (", sprintf("%.1f%%", pa_stay1), " in current year, and ", 
+      sprintf("%.1f%%", pa_stay2), " in prior year),",
       "which may indicate a shift in the composition or needs of the remaining cohort."
     )
   } else {
     group_compare <- paste(
-      "Proficiency rates varied across groups, with Stay at", sprintf("%.1f%%", pa_stay), 
-      ", Join at", sprintf("%.1f%%", pa_join), ", and Leave at", sprintf("%.1f%%", pa_leave), "."
+      "Proficiency rates varied across groups, with Stay at", sprintf("%.1f%%", pa_stay1), 
+      "this year and", sprintf("%.1f%%", pa_stay2), "last year,",
+      "Join at", sprintf("%.1f%%", pa_join), ", and Leave at", sprintf("%.1f%%", pa_leave), "."
     )
   }
   
@@ -132,12 +165,14 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
     current_grade, "(", current_year, "),", stay_change_msg,
     "with", sprintf("%.1f%%", improved), "improving,",
     sprintf("%.1f%%", declined), "declining, and", sprintf("%.1f%%", no_change), "experiencing no change.",
+    stay_trend_msg,
     "The most common achievement level in", prior_year, "was",
     tolower(common_prev[common_prev$Mobility_Status == "Stay", "Achievement_Level"]), ",",
     "shifting to",
     tolower(common_curr[common_curr$Mobility_Status == "Stay", "Achievement_Level"]), "in", current_year, ".",
     group_compare
   )
+  
   
   # Supporting details
   parts <- c(
@@ -150,7 +185,7 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
   
   # Dynamic narrative for proficiency comparison
   proficiency_compare <- paste(
-    "In", current_year, ",", sprintf("%.1f%%", pa_stay), "of students who stayed scored at or above proficient,",
+    "In", current_year, ",", sprintf("%.1f%%", pa_stay1), "of students who stayed scored at or above proficient,",
     "compared to", sprintf("%.1f%%", pa_join), "among those who joined and",
     sprintf("%.1f%%", pa_leave), "among those who left.",
     if (diff_join >= gap_threshold && diff_leave >= gap_threshold) {
@@ -167,6 +202,7 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
       "Proficiency differences were present but not consistent across groups."
     }
   )
+  
   
   # Extract most common levels
   level_prev <- common_prev[common_prev$Mobility_Status == "Stay", "Achievement_Level"]

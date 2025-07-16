@@ -7,23 +7,30 @@
 report_achievement_mobility(
   mobility_output,
   proficiency_levels = c("Proficient", "Advanced"),
-  gap_threshold = 5
+  gap_threshold = 5,
+  diff_threshold = 5
 )
 }
 \arguments{
-\item{mobility_output}{A named list from \code{compare_achievement_mobility()}.}
+\item{mobility_output}{A named list returned by \code{compare_achievement_mobility()}, containing
+summary tables, percent values, and labels used to construct the narrative.}
 
 \item{proficiency_levels}{Character vector of levels considered "Proficient or above".
 Default is \code{c("Proficient", "Advanced")}.}
 
-\item{gap_threshold}{Numeric. Minimum percent difference to flag a group-level difference (default = 5).}
+\item{gap_threshold}{Numeric. Minimum percent difference to flag a group-level difference
+for use in visual or narrative comparisons (default = 5).}
+
+\item{diff_threshold}{Numeric. Minimum percent difference to trigger a tailored interpretation
+of proficiency gaps in the narrative summary (default = 5).}
 }
 \value{
-A named list with narrative summaries and comparisons.
+A named list containing narrative summaries for reporting:
 }
 \description{
 Generates a narrative summary comparing student achievement across mobility groups
 ("Stay", "Join", and "Leave") based on the output from \code{compare_achievement_mobility()}.
-The report highlights changes in performance among students who remained in the same
-school system and compares their outcomes to those who entered or exited between years.
+The summary highlights differences in proficiency rates, shifts in the most common
+achievement levels, and within-group changes among students who remained in the same
+school system across two years.
 }
