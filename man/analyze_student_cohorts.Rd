@@ -28,6 +28,7 @@ A named list with the following elements:
 }}
 \item{Table}{A wide-format summary showing one row per cohort (e.g., "Grade 3 in 2019") and one column per grade level (e.g., 3–10), with \code{NA} for missing grades. Useful for side-by-side cohort comparison.}
 \item{Heatmaps}{A named list of ggplot2 heatmaps, one per join year, showing grade-level persistence across years. Entry counts appear in the first column; all other cells show percent retained.}
+\item{Caption}{A brief description of what the output is.}
 }
 }
 \description{

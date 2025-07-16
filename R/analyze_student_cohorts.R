@@ -27,6 +27,7 @@
 #'     }}
 #'   \item{Table}{A wide-format summary showing one row per cohort (e.g., "Grade 3 in 2019") and one column per grade level (e.g., 3–10), with \code{NA} for missing grades. Useful for side-by-side cohort comparison.}
 #'   \item{Heatmaps}{A named list of ggplot2 heatmaps, one per join year, showing grade-level persistence across years. Entry counts appear in the first column; all other cells show percent retained.}
+#'   \item{Caption}{A brief description of what the output is.}
 #' }
 #'
 #' @importFrom stats reshape
@@ -141,15 +142,23 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   # Determine grade columns and sort numerically
   all_cols <- names(wide_table)
   grade_cols <- sort(as.numeric(setdiff(all_cols, c("Cohort", "Year Entered", "Grade Entered"))))
-  grade_cols <- as.character(grade_cols)  # convert back to character to match column names
+  grade_cols_char <- as.character(grade_cols)  # column names as strings
   
-  # Sort rows before dropping sorting helpers
+  # Rename grade columns as academic years relative to entry year
+  new_colnames <- sapply(grade_cols, function(g) {
+    # Number of years after join: g - join_grade
+    years_since_join <- g - wide_table$`Grade Entered`[1]  # any row works
+    to_academic_year(wide_table$`Year Entered`[1] + years_since_join)  # apply to first row
+  })
+  names(wide_table)[match(grade_cols_char, names(wide_table))] <- new_colnames
+  
+  # Sort rows
   wide_table <- wide_table[order(wide_table$`Year Entered`, wide_table$`Grade Entered`), ]
   
-  # Reorder columns
-  wide_table <- wide_table[, c("Cohort", grade_cols)]
+  # Reorder columns: Cohort first, then academic years
+  wide_table <- wide_table[, c("Cohort", new_colnames)]
   
-  # Remove temporary columns and row names
+  # Drop row names
   row.names(wide_table) <- NULL
   
   # Store in output
@@ -221,6 +230,7 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   
   OUT$Heatmaps <- heatmaps_by_year
   
+  OUT$Caption <- "Summary of student cohorts by grade and year."
   
   return(invisible(OUT))
 }

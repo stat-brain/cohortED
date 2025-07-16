@@ -257,7 +257,9 @@ cat(attr(math, "data_note"), sep = "\n\n")
 ```{r more_cohorts}
 #| echo: false
 
-knitr::kable(cohort1$Table, na = "")
+table_clean <- cohort1$Table
+table_clean[is.na(table_clean)] <- ""
+knitr::kable(table_clean, caption = cohort1$Caption)
 
 ```
 
