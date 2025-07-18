@@ -2280,6 +2280,19 @@ vertical-align: -.125em;
 <li><strong>Repeat</strong>: In the same grade two years in a row.</li>
 <li><strong>Advance</strong>: Skipped one or more grades between years.</li>
 </ul>
+<p>In cohortED, a trajectory is defined as:</p>
+<ul>
+<li><strong>Trajectory</strong>: A student’s observed sequence of grade-level placements across academic years, starting from their first appearance in the dataset. In <code>cohortED</code>, trajectories assume linear grade progression (one grade per year). Students who skip or repeat a grade are treated as exiting the cohort at the point of deviation, unless handled by specialized functions.</li>
+</ul>
+<p>Enrollment and grade transitions are classified as follows:</p>
+<ul>
+<li><strong>Enrolled</strong>: Student appears in consecutive academic years or for the first time.</li>
+<li><strong>Return</strong>: Student reappears in the dataset after missing one or more years.</li>
+<li><strong>Stay</strong>: Advanced one grade level over one year (typical progression). Synonymous with the definition of “Stay” for Cohorts.</li>
+<li><strong>Repeat</strong>: Remained in the same grade across two consecutive years.</li>
+<li><strong>Skip</strong>: Advanced more than one grade level in a single year.</li>
+<li><strong>Drop_Back</strong>: Moved backward in grade level or regressed after a gap.</li>
+</ul>
 </section>
 <section id="general-trends-in-student-mobility-and-cohorts" class="level2">
 <h2 class="anchored" data-anchor-id="general-trends-in-student-mobility-and-cohorts">General Trends in Student Mobility and Cohorts</h2>
@@ -2890,6 +2903,221 @@ vertical-align: -.125em;
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">294</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Grade transitions are not reported for the first year in the dataset (2019-2020), as no prior data exists for comparison.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Academic_Year</th>
+<th style="text-align: left;">GRADE_TRANSITION</th>
+<th style="text-align: right;">Freq</th>
+<th style="text-align: right;">Total</th>
+<th style="text-align: right;">Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">Drop_Back</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28065</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">Repeat</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: right;">28065</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">Skip</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28065</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">Stay</td>
+<td style="text-align: right;">27765</td>
+<td style="text-align: right;">28065</td>
+<td style="text-align: right;">98.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-2022</td>
+<td style="text-align: left;">Drop_Back</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">29247</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-2022</td>
+<td style="text-align: left;">Repeat</td>
+<td style="text-align: right;">372</td>
+<td style="text-align: right;">29247</td>
+<td style="text-align: right;">1.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-2022</td>
+<td style="text-align: left;">Skip</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">29247</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-2022</td>
+<td style="text-align: left;">Stay</td>
+<td style="text-align: right;">28834</td>
+<td style="text-align: right;">29247</td>
+<td style="text-align: right;">98.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-2023</td>
+<td style="text-align: left;">Drop_Back</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">29923</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-2023</td>
+<td style="text-align: left;">Repeat</td>
+<td style="text-align: right;">374</td>
+<td style="text-align: right;">29923</td>
+<td style="text-align: right;">1.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-2023</td>
+<td style="text-align: left;">Skip</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">29923</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-2023</td>
+<td style="text-align: left;">Stay</td>
+<td style="text-align: right;">29476</td>
+<td style="text-align: right;">29923</td>
+<td style="text-align: right;">98.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-2024</td>
+<td style="text-align: left;">Drop_Back</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">30083</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-2024</td>
+<td style="text-align: left;">Repeat</td>
+<td style="text-align: right;">274</td>
+<td style="text-align: right;">30083</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-2024</td>
+<td style="text-align: left;">Skip</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">30083</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-2024</td>
+<td style="text-align: left;">Stay</td>
+<td style="text-align: right;">29768</td>
+<td style="text-align: right;">30083</td>
+<td style="text-align: right;">99.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Academic_Year</th>
+<th style="text-align: left;">Enrollment_Transition</th>
+<th style="text-align: right;">Freq</th>
+<th style="text-align: right;">Total</th>
+<th style="text-align: right;">Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2019-2020</td>
+<td style="text-align: left;">Enrolled</td>
+<td style="text-align: right;">35620</td>
+<td style="text-align: right;">35620</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-2020</td>
+<td style="text-align: left;">Return</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">35620</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">Enrolled</td>
+<td style="text-align: right;">8393</td>
+<td style="text-align: right;">8393</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-2021</td>
+<td style="text-align: left;">Return</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8393</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-2022</td>
+<td style="text-align: left;">Enrolled</td>
+<td style="text-align: right;">7794</td>
+<td style="text-align: right;">8176</td>
+<td style="text-align: right;">95.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-2022</td>
+<td style="text-align: left;">Return</td>
+<td style="text-align: right;">382</td>
+<td style="text-align: right;">8176</td>
+<td style="text-align: right;">4.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2022-2023</td>
+<td style="text-align: left;">Enrolled</td>
+<td style="text-align: right;">7717</td>
+<td style="text-align: right;">8239</td>
+<td style="text-align: right;">93.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2022-2023</td>
+<td style="text-align: left;">Return</td>
+<td style="text-align: right;">522</td>
+<td style="text-align: right;">8239</td>
+<td style="text-align: right;">6.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-2024</td>
+<td style="text-align: left;">Enrolled</td>
+<td style="text-align: right;">7882</td>
+<td style="text-align: right;">8450</td>
+<td style="text-align: right;">93.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-2024</td>
+<td style="text-align: left;">Return</td>
+<td style="text-align: right;">568</td>
+<td style="text-align: right;">8450</td>
+<td style="text-align: right;">6.7</td>
 </tr>
 </tbody>
 </table>

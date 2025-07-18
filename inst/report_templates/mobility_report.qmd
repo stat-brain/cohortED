@@ -10,13 +10,6 @@ execute:
 
 ---
 
-```{r user_input}
-#| echo: false
-
-input_dataset <- math
-
-```
-
 ```{r setup}
 #| echo: false
 #| warning: false
@@ -26,6 +19,13 @@ library(ggplot2)
 library(cowplot)
 library(knitr)
 library(kableExtra)
+
+```
+
+```{r user_input}
+#| echo: false
+
+input_dataset <- math
 
 ```
 
@@ -73,7 +73,7 @@ cat(paste0(
 ```{r student_population}
 #| echo: false
 
-student_population <- summarize_students_by_grade_year(dataset = math)
+student_population <- summarize_students_by_grade_year(dataset = input_dataset)
 
 ```
 
@@ -118,7 +118,19 @@ print(student_population$Enrollment_LinePlot)
 
 cat(definitions$mobility$bullet_text)
 
+```
+
+```{r definitions2}
+#| echo: false
+#| results: asis
+
 cat(definitions$trajectory$bullet_text)
+
+```
+
+```{r definitions3}
+#| echo: false
+#| results: asis
 
 cat(definitions$transitions$bullet_text)
 
@@ -139,7 +151,7 @@ knitr::include_graphics("cohort_explanation.png")
 ```{r cohorts}
 #| echo: false
 
-cohort1 <- analyze_student_cohorts(dataset = math)
+cohort1 <- analyze_student_cohorts(dataset = input_dataset)
 print(cohort1$Heatmaps$`2019`)
 
 ```
@@ -149,7 +161,7 @@ Based on the table below, the overall trend for students for the 2023-2024 acade
 ```{r table_of_years}
 #| echo: false
 
-change <- plot_distribution_mobility(dataset = math, 
+change <- plot_distribution_mobility(dataset = input_dataset, 
                                      current_year = latest_year,
                                      start_grade = 4, 
                                      end_grade = 6, 
@@ -165,7 +177,7 @@ Also of interest is how these cohorts of students compare to one another and to 
 ```{r spaghetti}
 #| echo: false
 
-prof1 <- plot_cohort2_proficiency(dataset = math, 
+prof1 <- plot_cohort2_proficiency(dataset = input_dataset, 
                                  year_range = c(earliest_year:latest_year), 
                                  grade_range = c(3, 4, 5), 
                                  n_proficiencies = 2,
@@ -181,7 +193,7 @@ print(prof1$Plot)
 ```{r alluvial}
 #| echo: FALSE
 
-grade5 = plot_alluvial_mobility(dataset = math, 
+grade5 = plot_alluvial_mobility(dataset = input_dataset, 
                                 current_year = latest_year, 
                                 current_grade = 5, 
                                 print_plot = FALSE)
@@ -233,7 +245,7 @@ kable(grade5$Table_by_Ethnicity,
 ```{r performance}
 #| echo: FALSE
 
-achievement5 = compare_achievement_mobility(dataset = math, 
+achievement5 = compare_achievement_mobility(dataset = input_dataset, 
                                             current_year = latest_year, 
                                             current_grade = 5, 
                                             achievement_levels = c("Advanced", 
@@ -267,7 +279,7 @@ print(achievement5$Comparison_Plot)
 #| echo: false
 #| results: asis
 
-cat(attr(math, "data_note"), sep = "\n\n")
+cat(attr(input_dataset, "data_note"), sep = "\n\n")
 
 ```
 
@@ -285,7 +297,7 @@ knitr::kable(table_clean, caption = cohort1$Caption)
 ```{r enrollment_trends}
 #| echo: false
 
-grade_transitions <- summarize_grade_transitions(dataset = math)
+grade_transitions <- summarize_grade_transitions(dataset = input_dataset)
 
 knitr::kable(grade_transitions$Summary_Tables$By_Year_And_Grade, 
              caption = grade_transitions$Summary_Tables$Note)
