@@ -14,7 +14,7 @@
     "Mobility", "Gender", "Ethnicity", "Frequency", "stratum",
     "ACHIEVEMENT_LEVEL", "PERCENT", "Grade", "Count", "Cohort", "Year",
     "GRADE", "MOBILITY", "% Proficient", "Total", "GRADE_PAIR_LABEL",
-    "Mobility_Status", "Achievement_Level", "Percent",
+    "Mobility_Status", "Achievement_Level", "Percent", "YEAR_NUM", "n_students",
     "COUNT", "Cohort_Label", "JOIN_YEAR_LABEL", "JOIN_GRADE",
     "Years_Since_Join", "FillValue", "Label", "LabelColor", "AcademicYear",
     "Cohort_Label_Stack", "YearsSinceJoin", "PercentRetained",
