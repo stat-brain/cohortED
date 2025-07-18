@@ -10,6 +10,13 @@ execute:
 
 ---
 
+```{r user_input}
+#| echo: false
+
+input_dataset <- math
+
+```
+
 ```{r setup}
 #| echo: false
 #| warning: false
@@ -27,7 +34,7 @@ library(kableExtra)
 ```{r setup-overview}
 #| include: false
 
-years <- parse_year(math$YEAR)
+years <- parse_year(input_dataset$YEAR)
 latest_year <- max(years, na.rm = TRUE)
 earliest_year <- min(years, na.rm = TRUE)
 
@@ -35,10 +42,10 @@ latest_label <- to_academic_year(latest_year)
 earliest_label <- to_academic_year(earliest_year)
 year_str <- paste(earliest_label, "to", latest_label)
 
-content_area <- attr(math, "content_area")
-record_type <- attr(math, "record_type")
-data_source <- attr(math, "data_source")
-num_students <- format(length(unique(math$ID)), big.mark = ",")
+content_area <- attr(input_dataset, "content_area")
+record_type <- attr(input_dataset, "record_type")
+data_source <- attr(input_dataset, "data_source")
+num_students <- format(length(unique(input_dataset$ID)), big.mark = ",")
 
 ```
 
@@ -58,6 +65,7 @@ cat(paste0(
   "Future analyses may benefit from incorporating dedicated enrollment records for more complete insights. ",
   "This report draws on *", num_students, "* unique students from the `", data_source, "` dataset."
 ))
+
 ```
 
 ## Student Population
@@ -95,6 +103,13 @@ kable(student_population$Summary_Wide,
 
 ```
 
+```{r student_lines}
+#| echo: false
+
+print(student_population$Enrollment_LinePlot)
+
+```
+
 ## Definitions
 
 ```{r definitions}
@@ -102,6 +117,10 @@ kable(student_population$Summary_Wide,
 #| results: asis
 
 cat(definitions$mobility$bullet_text)
+
+cat(definitions$trajectory$bullet_text)
+
+cat(definitions$transitions$bullet_text)
 
 ```
 
@@ -260,6 +279,17 @@ cat(attr(math, "data_note"), sep = "\n\n")
 table_clean <- cohort1$Table
 table_clean[is.na(table_clean)] <- ""
 knitr::kable(table_clean, caption = cohort1$Caption)
+
+```
+
+```{r enrollment_trends}
+#| echo: false
+
+grade_transitions <- summarize_grade_transitions(dataset = math)
+
+knitr::kable(grade_transitions$Summary_Tables$By_Year_And_Grade, 
+             caption = grade_transitions$Summary_Tables$Note)
+knitr::kable(grade_transitions$Summary_Tables$By_Year_And_Enrollment)
 
 ```
 

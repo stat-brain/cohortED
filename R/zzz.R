@@ -13,7 +13,7 @@
   utils::globalVariables(c(
     "Mobility", "Gender", "Ethnicity", "Frequency", "stratum",
     "ACHIEVEMENT_LEVEL", "PERCENT", "Grade", "Count", "Cohort", "Year",
-    "GRADE", "MOBILITY", "% Proficient",
+    "GRADE", "MOBILITY", "% Proficient", "Total",
     "Mobility_Status", "Achievement_Level", "Percent",
     "COUNT", "Cohort_Label", "JOIN_YEAR_LABEL", "JOIN_GRADE",
     "Years_Since_Join", "FillValue", "Label", "LabelColor", "AcademicYear",

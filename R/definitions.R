@@ -53,3 +53,48 @@ definitions$achievement_levels$bullet_text = paste(
   paste0("- **", names(definitions$achievement_levels$items), "**: ", definitions$achievement_levels$items),
   collapse = "\n"
 )
+
+definitions$trajectory <- list(
+  items = list(
+    Trajectory = paste(
+      "A student's observed sequence of grade-level placements across academic years,",
+      "starting from their first appearance in the dataset.",
+      "In `cohortED`, trajectories assume linear grade progression (one grade per year).",
+      "Students who skip or repeat a grade are treated as exiting the cohort at the point of deviation,",
+      "unless handled by specialized functions."
+    )
+  )
+)
+
+definitions$trajectory$bullets <- paste0(
+  "- **", names(definitions$trajectory$items), "**: ", definitions$trajectory$items
+)
+
+definitions$trajectory$bullet_text <- paste(
+  "In cohortED, a trajectory is defined as:",
+  "",
+  paste(definitions$trajectory$bullets, collapse = "\n"),
+  sep = "\n"
+)
+
+definitions$transitions <- list(
+  items = list(
+    Enrolled = "Student appears in consecutive academic years or for the first time.",
+    Return = "Student reappears in the dataset after missing one or more years.",
+    Stay = 'Advanced one grade level over one year (typical progression). Synonymous with the definition of "Stay" for Cohorts.',
+    Repeat = "Remained in the same grade across two consecutive years.",
+    Skip = "Advanced more than one grade level in a single year.",
+    Drop_Back = "Moved backward in grade level or regressed after a gap."
+  )
+)
+
+definitions$transitions$bullets <- paste0(
+  "- **", names(definitions$transitions$items), "**: ", definitions$transitions$items
+)
+
+definitions$transitions$bullet_text <- paste(
+  "Enrollment and grade transitions are classified as follows:",
+  "",
+  paste(definitions$transitions$bullets, collapse = "\n"),
+  sep = "\n"
+)

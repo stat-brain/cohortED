@@ -115,3 +115,18 @@ to_academic_year <- function(year_numeric) {
   }
   paste0(year_numeric, "-", year_numeric + 1)
 }
+
+#' Find the Most Common Value (Mode)
+#'
+#' Returns the statistical mode of a vector (first in case of ties).
+#'
+#' @param x A vector of values (numeric, character, factor, etc.)
+#'
+#' @return The most frequently occurring value in `x`.
+#' @export
+
+get_mode <- function(x) {
+  x <- as.character(x)  # ensure character before matching
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
