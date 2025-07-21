@@ -1,56 +1,34 @@
 ---
-title: "Performance Report"
-format: 
-  html: 
-    self-contained: true
-  docx: default
-
-execute: 
-  cache: false
-
+title: "Cohort-Based Analysis of Proficiency Trends"
+subtitle: "Longitudinal Performance Report"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-title: "On this page"
+    number-sections: true
+params:
+  content_area: "ELA"
+  target_grade: 4
+  dataset: "D:/ELA_Grade4.rds"
+  years: ["2022-2023", "2023-2024", "2024-2025"]
+  output_file: "cohort_report_ela_grade4.html"
+execute:
+  freeze: false
+  echo: false
+  message: false
+  warning: false
 ---
 
-```{r, child = "executive_summary.qmd"}
+
+```{r child="_report-setup.qmd"}
 
 ```
 
-```{r, child = "background_and_purpose.qmd"}
+```{r child="01_intro.qmd"}
 
 ```
 
-```{r, child = "data_and_methods.qmd"}
+```{r child="appendices.qmd"}
 
 ```
-
-```{r, child = "overall_performance.qmd"}
-
-```
-
-```{r, child = "mobility_analysis.qmd"}
-
-```
-
-```{r, child = "cohort_analysis.qmd"}
-
-```
-
-```{r, child = "grade_progression.qmd"}
-
-```
-
-```{r, child = "equity_considerations.qmd"}
-
-```
-
-```{r, child = "implications.qmd"}
-
-```
-
-```{r, child = "recommendations.qmd"}
-
-```
-
-```{r, child = "appendices.qmd"}
-
-```
-

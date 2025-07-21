@@ -1,0 +1,41 @@
+
+
+```{r}
+# Load Libraries
+library(ggplot2)
+library(cowplot)
+library(cohortED)
+
+```
+
+```{r}
+# Unpack parameters
+content_area   <- params$content_area
+target_grade   <- params$target_grade
+years          <- params$years
+dataset_path   <- params$dataset
+
+# Convert years to numeric values
+years_num      <- parse_year(years)
+
+# Derived variables
+subject_label  <- toupper(content_area)
+grade_label    <- paste("Grade", target_grade)
+previous_grade <- target_grade - 1
+first_year     <- min(years_num)
+current_year   <- max(years_num)
+previous_year  <- max(years_num) - 1
+
+```
+
+```{r}
+# Load in the dataset
+if (!file.exists(params$dataset)) {
+  stop(paste("Dataset file not found:", params$dataset))
+} else {
+  dataset <- readRDS(params$dataset)
+}
+
+```
+
+

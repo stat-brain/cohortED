@@ -1,0 +1,75 @@
+# Background and Purpose
+
+```{r load_data}
+# Load the data
+#df <- readRDS(dataset_path)
+df$YEAR_NUM <- parse_year(df$YEAR)
+```
+
+
+```{r get_trend}
+# Helper to extract % proficient using cohortED function
+get_percent_proficient <- function(data, year, var = "PROFICIENCY_LEVEL", top_n = 3) {
+  dat <- data[data$YEAR_NUM == year & !is.na(data[[var]]), ]
+  if (nrow(dat) == 0) return(NA)
+  OUT <- make_proficiency_levels(dat, achievement = var, n_proficiencies = top_n, print_plot = FALSE)
+  tbl <- OUT$Table
+  as.numeric(gsub("%", "", tbl[1, "Proficient"]))
+}
+
+# Calculate proficiency rates
+prev_prof <- round(get_percent_proficient(df_sub, previous_year), 1)
+curr_prof <- round(get_percent_proficient(df_sub, current_year), 1)
+diff_prof <- round(curr_prof - prev_prof, 1)
+
+```
+
+```{r phrase_trend}
+# Phrase the trend
+trend <- if (is.na(prev_prof) | is.na(curr_prof)) {
+  "an unknown change in"
+} else if (diff_prof > 0) {
+  paste("an increase of", diff_prof, "percentage points in")
+} else if (diff_prof < 0) {
+  paste("a decrease of", abs(diff_prof), "percentage points in")
+} else {
+  "no change in"
+}
+
+```
+
+```{r intro_paragraph}
+#| results: asis
+
+# Background paragraph
+intro_paragraph <- paste(
+  "State summative assessment results in", subject_label, 
+  "for", grade_label, "show", trend, "proficiency rates in", current_year,
+  "compared to", previous_year, ".", 
+  "This report uses a cohort-based, longitudinal lens to investigate this change by tracking",
+  "student performance over time, assessing cohort persistence, and examining demographic and mobility patterns.",
+  sep = " "
+)
+
+cat(intro_paragraph)
+
+```
+
+
+```{r purpose_paragraph}
+#| results: asis
+
+# Purpose paragraph
+purpose_paragraph <- paste(
+  "The goal of this report is to determine whether the observed change in", subject_label, 
+  "proficiency in", grade_label, "is part of a larger cohort trend,",
+  "a shift in student composition, or a deviation from prior performance trajectories.",
+  "By comparing multiple cohorts who have passed through", grade_label,
+  "in recent years, we aim to provide insight into whether the observed change is expected,",
+  "an anomaly, or a sign of a broader pattern that merits further attention.",
+  sep = " "
+)
+
+cat(purpose_paragraph)
+
+```
