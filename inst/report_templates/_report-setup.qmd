@@ -22,6 +22,12 @@ subject_label  <- toupper(content_area)
 grade_label    <- paste("Grade", target_grade)
 previous_grade <- target_grade - 1
 
+# Proficiency levels
+proficiency_levels <- params$proficiency_levels
+advanced_levels <- params$advanced_levels
+n_proficiency_levels <- length(proficiency_levels)
+n_advanced_levels <- if (!is.null(advanced_levels)) length(advanced_levels) else 0
+
 ```
 
 ```{r load_data}

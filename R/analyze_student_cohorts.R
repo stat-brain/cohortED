@@ -117,8 +117,6 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   summary_df$percent_retained <- round(100 * summary_df$n_students / summary_df$entry_size, 1)
   summary_df <- summary_df[order(summary_df$join_year, summary_df$grade), ]
   row.names(summary_df) <- NULL
-  names(summary_df) <- c("Cohort", "Join Year", "Year", "Grade", "Number of Students", "Cohort Entry Size", "Percent Retained")
-  OUT$Summary <- summary_df
   
   #--- Generate improved wide-format cohort table ---
   table_df <- summary_df[, c("cohort_label", "grade", "n_students")]
@@ -241,6 +239,10 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
       rel_heights = rep(1, length(OUT$Heatmaps))
     )
   }
+  
+  # Update the summary table and output it
+  names(summary_df) <- c("Cohort", "Join Year", "Year", "Grade", "Number of Students", "Cohort Entry Size", "Percent Retained")
+  OUT$Summary <- summary_df
   
   OUT$Caption <- "Summary of student cohorts by grade and year."
   

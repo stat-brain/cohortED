@@ -9,6 +9,15 @@ cohort_results <- analyze_student_cohorts(
 
 ```
 
+```{r cohort_text}
+#| results: asis
+
+# Generate summary text
+summary_text <- report_cohort_overview(cohort_results$Summary)
+cat(summary_text$Detailed_Summary)
+
+```
+
 ```{r first_table}
 # Show summary table of cohort persistence
 table_clean <- cohort_results$Table
@@ -19,6 +28,6 @@ knitr::kable(table_clean, caption = cohort_results$Caption)
 
 ```{r heatmapt1}
 # Show the combined heatmap of entry size and retention rates
-cohort_results$Heatmaps
+cohort_results$Heatmaps$Combined
 
 ```

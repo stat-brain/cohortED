@@ -111,7 +111,7 @@ parse_year <- function(year_input) {
 
 to_academic_year <- function(year_numeric) {
   if (!is.numeric(year_numeric)) {
-    stop("Input to .to_academic_year() must be numeric.")
+    stop("Input to to_academic_year() must be numeric.")
   }
   paste0(year_numeric, "-", year_numeric + 1)
 }

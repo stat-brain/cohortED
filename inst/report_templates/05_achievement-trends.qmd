@@ -1,1 +1,7 @@
 # Achievement Trends
+
+This section examines how student achievement in `r content_area` has changed over time. By tracking the percentage of students who reached proficiency based on the state-defined achievement levels, we can better understand long-term performance patterns.
+
+In this analysis, we focus on `r if (!is.null(target_grade)) paste("Grade", target_grade) else paste("Grades", paste(range(grades), collapse = "–"))`, examining trends across multiple academic years.
+
+Proficiency is defined here as scoring at or above the following achievement level(s): `r paste(proficiency_levels, collapse = ", ")`.
