@@ -25,9 +25,3 @@ table_clean[is.na(table_clean)] <- ""
 knitr::kable(table_clean, caption = cohort_results$Caption)
 
 ```
-
-```{r heatmapt1}
-# Show the combined heatmap of entry size and retention rates
-cohort_results$Heatmaps$Combined
-
-```
