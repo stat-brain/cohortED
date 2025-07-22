@@ -1,0 +1,24 @@
+# Cohort Overview
+
+```{r analyze_cohorts}
+# Run one of the first functions
+cohort_results <- analyze_student_cohorts(
+  dataset = df, 
+  extra_variables = c("GENDER", "ETHNICITY", "SCHOOL_NUMBER")
+)
+
+```
+
+```{r first_table}
+# Show summary table of cohort persistence
+table_clean <- cohort_results$Table
+table_clean[is.na(table_clean)] <- ""
+knitr::kable(table_clean, caption = cohort_results$Caption)
+
+```
+
+```{r heatmapt1}
+# Show the combined heatmap of entry size and retention rates
+cohort_results$Heatmaps
+
+```

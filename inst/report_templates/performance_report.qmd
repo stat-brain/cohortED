@@ -7,12 +7,13 @@ format:
     toc-depth: 2
     toc-title: "On this page"
     number-sections: true
+    self-contained: true
 params:
-  content_area: "ELA"
-  target_grade: 4
-  dataset: "D:/ELA_Grade4.rds"
-  years: ["2022-2023", "2023-2024", "2024-2025"]
-  output_file: "cohort_report_ela_grade4.html"
+  content_area: "Mathematics"
+  target_grade: 5
+  grades: [3, 4, 5, 6, 7]
+  dataset: "math"
+  output_file: "cohort_report_basic.html"
 execute:
   freeze: false
   echo: false
@@ -26,6 +27,26 @@ execute:
 ```
 
 ```{r child="01_intro.qmd"}
+
+```
+
+```{r child="02_cohort-overview.qmd"}
+
+```
+
+```{r child="03_demographic-patterns.qmd"}
+
+```
+
+```{r child="04_mobility-analysis.qmd"}
+
+```
+
+```{r child="05_achievement-trends.qmd"}
+
+```
+
+```{r child="06_implications.qmd"}
 
 ```
 

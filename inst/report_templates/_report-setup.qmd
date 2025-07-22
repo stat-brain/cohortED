@@ -1,41 +1,71 @@
 
 
-```{r}
+```{r library_load}
 # Load Libraries
 library(ggplot2)
 library(cowplot)
 library(cohortED)
+library(knitr)
+library(kableExtra)
 
 ```
 
-```{r}
+```{r unpack_parameters}
 # Unpack parameters
 content_area   <- params$content_area
 target_grade   <- params$target_grade
-years          <- params$years
-dataset_path   <- params$dataset
+grade_range    <- params$grades
+dataset_input  <- params$dataset
 
-# Convert years to numeric values
-years_num      <- parse_year(years)
-
-# Derived variables
+# Derived narrative labels
 subject_label  <- toupper(content_area)
 grade_label    <- paste("Grade", target_grade)
 previous_grade <- target_grade - 1
-first_year     <- min(years_num)
-current_year   <- max(years_num)
-previous_year  <- max(years_num) - 1
 
 ```
 
-```{r}
-# Load in the dataset
-if (!file.exists(params$dataset)) {
-  stop(paste("Dataset file not found:", params$dataset))
+```{r load_data}
+# Load dataset from internal package or external file
+dataset_input <- params$dataset
+grade_range   <- params$grades
+
+if (file.exists(dataset_input)) {
+  df <- readRDS(dataset_input)
 } else {
-  dataset <- readRDS(params$dataset)
+  data(list = dataset_input, package = "cohortED")
+  df <- get(dataset_input)
 }
 
+# Safely convert GRADE to numeric
+df$GRADE <- as.numeric(df$GRADE)
+
+# Filter by content area (case-insensitive) and grade range
+df <- df[
+  toupper(df$CONTENT_AREA) == toupper(params$content_area) & df$GRADE %in% grade_range, 
+]
+
 ```
 
+```{r derive_years}
+# Ensure YEAR column is parsed into numeric form
+df$YEAR_NUM <- as.numeric(parse_year(df$YEAR))
 
+# Get sorted list of available years
+available_years <- sort(unique(df$YEAR_NUM))
+
+# Stop if not enough years to compare
+if (length(available_years) < 2) {
+  stop("At least two distinct years are required for longitudinal analysis.")
+}
+
+# Identify key year points
+current_year   <- max(available_years, na.rm = TRUE)
+previous_year  <- sort(available_years[available_years < current_year], decreasing = TRUE)[1]
+first_year     <- min(available_years, na.rm = TRUE)
+
+# Optional: academic year labels
+current_year_label  <- to_academic_year(current_year)
+previous_year_label <- to_academic_year(previous_year)
+first_year_label    <- to_academic_year(first_year)
+
+```

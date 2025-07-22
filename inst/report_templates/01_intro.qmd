@@ -1,15 +1,8 @@
 # Background and Purpose
 
-```{r load_data}
-# Load the data
-#df <- readRDS(dataset_path)
-df$YEAR_NUM <- parse_year(df$YEAR)
-```
-
-
 ```{r get_trend}
 # Helper to extract % proficient using cohortED function
-get_percent_proficient <- function(data, year, var = "PROFICIENCY_LEVEL", top_n = 3) {
+get_percent_proficient <- function(data, year, var = "ACHIEVEMENT_LEVEL", top_n = 3) {
   dat <- data[data$YEAR_NUM == year & !is.na(data[[var]]), ]
   if (nrow(dat) == 0) return(NA)
   OUT <- make_proficiency_levels(dat, achievement = var, n_proficiencies = top_n, print_plot = FALSE)
@@ -18,56 +11,109 @@ get_percent_proficient <- function(data, year, var = "PROFICIENCY_LEVEL", top_n 
 }
 
 # Calculate proficiency rates
-prev_prof <- round(get_percent_proficient(df_sub, previous_year), 1)
-curr_prof <- round(get_percent_proficient(df_sub, current_year), 1)
+prev_prof <- round(get_percent_proficient(df, previous_year, top_n = 2), 1)
+curr_prof <- round(get_percent_proficient(df, current_year, top_n = 2), 1)
 diff_prof <- round(curr_prof - prev_prof, 1)
+
+# Calculate the advanced proficiency rates
+prev_adv <- round(get_percent_proficient(df, previous_year, top_n = 1), 1)
+curr_adv <- round(get_percent_proficient(df, current_year, top_n = 1), 1)
+diff_adv <- round(curr_adv - prev_adv, 1)
 
 ```
 
 ```{r phrase_trend}
 # Phrase the trend
 trend <- if (is.na(prev_prof) | is.na(curr_prof)) {
-  "an unknown change in"
+  "an **unknown change** in"
 } else if (diff_prof > 0) {
-  paste("an increase of", diff_prof, "percentage points in")
+  paste0("an **increase** of **", diff_prof, "** percentage points in")
 } else if (diff_prof < 0) {
-  paste("a decrease of", abs(diff_prof), "percentage points in")
+  paste0("a **decrease** of **", abs(diff_prof), "** percentage points in")
 } else {
-  "no change in"
+  "**no change** in"
 }
+
+# Phrase the advanced proficiency trend
+adv_trend <- if (is.na(prev_adv) | is.na(curr_adv)) {
+  "an **unknown change** in"
+} else if (diff_adv > 0) {
+  paste0("an **increase** of **", diff_adv, "** percentage points in")
+} else if (diff_adv < 0) {
+  paste0("a **decrease** of **", abs(diff_adv), "** percentage points in")
+} else {
+  "**no change** in"
+}
+
+# Add summary strings for both
+trend_summary <- sprintf(
+  "Proficiency changed from **%.1f%%** to **%.1f%%**",
+  prev_prof, curr_prof
+)
+
+adv_summary <- sprintf(
+  "Advanced proficiency changed from **%.1f%%** to **%.1f%%**",
+  prev_adv, curr_adv
+)
 
 ```
 
 ```{r intro_paragraph}
 #| results: asis
 
-# Background paragraph
-intro_paragraph <- paste(
-  "State summative assessment results in", subject_label, 
-  "for", grade_label, "show", trend, "proficiency rates in", current_year,
-  "compared to", previous_year, ".", 
-  "This report uses a cohort-based, longitudinal lens to investigate this change by tracking",
-  "student performance over time, assessing cohort persistence, and examining demographic and mobility patterns.",
-  sep = " "
+intro_paragraph <- paste0(
+  "State summative assessment results in **", subject_label, "** for **", grade_label, "** show ",
+  trend, " overall proficiency rates and ", adv_trend, " advanced proficiency rates in **",
+  to_academic_year(current_year), "** compared to **", to_academic_year(previous_year), "** ",
+  sprintf("(Proficiency changed from **%.1f%%** to **%.1f%%**; Advanced proficiency changed from **%.1f%%** to **%.1f%%**).",
+          prev_prof, curr_prof, prev_adv, curr_adv), " ",
+  "This report uses a cohort-based, longitudinal lens to investigate these changes by tracking ",
+  "student performance over time, assessing cohort persistence, and examining demographic and mobility patterns."
 )
 
 cat(intro_paragraph)
 
 ```
 
+```{r cohort_paragraph}
+#| results: asis
+
+# Convert grade range to display string (e.g., "Grades 3 through 7")
+grade_min <- min(grade_range)
+grade_max <- max(grade_range)
+grade_range_str <- if (grade_min == grade_max) {
+  paste0("Grade ", grade_min)
+} else {
+  paste0("Grades ", grade_min, " through ", grade_max)
+}
+
+
+# Build paragraph
+cohort_paragraph <- paste0(
+  "Cohort-based analysis follows groups of students as they progress through grades over multiple years, ",
+  "allowing us to distinguish between cohort effects and broader systemic trends. ",
+  "This analysis includes students enrolled in **", grade_range_str, 
+  "** during the academic years **", first_year_label, "** through **", current_year_label, "**. ",
+  "The focus of this report is on **Grade ", target_grade, "** proficiency outcomes in **", current_year_label, "**. ",
+  "For example, one cohort tracked in this report began in **Grade ", previous_grade, "** during **", previous_year_label, 
+  "** and progressed to **Grade ", target_grade, "** in **", current_year_label, "**."
+)
+
+cat(cohort_paragraph)
+
+```
 
 ```{r purpose_paragraph}
 #| results: asis
 
 # Purpose paragraph
-purpose_paragraph <- paste(
-  "The goal of this report is to determine whether the observed change in", subject_label, 
-  "proficiency in", grade_label, "is part of a larger cohort trend,",
-  "a shift in student composition, or a deviation from prior performance trajectories.",
-  "By comparing multiple cohorts who have passed through", grade_label,
-  "in recent years, we aim to provide insight into whether the observed change is expected,",
-  "an anomaly, or a sign of a broader pattern that merits further attention.",
-  sep = " "
+purpose_paragraph <- paste0(
+  "The goal of this report is to determine whether the observed change in **", subject_label, 
+  "** proficiency in **", grade_label, "** is part of a larger cohort trend, ",
+  "a shift in student composition, or a deviation from prior performance trajectories. ",
+  "By comparing multiple cohorts who have passed through **", grade_label,
+  "** in recent years, we aim to provide insight into whether the observed change is expected, ",
+  "an anomaly, or a sign of a broader pattern that merits further attention."
 )
 
 cat(purpose_paragraph)

@@ -1,0 +1,68 @@
+# Mobility Analysis
+
+Student mobility can significantly affect cohort performance trends. This section examines how students who stayed, joined, or left the tested cohort performed on the most recent ELA assessment. In this report, **"Stay"** students were enrolled in both last year and this year (`r definitions$mobility$items$Stay`), **"Join"** students were enrolled this year but not last year (`r definitions$mobility$items$Join`), and **"Leave"** students were enrolled last year but not in the current year (`r definitions$mobility$items$Leave`). These classifications help us understand how student movement may relate to achievement outcomes.
+
+## Summary of Key Findings
+
+```{r compare_mobility}
+# Run analysis
+mobility_results <- compare_achievement_mobility(
+  dataset = df, 
+  current_year = current_year, 
+  current_grade = target_grade,
+  achievement_levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory")
+)
+
+```
+
+```{r mobility_text}
+#| results: asis
+
+# Print the mobility text
+mobility_text <- report_achievement_mobility(mobility_results)
+cat(mobility_text$Paragraph_Summary)
+
+```
+
+## Proficiency Rates by Mobility Group
+
+```{r comparison_plot}
+# Plot the comparison plot
+mobility_results$Comparison_Plot
+
+```
+
+```{r comparison_text}
+#| results: asis
+
+# Print an interpretation of the results
+cat(mobility_text$Proficiency_By_Group)
+
+```
+
+## Achievement Level Changes for "Stay" Students
+
+```{r stay_change_plot}
+# Print the plot
+mobility_results$Stay_Change_Plot
+
+```
+
+```{r stay_change_text}
+#| results: asis
+
+# Print the text associated with the plot
+cat(mobility_text$Stay_Cohort_Change)
+
+```
+
+## Most Common Achievement Levels
+
+```{r most_common}
+#| results: asis
+
+# Print the text associated with the Most Common Levels
+cat(mobility_text$Most_Common_Levels)
+
+```
+

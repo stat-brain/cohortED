@@ -31,6 +31,7 @@
 #' }
 #'
 #' @importFrom stats reshape
+#' @importFrom cowplot plot_grid
 #' @import ggplot2
 #' 
 #' @export
@@ -116,6 +117,7 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   summary_df$percent_retained <- round(100 * summary_df$n_students / summary_df$entry_size, 1)
   summary_df <- summary_df[order(summary_df$join_year, summary_df$grade), ]
   row.names(summary_df) <- NULL
+  names(summary_df) <- c("Cohort", "Join Year", "Year", "Grade", "Number of Students", "Cohort Entry Size", "Percent Retained")
   OUT$Summary <- summary_df
   
   #--- Generate improved wide-format cohort table ---
@@ -217,7 +219,7 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
       scale_y_continuous(breaks = all_grades, expand = expansion(mult = c(0, 0))) +
       scale_x_continuous(breaks = all_years_since_join, expand = expansion(mult = c(0, 0))) +
       labs(
-        title = paste0("Cohort Persistence Heatmap - Join Year: ", jy),
+        title = paste0("Cohort Persistence Heatmap - Join Year: ", to_academic_year(jy)),
         x = "Years Since Join",
         y = "Grade"
       ) +
@@ -229,6 +231,16 @@ analyze_student_cohorts <- function(dataset, details = FALSE, extra_variables = 
   }
   
   OUT$Heatmaps <- heatmaps_by_year
+  
+  if (length(OUT$Heatmaps) <= 6) {
+    OUT$Heatmaps$Combined <- plot_grid(
+      plotlist = OUT$Heatmaps,
+      labels = names(OUT$Heatmaps),
+      ncol = 1,
+      label_size = 12,
+      rel_heights = rep(1, length(OUT$Heatmaps))
+    )
+  }
   
   OUT$Caption <- "Summary of student cohorts by grade and year."
   
