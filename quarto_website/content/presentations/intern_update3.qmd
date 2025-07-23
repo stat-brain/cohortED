@@ -58,9 +58,7 @@ July 25, 2025
 
 ## Primary Report
 
-** Still need to add updated report **
-
-<iframe src="assets/mobility_report2.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
+<iframe src="assets/mobility_report3.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
 
 <div style="margin-top: 12px; text-align: center;">
   <a href="https://stat-brain.github.io/cohortED/example_reports.html" target="_blank" style="font-weight: bold; text-decoration: none; color: #007acc;">
