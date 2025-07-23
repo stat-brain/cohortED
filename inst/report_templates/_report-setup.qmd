@@ -16,6 +16,7 @@ content_area   <- params$content_area
 target_grade   <- params$target_grade
 grade_range    <- params$grades
 dataset_input  <- params$dataset
+achieve_var    <- params$achievement
 
 # Derived narrative labels
 subject_label  <- toupper(content_area)

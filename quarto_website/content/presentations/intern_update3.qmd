@@ -1,0 +1,286 @@
+---
+format:
+  revealjs:
+    title-slide: false
+    logo: assets/img/cfa_logo_full_color.png
+    width: 1600
+    height: 900
+    preview-links: auto
+    scrollable: false
+    slide-number: true
+    show-slide-number: all
+    controls: true
+    background-transition: fade
+    fig-align: center
+    center-title-slide: false
+    navigation-mode: linear
+    theme: [simple, assets/css/presentation-style.scss]
+    html-math-method: mathjax
+    embed-resources: true
+draft: false
+---
+::: {.title-slide}
+
+![](assets/img/cfa_logo_full_color.png){style="max-width: 30%; height: auto; margin-bottom: 1em;"}
+
+# Agile Development to Support State Assessment Analyses
+## Intern Update #3
+**Brian Harrold**  
+July 25, 2025
+
+:::
+
+# `cohortED` package
+
+
+::: {.columns}
+
+::: {.column width="40%"}
+![](assets/img/cohortED_badge.png){alt="cohortED badge" style="width: 90%"}
+:::
+
+::: {.column width="60%"}
+- [Quarto Website](https://stat-brain.github.io/cohortED/)
+- [GitHub Repository](https://github.com/stat-brain/cohortED)
+:::
+
+:::
+
+---
+
+## In the last two weeks
+
+* Refined primary report
+* Added new visualizations and reporting options
+* Integrated logic for unusual grade transitions
+* Analyzing assessment-related trends
+  - Participation, Performance, Persistence
+
+## Primary Report
+
+** Still need to add updated report **
+
+<iframe src="assets/mobility_report2.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
+
+<div style="margin-top: 12px; text-align: center;">
+  <a href="https://stat-brain.github.io/cohortED/example_reports.html" target="_blank" style="font-weight: bold; text-decoration: none; color: #007acc;">
+    View Example Reports
+  </a>
+</div>
+
+
+<style>
+.sparkle-container {
+  position: relative;
+  padding: 2rem 3rem;
+  font-size: 3.5rem;
+  color: #333;
+  z-index: 1;
+}
+
+.sparkle-container ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+.sparkle {
+  position: absolute;
+  animation: sparkleMove 6s infinite ease-in-out;
+  font-size: 2.5rem;
+  opacity: 0.6;
+  z-index: 0;
+  pointer-events: none;
+}
+.sparkle:nth-child(1) { top: 10%; right: 30%; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 20%; right: 10%; animation-delay: 1.5s; }
+.sparkle:nth-child(3) { bottom: 40%; right: 40%; animation-delay: 3s; }
+.sparkle:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 4.5s; }
+
+@keyframes sparkleMove {
+  0%   { transform: scale(1) rotate(0deg); opacity: 0.4; }
+  50%  { transform: scale(1.6) rotate(180deg); opacity: 1; }
+  100% { transform: scale(1) rotate(360deg); opacity: 0.4; }
+}
+</style>
+
+## ✨ A New Report
+
+<div class="sparkle-container">
+  <div class="sparkle">✨</div>
+  <div class="sparkle">🌟</div>
+  <div class="sparkle">💫</div>
+  <div class="sparkle">✨</div>
+
+  <ul>
+    <li>Early version of report</li>
+    <li>Built using <strong>real performance data</strong></li>
+    <li>Explores <strong>grade-level achievement trends</strong></li>
+    <li>Fully <em>reproducible</em> and <em>flexible</em></li>
+    <li>Expands the scope of the <code>cohortED</code> package</li>
+  </ul>
+</div>
+
+## Merging and Cleaning the Data
+  
+* Change in variables and variable names
+* Handle non-unique student identifiers
+  - New students vs. Existing students
+  - Based on same test, same grade, same year
+  - Found a potential solution
+* Separate re-testers [9-12 only]
+
+## Working towards reproducibility
+
+* Require fields:
+  - (Unique) Student `ID`
+  - (Academic OR Numeric) `YEAR`
+  - `GRADE`
+* For the report:
+  - Differences in `sgpData` and real data
+  - Focusing on `target_grade` (and appropriate subset)
+
+## YAML Parameters
+
+```yaml
+params:
+  content_area: "Mathematics"
+  target_grade: 5
+  grades: [3, 4, 5, 6, 7]
+  dataset: "math"
+  proficiency_levels:
+    - Proficient
+    - Advanced
+  advanced_levels:
+    - Advanced
+  achievement: "ACHIEVEMENT_LEVEL"
+  output_file: "cohort_report_basic.html"
+```
+
+<div class="fragment" style="margin-top: 1.5rem; font-size: 2.75rem; background: #fdf6e3; border-left: 4px solid #007acc; padding: 0.8rem;">
+  🔁 Change these values to generate a custom report.
+</div>
+
+## With `sgpData`
+
+** Still need to add this here **
+
+<iframe src="assets/mobility_report2.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
+
+<div style="margin-top: 12px; text-align: center;">
+  <a href="https://stat-brain.github.io/cohortED/example_reports.html" target="_blank" style="font-weight: bold; text-decoration: none; color: #007acc;">
+    View Example Reports
+  </a>
+</div>
+
+## With Internal Data
+
+**See other reports**
+
+Not embedded for confidentiality reasons
+
+## Related Work
+
+::: {.columns}
+
+::: {.column width="60%"}
+- NCME 2026 **Training Session** Proposal Draft
+
+- NCME 2026 **Innovation Demonstration** Proposal Draft
+
+
+<p style="margin-top: 1rem; font-style: italic; font-size: 3.0rem;">
+Drafts available upon request
+</p>
+:::
+
+::: {.column width="40%"}
+<img src="assets/img/writing_image.jpg" alt="Writing Image" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+:::
+
+:::
+
+## Internship Highlights
+
+- Developed and documented the `cohortED` for **R**
+- Version control and website hosting through **GitHub**
+- Built automated, reproducible reports using **Quarto**
+- Applied workflows to **real data**
+- Improved **reproducibility** and **flexibility**
+
+> I’m excited about the potential of this work!
+
+## Desired Feedback
+
+- **Usefulness**: Are the reports and visuals informative and actionable?
+- **Future Direction**: Could this be shared as a blog or practitioner resource?
+- **Conceptual Fit**: How should grade-level trends complement cohort analysis?
+- **Writing Support**: Suggestions on the NCME Innovation Demonstration draft?  
+  _(I’d be happy to share it.)_
+
+---
+
+<style>
+.thank-you-slide {
+  position: relative;
+  background: linear-gradient(270deg, #009688, #673ab7, #ff5722, #009688);
+  background-size: 800% 800%;
+  animation: gradientLoop 15s ease infinite;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 60px rgba(0,0,0,0.5);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+@keyframes gradientLoop {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.thank-you-slide h1 {
+  font-size: 4rem;
+  margin-bottom: 0.3rem;
+}
+.thank-you-slide h3 {
+  font-weight: normal;
+  font-size: 2.0rem;
+}
+.thank-you-slide p {
+  margin: 1.4rem 0;
+  font-size: 2.0rem;
+  line-height: 1.6;
+}
+.profile-pic {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  height: 130px;
+  width: 130px;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+</style>
+
+<div class="thank-you-slide">
+  <img src="assets/img/brian_photo.jpeg" alt="Brian Harrold" class="profile-pic">
+
+  <h1>🎉 Thank You!</h1>
+  <h3>It’s been a privilege to learn and grow with the Center for Assessment.</h3>
+
+  <p>
+    💬 Let’s stay connected<br>
+    📧 <a href="mailto:bharrold@email.sc.edu" style="color: white;">bharrold@email.sc.edu</a><br>
+    🔗 <a href="https://www.linkedin.com/in/brianharrold6/" style="color: white;">linkedin.com/in/brianharrold6</a>
+  </p>
+
+  <p>
+    📦 Project Site:<a href="https://stat-brain.github.io/cohortED/" style="color: white;">
+      stat-brain.github.io/cohortED/
+    </a>
+  </p>
+
+  <img src="assets/img/cfa_logo_full_color.png" alt="Center for Assessment logo" style="height: 60px; margin-top: 2rem;">
+</div>

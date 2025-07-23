@@ -18,6 +18,7 @@ params:
     - Advanced
   advanced_levels:
     - Advanced
+  achievement: "ACHIEVEMENT_LEVEL"
   output_file: "cohort_report_basic.html"
 execute:
   freeze: false
@@ -43,7 +44,7 @@ execute:
 
 ```
 
-```{r child="04_mobility-analysis.qmd"}
+```{r}
 
 ```
 
