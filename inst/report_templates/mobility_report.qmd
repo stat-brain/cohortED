@@ -3,7 +3,6 @@ title: "State Level Mobility Report"
 format: 
   html: 
     self-contained: true
-  docx: default
 
 execute: 
   cache: false

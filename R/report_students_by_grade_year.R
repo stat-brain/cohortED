@@ -212,15 +212,15 @@ report_students_by_grade_year <- function(
   
   if (nrow(big_increases) > 0) {
     detailed_sentences <- c(detailed_sentences,
-                            paste("The largest enrollment increases occurred in grades", list_format(big_increases$Grade), "."))
+                            paste0("The largest enrollment increases occurred in grades ", list_format(big_increases$Grade), "."))
   }
   if (nrow(big_decreases) > 0) {
     detailed_sentences <- c(detailed_sentences,
-                            paste("The largest enrollment decreases occurred in grades", list_format(big_decreases$Grade), "."))
+                            paste0("The largest enrollment decreases occurred in grades ", list_format(big_decreases$Grade), "."))
   }
   if (length(high_labels) > 0) {
     detailed_sentences <- c(detailed_sentences,
-                            paste("Grades with consistently higher enrollment across years included", list_format(high_labels), "."))
+                            paste0("Grades with consistently higher enrollment across years included ", list_format(high_labels), "."))
   }
   if (consistency_sentence != "") {
     detailed_sentences <- c(detailed_sentences, consistency_sentence)

@@ -56,9 +56,11 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
     if (is.null(n_proficiencies)) n_proficiencies <- 2
     if (is.null(achievement)) achievement <- "ACHIEVEMENT_LEVEL"
     
-    dataset <- make_proficiency_levels(dataset = dataset, 
-                                       achievement = achievement, 
-                                       n_proficiencies = n_proficiencies)$Data
+    dataset <- make_proficiency_levels(
+      dataset = dataset, 
+      achievement = achievement, 
+      n_proficiencies = n_proficiencies
+    )$Data
   }
   
   start_grade <- min(grade_range)
@@ -67,19 +69,17 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
   n_years <- length(year_range)
   n_grades <- length(grade_range)
   grades <- rep(grade_range, times = n_years)
-  years <- rep(year_range, each = n_grades)
+  start_years <- rep(year_range, each = n_grades)  # These are academic year *start* years
+  year_labels <- paste0(start_years, "_", start_years + 1)
   
-  # Interpret year_range as end year of academic year
-  year_char <- paste0((years - 1), "_", years)
-  
-  # Configure repository
+  # Initialize results
   DF_NEW <- data.frame(grade = integer(), 
                        year = integer(), 
                        np = numeric(), 
                        p = numeric())
   
   for (i in seq_along(grades)) {
-    subset_vec <- dataset[[grade_col]] == grades[i] & dataset[[year_col]] == year_char[i]
+    subset_vec <- dataset[[grade_col]] == grades[i] & dataset[[year_col]] == year_labels[i]
     tbl <- table(dataset[subset_vec, "PROFICIENCY_LEVELS"])
     prop_tbl <- round(prop.table(tbl), 3) * 100
     
@@ -88,7 +88,7 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
     
     TEMP <- data.frame(
       grade = grades[i],
-      year = years[i],
+      year = start_years[i],  # Match YEAR_NUM convention (end year of academic year)
       np = as.numeric(np_val),
       p  = as.numeric(p_val)
     )
@@ -96,17 +96,23 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
     DF_NEW <- rbind(DF_NEW, TEMP)
   }
   
-  # Add cohort and rename columns
+  # Add cohort and academic year label
   DF_NEW$cohort <- DF_NEW$year - DF_NEW$grade + start_grade
-  colnames(DF_NEW) <- c("Grade", "Year", "% Not Proficient", "% Proficient", "Cohort")
+  DF_NEW$Academic_Year <- to_academic_year(DF_NEW$year)
   
+  # Rename columns
+  colnames(DF_NEW)[1:5] <- c("Grade", "Year", "% Not Proficient", "% Proficient", "Cohort")
+  
+  # Drop incomplete rows
   DF_NEW <- subset(DF_NEW, !is.na(`% Proficient`))
+  DF_NEW <- subset(DF_NEW, is.finite(`% Proficient`) & `% Proficient` >= 0 & `% Proficient` <= 100)
   
-  # Create the plot using 
+  
+  # Plot
   PLOT <- ggplot(DF_NEW, aes(x = Grade, y = `% Proficient`, group = Cohort, color = as.factor(Cohort))) +
     geom_point(size = 3) +
     geom_line(linewidth = 1) +
-    scale_color_brewer(palette = "Dark2") +
+    scale_color_viridis_d(option = "C", end = 0.95) +
     scale_x_continuous(breaks = seq(min(DF_NEW$Grade), max(DF_NEW$Grade), 1)) +
     labs(
       x = "Grade",
@@ -117,23 +123,20 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
     theme_minimal(base_size = 14) +
     theme(legend.position = "bottom")
   
-  # Format Year column to academic year labels
-  DF_NEW$Academic_Year <- to_academic_year(DF_NEW$Year)
-  
-  # Create table with academic year labels
+  # Table with academic year labels
   TABLE <- xtabs(`% Proficient` ~ Grade + Academic_Year, data = DF_NEW)
   
-  # Configure Output
+  # Return results
   OUT = list(
     Data = DF_NEW,
     Table = TABLE,
     Plot = PLOT,
     Caption = paste(
-      "Percent proficient by grade and synthetic cohort for years", 
-      min(year_range), "to", max(year_range)), 
-    Note = ("Note: Cohorts are synthetic and may not represent the same students across years.")
+      "Percent proficient by grade and synthetic cohort for academic years",
+      to_academic_year(min(year_range) + 1), "to", to_academic_year(max(year_range) + 1)
+    ),
+    Note = "Note: Cohorts are synthetic and may not represent the same students across years."
   )
   
-  # Produce Output
   return(invisible(OUT))
 }
