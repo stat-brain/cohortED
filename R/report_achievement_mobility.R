@@ -216,9 +216,9 @@ report_achievement_mobility <- function(mobility_output, proficiency_levels = c(
       "to", tolower(level_curr), "in", current_year, "."
     )
   } else {
-    common_levels <- paste(
-      "The most common performance level among 'Stay' students remained",
-      tolower(level_curr), "in both", prior_year, "and", current_year, "."
+    common_levels <- paste0(
+      "The most common performance level among 'Stay' students remained ",
+      tolower(level_curr), " in both ", prior_year, " and ", current_year, "."
     )
   }
   

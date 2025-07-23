@@ -63,5 +63,4 @@ cat(definitions$transitions$bullet_text)
 ```
 
 
-
 </details>

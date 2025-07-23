@@ -36,15 +36,15 @@ execute:
 
 ```
 
-```{r child="02_cohort-overview.qmd"}
+{r child="02_cohort-overview.qmd"}
 
-```
+
 
 ```{r child="03_demographic-patterns.qmd"}
 
 ```
 
-```{r}
+```{r child="04_mobility-analysis.qmd"}
 
 ```
 

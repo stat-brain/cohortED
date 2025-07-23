@@ -66,8 +66,10 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
   # Prepare year/grade combinations
   n_years <- length(year_range)
   n_grades <- length(grade_range)
-  years <- rep(year_range, each = n_grades)
   grades <- rep(grade_range, times = n_years)
+  years <- rep(year_range, each = n_grades)
+  
+  # Interpret year_range as end year of academic year
   year_char <- paste0((years - 1), "_", years)
   
   # Configure repository
@@ -115,8 +117,11 @@ plot_cohort2_proficiency <- function(dataset, year_range, grade_range,
     theme_minimal(base_size = 14) +
     theme(legend.position = "bottom")
   
-  # Wide-format table: grade x year with % Proficient values
-  TABLE <- xtabs(`% Proficient` ~ Grade + Year, data = DF_NEW)
+  # Format Year column to academic year labels
+  DF_NEW$Academic_Year <- to_academic_year(DF_NEW$Year)
+  
+  # Create table with academic year labels
+  TABLE <- xtabs(`% Proficient` ~ Grade + Academic_Year, data = DF_NEW)
   
   # Configure Output
   OUT = list(

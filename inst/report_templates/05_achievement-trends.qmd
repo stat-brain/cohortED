@@ -1,7 +1,53 @@
 # Achievement Trends
 
-This section examines how student achievement in `r content_area` has changed over time. By tracking the percentage of students who reached proficiency based on the state-defined achievement levels, we can better understand long-term performance patterns.
+This section examines how student achievement in **`r content_area`** has changed over time. By tracking the percentage of students who reached proficiency—based on state-defined achievement levels—we can identify long-term patterns in performance and assess progress across years.
 
-In this analysis, we focus on `r if (!is.null(target_grade)) paste("Grade", target_grade) else paste("Grades", paste(range(grades), collapse = "–"))`, examining trends across multiple academic years.
+In this analysis, we focus on **`r if (!is.null(target_grade)) paste("Grade", target_grade) else paste("Grades", paste(range(grades), collapse = "–"))`**, examining achievement trends across multiple academic years.
 
-Proficiency is defined here as scoring at or above the following achievement level(s): `r paste(proficiency_levels, collapse = ", ")`.
+Proficiency is defined as scoring at or above the following achievement level(s): **`r paste(proficiency_levels, collapse = ", ")`**. In some cases, we also highlight students performing at advanced levels, which we define as scoring at or above **`r paste(advanced_levels, collapse = ", ")`**. This distinction helps us monitor not only whether students are meeting expectations but also whether high-performing students are continuing to excel.
+
+
+
+
+```{r }
+
+
+# Subset used in paragraph
+group_summary <- df[df$GRADE == target_grade & df$YEAR_NUM == current_year, ]
+
+# Subset used in cohort plot
+group_plot <- df[df$GRADE == target_grade & df$YEAR == paste0(current_year - 1, "_", current_year), ]
+
+# Compare sample sizes and counts
+cat("Summary group size: ", nrow(group_summary), "\n")
+cat("Cohort plot group size: ", nrow(group_plot), "\n")
+
+# Table of proficiency levels
+cat("\nProficiency table (summary):\n")
+print(table(group_summary$PROFICIENCY_LEVELS))
+
+cat("\nProficiency table (plot):\n")
+print(table(group_plot$PROFICIENCY_LEVELS))
+
+```
+
+
+
+## Proficiency Trends by Synthetic Cohorts
+
+
+```{r cohort_proficiency}
+
+# Plot the synthetic cohort trends
+cohort_plot <- plot_cohort2_proficiency(
+  dataset = df, 
+  year_range = available_years, 
+  grade_range = grade_range,
+  n_proficiencies = n_proficiency_levels, 
+  achievement = achieve_var
+)
+
+cohort_plot$Plot
+cohort_plot$Table
+
+```
