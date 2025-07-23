@@ -7,27 +7,39 @@ format:
     number-sections: false
 ---
 
-## Intern Update #1
+## Intern Update #3
 
-<div class="iframe-container" onclick="openPresentationInNewWindow('content/presentations/intern_update1.html')" aria-label="Embedded presentation: Intern Update #1">
+<div class="iframe-container" onclick="openPresentationInNewWindow('content/presentations/intern_update3.html')" aria-label="Embedded presentation: Intern Update #3">
   <iframe
-    src="content/presentations/intern_update1.html"
+    src="content/presentations/intern_update3.html"
     allowfullscreen
-    title="Intern Update #1 presentation">
+    title="Intern Update #3 presentation">
   </iframe>
 </div>
 
 <div class="presentation-controls">
   <button 
     class="btn-presentation" 
-    onclick="openPresentationInNewWindow('content/presentations/intern_update1.html')" 
-    aria-label="Open Intern Update #1 presentation in full screen">
+    onclick="openPresentationInNewWindow('content/presentations/intern_update3.html')" 
+    aria-label="Open Intern Update #3 presentation in full screen">
     <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
     </svg>
     Open Full Screen
   </button>
 </div>
+
+<script>
+function openPresentationInNewWindow(presentationUrl) {
+  const newWindow = window.open(presentationUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+  if (newWindow) {
+    newWindow.focus();
+  } else {
+    window.open(presentationUrl, '_blank');
+  }
+}
+</script>
+
 
 
 ## Intern Update #2
@@ -63,22 +75,21 @@ function openPresentationInNewWindow(presentationUrl) {
 }
 </script>
 
+## Intern Update #1
 
-## Intern Update #3
-
-<div class="iframe-container" onclick="openPresentationInNewWindow('content/presentations/intern_update3.html')" aria-label="Embedded presentation: Intern Update #3">
+<div class="iframe-container" onclick="openPresentationInNewWindow('content/presentations/intern_update1.html')" aria-label="Embedded presentation: Intern Update #1">
   <iframe
-    src="content/presentations/intern_update3.html"
+    src="content/presentations/intern_update1.html"
     allowfullscreen
-    title="Intern Update #3 presentation">
+    title="Intern Update #1 presentation">
   </iframe>
 </div>
 
 <div class="presentation-controls">
   <button 
     class="btn-presentation" 
-    onclick="openPresentationInNewWindow('content/presentations/intern_update3.html')" 
-    aria-label="Open Intern Update #3 presentation in full screen">
+    onclick="openPresentationInNewWindow('content/presentations/intern_update1.html')" 
+    aria-label="Open Intern Update #1 presentation in full screen">
     <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
     </svg>
@@ -86,13 +97,3 @@ function openPresentationInNewWindow(presentationUrl) {
   </button>
 </div>
 
-<script>
-function openPresentationInNewWindow(presentationUrl) {
-  const newWindow = window.open(presentationUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
-  if (newWindow) {
-    newWindow.focus();
-  } else {
-    window.open(presentationUrl, '_blank');
-  }
-}
-</script>
