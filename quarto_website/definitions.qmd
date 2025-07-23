@@ -1,0 +1,67 @@
+---
+title: "Definitions"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+## Glossary of Key Terms
+
+This page provides plain-language definitions for key concepts used across the `cohortED` reporting package. These definitions support consistency, clarity, and accessibility in automated report narratives.
+
+You can include any of these definitions in your own custom reports — each one is stored as part of the `definitions` object in `cohortED`, and is ready to be reused anywhere Quarto or R Markdown text is rendered.
+
+While this page shows the `bullet_text` version (pre-formatted for markdown), each definition list also includes a structured `items` field containing named key-value pairs for programmatic access.
+
+---
+
+## Definitions
+
+```{r setup, include=FALSE}
+library(cohortED)
+data("definitions")
+
+```
+
+<details>
+<summary style="font-size: 1.2em; font-weight: bold;">Mobility</summary>
+
+
+
+```{r echo=FALSE, results='asis'}
+cat(definitions$mobility$bullet_text)
+
+```
+
+
+</details> <details> <summary style="font-size: 1.2em; font-weight: bold;">Achievement Levels</summary>
+
+
+```{r echo=FALSE, results='asis'}
+cat(definitions$achievement_levels$bullet_text)
+
+```
+
+
+
+</details> <details> <summary style="font-size: 1.2em; font-weight: bold;">Trajectory</summary>
+
+
+```{r echo=FALSE, results='asis'}
+cat(definitions$trajectory$bullet_text)
+
+```
+
+
+</details> <details> <summary style="font-size: 1.2em; font-weight: bold;">Transitions</summary>
+
+
+```{r echo=FALSE, results='asis'}
+cat(definitions$transitions$bullet_text)
+
+```
+
+
+
+</details>

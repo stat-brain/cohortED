@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stat-brain.github.io/cohortED/reporting_functions.html</loc>
-    <lastmod>2025-07-03T20:12:21.606Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/workflow.html</loc>
+    <lastmod>2025-07-23T16:53:57.381Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/plotting_functions.html</loc>
-    <lastmod>2025-07-10T11:53:05.372Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/presentations.html</loc>
+    <lastmod>2025-07-23T14:55:08.329Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/index.html</loc>
-    <lastmod>2025-06-19T16:42:31.959Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/landing.html</loc>
+    <lastmod>2025-07-08T20:40:18.878Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/getting_started.html</loc>
-    <lastmod>2025-06-19T17:17:09.862Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/helper_functions.html</loc>
+    <lastmod>2025-07-10T13:22:51.191Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/documents.html</loc>
-    <lastmod>2025-06-19T15:16:04.834Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/example_reports.html</loc>
+    <lastmod>2025-06-19T22:58:09.510Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stat-brain.github.io/cohortED/definitions.html</loc>
+    <lastmod>2025-07-23T15:57:35.193Z</lastmod>
   </url>
   <url>
     <loc>https://stat-brain.github.io/cohortED/about.html</loc>
@@ -29,19 +33,23 @@
     <lastmod>2025-07-15T14:38:50.212Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/example_reports.html</loc>
-    <lastmod>2025-06-19T22:58:09.510Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/documents.html</loc>
+    <lastmod>2025-06-19T15:16:04.834Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/helper_functions.html</loc>
-    <lastmod>2025-07-10T13:22:51.191Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/getting_started.html</loc>
+    <lastmod>2025-06-19T17:17:09.862Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/landing.html</loc>
-    <lastmod>2025-07-08T20:40:18.878Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/index.html</loc>
+    <lastmod>2025-06-19T16:42:31.959Z</lastmod>
   </url>
   <url>
-    <loc>https://stat-brain.github.io/cohortED/presentations.html</loc>
-    <lastmod>2025-07-23T14:55:08.329Z</lastmod>
+    <loc>https://stat-brain.github.io/cohortED/plotting_functions.html</loc>
+    <lastmod>2025-07-10T11:53:05.372Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stat-brain.github.io/cohortED/reporting_functions.html</loc>
+    <lastmod>2025-07-03T20:12:21.606Z</lastmod>
   </url>
 </urlset>

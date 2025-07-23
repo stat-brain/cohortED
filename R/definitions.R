@@ -47,11 +47,15 @@ definitions$achievement_levels = list(
     )
 )
 
-definitions$achievement_levels$bullet_text = paste(
-  "Achievement levels are categorized as follows:", 
-  "", 
-  paste0("- **", names(definitions$achievement_levels$items), "**: ", definitions$achievement_levels$items),
-  collapse = "\n"
+definitions$achievement_levels$bullets <- paste0(
+  "- **", names(definitions$achievement_levels$items), "**: ", definitions$achievement_levels$items
+)
+
+definitions$achievement_levels$bullet_text <- paste(
+  "Achievement levels are categorized as follows:",
+  "",
+  paste(definitions$achievement_levels$bullets, collapse = "\n"),
+  sep = "\n"
 )
 
 definitions$trajectory <- list(

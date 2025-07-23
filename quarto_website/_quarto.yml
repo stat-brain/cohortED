@@ -40,6 +40,10 @@ website:
         href: getting_started.qmd
       - text: R Package
         menu: 
+          - text: Workflow Overview
+            href: workflow.qmd
+          - text: Definitions
+            href: definitions.qmd
           - text: Helper Functions
             href: helper_functions.qmd
           - text: Plotting Functions

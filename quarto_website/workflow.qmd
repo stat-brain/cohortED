@@ -1,0 +1,155 @@
+---
+title: "Workflow Overview"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    theme: cosmo
+---
+
+# Getting Started with `cohortED`
+
+This page outlines a basic workflow to help you get started using the `cohortED` package to analyze student mobility, cohort persistence, and longitudinal performance trends.
+
+> This package is designed for education analysts who want **reproducible**, **transparent**, and **interpretable** reporting tools.
+
+---
+
+# 1. Prepare Your Dataset
+
+To use the cohortED package, your dataset must include a few key fields. These are used to assign students to cohorts and track grade-level progress over time.
+
+
+<details>
+<summary style="font-size: 1.2em; font-weight: bold;">Required Fields</summary>
+
+These fields are essential for all functions to operate correctly:
+
+- `ID`: A unique student identifier (e.g., state or district student ID).
+- `YEAR`: The academic year. Accepts numeric values (e.g., `2023`) or academic year formats (e.g., `"2023–24"` or `"2023_2024"`).
+- `GRADE`: The student’s grade level. Accepts numeric values (e.g., `3`, `5`, `11`) or character values (e.g., `"K"`, `"PK"`, or `"PREK"`).
+
+</details>
+
+<details>
+<summary style="font-size: 1.2em; font-weight: bold;">Recommended Fields</summary>
+
+Including these fields improves the utility of cohort tracking, reporting, and analysis:
+
+- Assessment-related, such as `CONTENT_AREA`, `SCALE_SCORE`, `ACHIEVEMENT_LEVEL`, `PROFICIENCY_LEVEL`, etc.
+- Demographics, such as `GENDER`, `ETHNICITY`, `ELL_STATUS`, `IEP_STATUS`, etc.
+
+</details>
+
+<details>
+<summary style="font-size: 1.2em; font-weight: bold;">Example</summary>
+
+```{r}
+library(cohortED)
+head(math[, c("ID", "YEAR", "GRADE", "CONTENT_AREA", "ACHIEVEMENT_LEVEL")])
+
+```
+
+</details>
+
+# 2. Wrangle the Data
+
+Use helper functions to standardize and reshaped your data.
+
+<details> <summary style="font-size: 1.2em; font-weight: bold;">Standardize with Helper Functions</summary>
+- `make_` functions extract new columns or status labels
+- `summarize_` functions condense student-level records
+
+</details>
+
+See [Helper Functions](helper_functions.qmd).
+
+# 3. Visualize Trends
+
+Understanding student trends often starts with clear, consistent visuals.
+
+<details> <summary style="font-size: 1.2em; font-weight: bold;">Visualization Across the Package</summary>
+While `plot_` functions are dedicated to creating visualizations, several `analyze_`, `compare_`, and `summarize_` functions also include built-in plots to support interpretation.
+
+These may include:
+
+- Alluvial diagrams of grade/mobility pathways
+- Cohort retention heatmaps
+- Achievement and mobility bar charts
+- Longitudinal line plots of proficiency or participation
+
+</details> <details> <summary style="font-size: 1.2em; font-weight: bold;">What Do These Functions Return?</summary>
+Most functions that produce visualizations return a list with:
+
+- One or more ggplot2 plot objects
+- Cleaned or summarized datasets
+- Tables for reporting or further use
+
+This design supports flexibility and integration into automated reports.
+
+</details>
+
+See [Plotting Functions](plotting_functions.qmd)
+
+# 4. Analyze Cohorts or Mobility
+
+Use core functions to assign students to cohorts or compare performance across groups.
+
+<details> <summary style="font-size: 1.2em; font-weight: bold;">Analyze Student Cohorts</summary>
+
+Functions like `analyze_student_cohorts()` and `analyze_cohort_persistence()` help organize student data into entry-based cohorts and track how those cohorts persist across years and grade levels.
+
+They return cleaned datasets, summary tables, and visual components that support cohort-based reporting.
+
+</details>
+
+<details> <summary style="font-size: 1.2em; font-weight: bold;">Compare Mobility Groups</summary>
+
+Functions like `compare_achievement_mobility()` and `compare_mobility_counts()` summarize performance and enrollment trends across mobility groups such as Stay, Join, and Leave.
+
+These are useful for identifying subgroup differences and are often paired with reporting or plotting functions.
+
+</details>
+
+See [Analysis Functions](analysis_functions.qmd)
+
+# 5. Generate Reports
+
+Turn your results into narrative-ready summaries for stakeholders.
+
+<details> <summary style="font-size: 1.2em; font-weight: bold;">From Results to Narrative</summary>
+`report_` functions produce clear summaries of key trends, often written in plain language for non-technical audiences. These outputs are ideal for:
+
+- Presentations to school boards or agency staff
+- Embedding in Quarto reports
+- Copy/paste into briefs or memos
+
+</details> <details> <summary style="font-size: 1.2em; font-weight: bold;">Built-In Guidance</summary>
+Some `report_` and `analyze_` functions also offer:
+
+- Recommendations for which plots or tables to include
+- Observations of notable trends (e.g., performance gaps, grade-level transitions)
+- Suggestions for further exploration
+
+</details>
+
+See [Reporting Functions](reporting_functions.qmd)
+
+# 6. Use Definitions for Clarity
+
+After your report is built, you can enhance clarity and communication by adding optional, but valuable, stylized content:
+
+<details> <summary style="font-size: 1.2em; font-weight: bold;">Definitions</summary>
+Use the built-in `definitions` object to include consistent terminology explanations in your reports.
+
+See [Definitions](definitions.qmd) for a full list.
+
+</details> <details> <summary style="font-size: 1.2em; font-weight: bold;">Badging and Icons</summary>
+Reports and websites built with Quarto can include:
+
+- Custom logos
+- Source badges (e.g., data year or confidentiality level)
+- GitHub or RStudio icons
+
+</details>
