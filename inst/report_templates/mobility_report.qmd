@@ -306,7 +306,7 @@ knitr::kable(table_clean, caption = cohort1$Caption)
 ```{r enrollment_trends}
 #| echo: false
 
-grade_transitions <- summarize_grade_transitions(dataset = input_dataset)
+grade_transitions <- summarize_grade_changes(dataset = input_dataset)
 
 knitr::kable(grade_transitions$Summary_Tables$By_Year_And_Grade, 
              caption = grade_transitions$Summary_Tables$Note)

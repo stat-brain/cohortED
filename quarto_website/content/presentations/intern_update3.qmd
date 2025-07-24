@@ -50,11 +50,28 @@ July 25, 2025
 
 ## In the last two weeks
 
-* Refined primary report
-* Added new visualizations and reporting options
-* Integrated logic for unusual grade transitions
-* Analyzing assessment-related trends
-  - Participation, Performance, Persistence
+* Refined primary report (State Level Mobility Report)
+* Expanded package functionality
+* Developed new report (Grade-Based Performance Report)
+* Analyzed real data
+
+## Refinements
+
+::: {.columns}
+
+::: {.column width="60%"}
+* Improved narrative summaries
+* Enhanced visualizations and tables
+* Updated modular report structure
+* Strengthened logic and data handling
+:::
+
+::: {.column width="40%"}
+<img src="assets/img/watch.jpg" alt="Refined Watch Gears Image"
+     style="max-width: 100%; max-height: 400px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+:::
+
+:::
 
 ## Primary Report
 
@@ -100,6 +117,9 @@ July 25, 2025
   100% { transform: scale(1) rotate(360deg); opacity: 0.4; }
 }
 </style>
+
+
+
 
 ## ✨ A New Report
 
