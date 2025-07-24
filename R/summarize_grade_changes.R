@@ -211,6 +211,11 @@ summarize_grade_changes <- function(dataset) {
     }
   }
   
+  UT$Summary_Tables$By_Year_And_Grade$GRADE_TRANSITION <- gsub("_", " ", OUT$Summary_Tables$By_Year_And_Grade$GRADE_TRANSITION)
+  names(OUT$Summary_Tables$By_Year_And_Grade)[names(OUT$Summary_Tables$By_Year_And_Grade) == "Freq"] <- "Frequency"
+  OUT$Summary_Tables$By_Grade$GRADE_TRANSITION <- gsub("_", " ", OUT$Summary_Tables$By_Grade$GRADE_TRANSITION)
+  names(OUT$Summary_Tables$By_Grade)[names(OUT$Summary_Tables$By_Grade) == "Freq"] <- "Frequency"
+  
   return(invisible(OUT))
 }
 
