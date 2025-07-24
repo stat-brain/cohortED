@@ -131,3 +131,108 @@ purpose_paragraph <- paste0(
 cat(purpose_paragraph)
 
 ```
+
+## Assessment Participation by Grade and Year
+
+```{r participation}
+# Generate participation summary
+participation_output <- plot_participation(df)
+participation_table <- participation_output$Tables[[toupper(content_area)]]
+
+# Extract the table for the target content area
+kable(participation_table, row.names = FALSE)
+
+```
+
+```{r summarize_participation}
+#| results: asis
+# Summarize total and trends
+# Remove "Total" row for the trend summary
+part_table_trim <- participation_table[participation_table$GRADE != "Total", , drop = FALSE]
+
+# Extract the latest academic year column
+last_col <- tail(names(part_table_trim), 1)
+last_year_counts <- as.numeric(part_table_trim[[last_col]])
+grades <- part_table_trim$GRADE
+
+# Build narrative
+n_grades <- length(grades)
+plural <- if (n_grades == 1) "" else "s"
+grade_list <- paste(grades, collapse = ", ")
+
+part_summary <- paste0(
+  "In **", last_col, "**, a total of **", formatC(sum(last_year_counts, na.rm = TRUE), big.mark = ","), "** students participated in the ", 
+  "**", subject_label, "** assessment across ", n_grades, " grade", plural, " (", grade_list, "). ",
+  "Participation counts provide essential context when interpreting proficiency changes across time, ",
+  "as shifts in tested populations can influence performance trends."
+)
+
+cat(part_summary)
+
+```
+
+## Proficiency Trends Across Grades and Years
+
+```{r cohort_plot}
+# Run plot_cohort2_proficiency to get the table
+cohort_plot <- plot_cohort2_proficiency(
+  dataset = df,
+  year_range = available_years,
+  grade_range = grade_range,
+  n_proficiencies = n_proficiency_levels,
+  achievement = achieve_var
+)
+
+# Table output
+kable(cohort_plot$Table, caption = "Proficiency Rates by Grade and Academic Year")
+
+```
+
+```{r proficiency_text}
+#| results: asis
+
+cohort_caption <- paste0(
+  "The table above shows **percent proficient** for each **grade level** across academic years ",
+  "**", to_academic_year(min(available_years)), "** through **", to_academic_year(max(available_years)), "**. ",
+  "These figures reflect students who tested at each grade level in each year, allowing us to observe how proficiency rates ",
+  "have changed over time across grades."
+)
+
+cat(cohort_caption)
+
+```
+
+```{r advanced_table}
+if(n_advanced_levels > 0){
+  # Run plot_cohort2_proficiency to get the table
+  advanced_plot <- plot_cohort2_proficiency(
+    dataset = df,
+    year_range = available_years,
+    grade_range = grade_range,
+    n_proficiencies = n_advanced_levels,
+    achievement = achieve_var
+    )
+  # Table output
+  kable(advanced_plot$Table, caption = "Advanced Proficiency Rates by Grade and Academic Year")
+  
+}
+
+```
+
+```{r advanced_text}
+#| results: asis
+
+if (n_advanced_levels > 0) {
+  adv_caption <- paste0(
+    "This table shows the percentage of students scoring at the **top ", 
+    n_advanced_levels, "** achievement ", ifelse(n_advanced_levels > 1, "levels", "level") , "(advanced proficiency) ",
+    "for each **grade level** across academic years ",
+    "**", to_academic_year(min(available_years)), "** through **", to_academic_year(max(available_years)), "**. ",
+    "These results help highlight trends in higher-level performance across grades and time."
+  )
+  
+  cat(adv_caption)
+}
+
+```
+

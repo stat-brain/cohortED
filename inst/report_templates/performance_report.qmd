@@ -40,22 +40,26 @@ execute:
 
 
 
-```{r child="03_demographic-patterns.qmd"}
+```{r child="03b_grade-transitions.qmd"}
 
 ```
 
-```{r child="04_mobility-analysis.qmd"}
+{r child="03_demographic-patterns.qmd"}
 
-```
 
-```{r child="05_achievement-trends.qmd"}
 
-```
+{r child="04_mobility-analysis.qmd"}
 
-```{r child="06_implications.qmd"}
 
-```
 
-```{r child="appendices.qmd"}
+{r child="05_achievement-trends.qmd"}
 
-```
+
+
+{r child="06_implications.qmd"}
+
+
+
+{r child="appendices.qmd"}
+
+

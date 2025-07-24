@@ -1,6 +1,38 @@
 # Appendices
 
+## Appendix: Cohort-Based Achievement Trends (Visual)
 
+The chart below shows how proficiency rates have changed over time for each tested grade level. By aligning results from the same grade across multiple years, this visualization highlights patterns in student performance—such as overall improvement, decline, or stability at each grade.
 
+This view helps contextualize performance across the system and may reveal whether certain grades consistently show higher or lower proficiency levels compared to others.
+
+```{r proficiency_plot}
+# Reuse previously created plot object
+cohort_plot$Plot
+
+```
+
+```{r advanced_plot}
+# Reuse previously created plot object
+advanced_plot$Plot
+
+```
+
+## Appendix: Individual Cohort Heatmaps
+
+```{r cohort_heatmaps, fig.align='center', fig.width=8, fig.height=6}
+#| results: asis
+#| eval: false
+
+# Loop through each heatmap in the list and print it with a header
+for (name in names(cohort_results$Heatmaps)) {
+  if (name == "Combined") next  # Skip the combined heatmap
+  
+  cat("### Cohort Join Year: ", name, "\n\n")
+  print(cohort_results$Heatmaps[[name]])
+  cat("\n\n")
+}
+
+```
 
 

@@ -49,7 +49,7 @@
 #' @export
 #' 
 
-summarize_grade_transitions <- function(dataset) {
+summarize_grade_changes <- function(dataset) {
   #--- Input checks ---
   if (!is.data.frame(dataset)) stop("'dataset' must be a data frame.")
   
