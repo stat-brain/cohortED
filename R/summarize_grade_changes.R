@@ -13,7 +13,7 @@
 #'   - `GRADE_CHANGE`: Numeric change in grade from prior year
 #'   - `YEAR_CHANGE`: Numeric change in year
 #'   - `GRADE_GAP`: Grade change minus year change
-#'   - `GRADE_TRANSITION`: Categorized as `"Stay"`, `"Repeat"`, `"Skip"`, or `"Drop_Back"`
+#'   - `GRADE_TRANSITION`: Categorized as `"Stay"`, `"Repeat"`, `"Skip"`, or `"Drop Back"`
 #'   - `ENROLLMENT_TRANSITION`: `"Enrolled"` or `"Return"` based on year continuity
 #'   - `IS_FINAL`: Marks final row for each student
 #'   - `ACADEMIC_YEAR`: Computed label from `YEAR`
@@ -32,7 +32,7 @@
 #'
 #' - **Data**:
 #'   - `Return`: Subset of records for students who returned after missing years
-#'   - `Stay`, `Repeat`, `Skip`, `Drop_Back`: Subsets of records based on grade transition type
+#'   - `Stay`, `Repeat`, `Skip`, `Drop Back`: Subsets of records based on grade transition type
 #'
 #' @details
 #' Grade transitions are classified relative to expected year-over-year progress.
@@ -116,7 +116,7 @@ summarize_grade_changes <- function(dataset) {
       } else if (gap > 0) {
         "Skip"
       } else if (gap < -1) {
-        "Drop_Back"
+        "Drop Back"
       } else {
         NA
       }
@@ -134,7 +134,7 @@ summarize_grade_changes <- function(dataset) {
   
   #--- Set transition columns as factors ---
   transitions$GRADE_TRANSITION <- factor(transitions$GRADE_TRANSITION,
-                                         levels = c("Stay", "Repeat", "Skip", "Drop_Back"))
+                                         levels = c("Stay", "Repeat", "Skip", "Drop Back"))
   transitions$ENROLLMENT_TRANSITION <- factor(transitions$ENROLLMENT_TRANSITION,
                                               levels = c("Enrolled", "Return"))
   
@@ -198,7 +198,7 @@ summarize_grade_changes <- function(dataset) {
   }
   
   #--- Grade transition-based student records ---
-  grade_labels <- c("Stay", "Repeat", "Skip", "Drop_Back")
+  grade_labels <- c("Stay", "Repeat", "Skip", "Drop Back")
   for (label in grade_labels) {
     ids <- unique(transitions$ID[transitions$GRADE_TRANSITION == label])
     label_cap <- paste0(toupper(substring(label, 1, 1)), substring(label, 2))
@@ -211,10 +211,10 @@ summarize_grade_changes <- function(dataset) {
     }
   }
   
-  UT$Summary_Tables$By_Year_And_Grade$GRADE_TRANSITION <- gsub("_", " ", OUT$Summary_Tables$By_Year_And_Grade$GRADE_TRANSITION)
-  names(OUT$Summary_Tables$By_Year_And_Grade)[names(OUT$Summary_Tables$By_Year_And_Grade) == "Freq"] <- "Frequency"
-  OUT$Summary_Tables$By_Grade$GRADE_TRANSITION <- gsub("_", " ", OUT$Summary_Tables$By_Grade$GRADE_TRANSITION)
-  names(OUT$Summary_Tables$By_Grade)[names(OUT$Summary_Tables$By_Grade) == "Freq"] <- "Frequency"
+  # Clean the tables to be ready for report
+  names(OUT$Summary_Tables$By_Grade) = c("Grade Transition", "Frequency")
+  names(OUT$Summary_Tables$By_Year_And_Grade) = c("Academic Year", "Grade Transition", "Frequency", "Total", "Percent")
+  names(OUT$Summary_Tables$By_Year_And_Enrollment) = c("Academic Year", "Enrollment Transition", "Frequency", "Total", "Percent")
   
   return(invisible(OUT))
 }

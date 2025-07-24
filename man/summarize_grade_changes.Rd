@@ -17,7 +17,7 @@ A named list invisibly containing:
 \item \code{GRADE_CHANGE}: Numeric change in grade from prior year
 \item \code{YEAR_CHANGE}: Numeric change in year
 \item \code{GRADE_GAP}: Grade change minus year change
-\item \code{GRADE_TRANSITION}: Categorized as \code{"Stay"}, \code{"Repeat"}, \code{"Skip"}, or \code{"Drop_Back"}
+\item \code{GRADE_TRANSITION}: Categorized as \code{"Stay"}, \code{"Repeat"}, \code{"Skip"}, or \code{"Drop Back"}
 \item \code{ENROLLMENT_TRANSITION}: \code{"Enrolled"} or \code{"Return"} based on year continuity
 \item \code{IS_FINAL}: Marks final row for each student
 \item \code{ACADEMIC_YEAR}: Computed label from \code{YEAR}
@@ -39,7 +39,7 @@ A named list invisibly containing:
 \item \strong{Data}:
 \itemize{
 \item \code{Return}: Subset of records for students who returned after missing years
-\item \code{Stay}, \code{Repeat}, \code{Skip}, \code{Drop_Back}: Subsets of records based on grade transition type
+\item \code{Stay}, \code{Repeat}, \code{Skip}, \verb{Drop Back}: Subsets of records based on grade transition type
 }
 }
 }
