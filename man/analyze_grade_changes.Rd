@@ -14,7 +14,7 @@ analyze_grade_changes(
 \arguments{
 \item{grade_change_output}{A list returned from \code{summarize_grade_changes()}, including student-level transitions and classified subgroups.}
 
-\item{grade}{A grade label (e.g., \code{"5"} or \code{"K"}) to analyze.}
+\item{grade}{A grade label (e.g., "5" or "K") to analyze.}
 
 \item{achievement_var}{Character string specifying the column name representing student achievement. Must be present in \code{grade_change_output$Student_Transitions}.}
 
@@ -24,26 +24,27 @@ analyze_grade_changes(
 A named list with the following report-ready components:
 
 \describe{
-\item{Target_Grade_Transitions_By_Year}{A wide-format table summarizing how students entered the grade (Stay, Repeat, Skip_In, Drop_Back) by academic year.}
+\item{Target_Grade_Transitions_By_Year}{A wide-format table summarizing how students entered the grade (Stay, Repeat, Skip_In, Drop_Back, Join, Other) by academic year.}
 \item{Skipped_Over_Grade_By_Year}{A table showing the number of students who skipped over the target grade each year.}
 \item{Achievement_By_Transition_And_Year}{A table showing \% proficient (and mean score if numeric) by entry type and academic year.}
 \item{Transition_Plot}{A stacked bar plot showing the number of students by entry type and year.}
 \item{Achievement_Plot}{A line plot showing changes in proficiency rates by entry type across years.}
+\item{Data}{A list of supporting data frames: Target_Grade_Students, Achievement_Data, Skipped_Over_Students, Join, Other.}
 \item{Notes}{A character vector describing the analysis context.}
 }
 }
 \description{
-Identifies how students entered a specified grade (e.g., stayed on track, repeated, skipped in, dropped back) and summarizes their academic performance by year.
+Identifies how students entered a specified grade (e.g., stayed on track, repeated, skipped in, dropped back, joined) and summarizes their academic performance by year.
 Also identifies students who skipped over the grade entirely. Designed for use with the output of \code{summarize_grade_changes()}.
 }
 \details{
 Entry types are assigned based on grade-level change relative to expected yearly progression. For example:
 \itemize{
-\item \code{"Repeat"}: student was in the same grade two years in a row
-\item \code{"Skip_In"}: student advanced more than one grade in a single year and is observed in the target grade
-\item \code{"Drop_Back"}: student regressed more than one grade
-\item \code{"Stay"}: student followed expected grade-level progression
+\item "Repeat": student was in the same grade two years in a row
+\item "Skip_In": student advanced more than one grade in a single year and is observed in the target grade
+\item "Drop_Back": student regressed more than one grade
+\item "Stay": student followed expected grade-level progression
+\item "Join": student entered the dataset in the target grade with no prior record
+\item "Other": unmatched or ambiguous patterns (e.g., mid-year transfers)
 }
-
-Students who were never observed in the target grade but show a jump over it (e.g., Grade 3 → Grade 5) are counted in \code{Skipped_Over_Grade_By_Year}.
 }

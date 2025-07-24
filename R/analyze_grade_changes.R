@@ -1,36 +1,37 @@
 #' Analyze Entry Type and Achievement Patterns in a Target Grade
 #'
 #' @description
-#' Identifies how students entered a specified grade (e.g., stayed on track, repeated, skipped in, dropped back) and summarizes their academic performance by year. 
+#' Identifies how students entered a specified grade (e.g., stayed on track, repeated, skipped in, dropped back, joined) and summarizes their academic performance by year. 
 #' Also identifies students who skipped over the grade entirely. Designed for use with the output of `summarize_grade_changes()`.
 #'
 #' @param grade_change_output A list returned from `summarize_grade_changes()`, including student-level transitions and classified subgroups.
-#' @param grade A grade label (e.g., `"5"` or `"K"`) to analyze.
+#' @param grade A grade label (e.g., "5" or "K") to analyze.
 #' @param achievement_var Character string specifying the column name representing student achievement. Must be present in `grade_change_output$Student_Transitions`.
 #' @param n_proficiencies Number of top levels to count as proficient if `achievement_var` is categorical. Passed to `make_proficiency_levels()`.
 #'
 #' @return A named list with the following report-ready components:
-#'
+#' 
 #' \describe{
-#'   \item{Target_Grade_Transitions_By_Year}{A wide-format table summarizing how students entered the grade (Stay, Repeat, Skip_In, Drop_Back) by academic year.}
+#'   \item{Target_Grade_Transitions_By_Year}{A wide-format table summarizing how students entered the grade (Stay, Repeat, Skip_In, Drop_Back, Join, Other) by academic year.}
 #'   \item{Skipped_Over_Grade_By_Year}{A table showing the number of students who skipped over the target grade each year.}
 #'   \item{Achievement_By_Transition_And_Year}{A table showing % proficient (and mean score if numeric) by entry type and academic year.}
 #'   \item{Transition_Plot}{A stacked bar plot showing the number of students by entry type and year.}
 #'   \item{Achievement_Plot}{A line plot showing changes in proficiency rates by entry type across years.}
+#'   \item{Data}{A list of supporting data frames: Target_Grade_Students, Achievement_Data, Skipped_Over_Students, Join, Other.}
 #'   \item{Notes}{A character vector describing the analysis context.}
 #' }
 #'
 #' @details
 #' Entry types are assigned based on grade-level change relative to expected yearly progression. For example:
-#' - `"Repeat"`: student was in the same grade two years in a row
-#' - `"Skip_In"`: student advanced more than one grade in a single year and is observed in the target grade
-#' - `"Drop_Back"`: student regressed more than one grade
-#' - `"Stay"`: student followed expected grade-level progression
+#' - "Repeat": student was in the same grade two years in a row
+#' - "Skip_In": student advanced more than one grade in a single year and is observed in the target grade
+#' - "Drop_Back": student regressed more than one grade
+#' - "Stay": student followed expected grade-level progression
+#' - "Join": student entered the dataset in the target grade with no prior record
+#' - "Other": unmatched or ambiguous patterns (e.g., mid-year transfers)
 #'
-#' Students who were never observed in the target grade but show a jump over it (e.g., Grade 3 → Grade 5) are counted in `Skipped_Over_Grade_By_Year`.
 #'
 #' @import ggplot2
-#'
 #' @export
 
 analyze_grade_changes <- function(grade_change_output,
@@ -66,11 +67,16 @@ analyze_grade_changes <- function(grade_change_output,
   ids_drop   <- get_ids("Drop_Back")
   ids_stay   <- get_ids("Stay")
   
+  #--- Identify joins (no prior year in dataset) ---
+  prior_years <- transitions$YEAR - 1
+  join_ids <- tg_students$ID[!tg_students$ID %in% transitions$ID[transitions$YEAR %in% prior_years]]
+  
   #--- Classify target grade students ---
   tg_students$Entry_Type <- ifelse(tg_students$ID %in% ids_repeat, "Repeat",
                                    ifelse(tg_students$ID %in% ids_skip, "Skip_In",
                                           ifelse(tg_students$ID %in% ids_drop, "Drop_Back",
-                                                 ifelse(tg_students$ID %in% ids_stay, "Stay", "Other"))))
+                                                 ifelse(tg_students$ID %in% ids_stay, "Stay",
+                                                        ifelse(tg_students$ID %in% join_ids, "Join", "Other")))))
   
   #--- Table of target grade entry types by year (wide + long for plotting) ---
   trans_table <- as.data.frame(table(tg_students$ACADEMIC_YEAR, tg_students$Entry_Type))
@@ -107,13 +113,11 @@ analyze_grade_changes <- function(grade_change_output,
   #--- Create achievement summary by entry type and year ---
   ach_summary <- do.call(rbind, lapply(split(ach, list(ach$ACADEMIC_YEAR, ach$Entry_Type)), function(subdat) {
     if (nrow(subdat) == 0) return(NULL)
-    year <- unique(subdat$ACADEMIC_YEAR)
-    group <- unique(subdat$Entry_Type)
     prof <- make_proficiency_levels(subdat, achievement = achievement_var,
                                     n_proficiencies = n_proficiencies, print_plot = FALSE)$Table
     out <- data.frame(
-      Academic_Year = year,
-      Entry_Type = group,
+      Academic_Year = unique(subdat$ACADEMIC_YEAR),
+      Entry_Type = unique(subdat$Entry_Type),
       N = nrow(subdat),
       Percent_Proficient = as.numeric(gsub("%", "", prof$Proficient[1]))
     )
@@ -143,9 +147,17 @@ analyze_grade_changes <- function(grade_change_output,
   OUT$Achievement_By_Transition_And_Year <- ach_summary
   OUT$Transition_Plot <- plot_transitions
   OUT$Achievement_Plot <- plot_achievement
+  OUT$Data <- list(
+    Target_Grade_Students = tg_students,
+    Achievement_Data = ach,
+    Skipped_Over_Students = skipped_years,
+    Join = tg_students[tg_students$Entry_Type == "Join", ],
+    Other = tg_students[tg_students$Entry_Type == "Other", ]
+  )
   OUT$Notes <- c(
     sprintf("Target grade analyzed: %s (numeric: %s)", grade, target_num),
     sprintf("Achievement variable: %s", achievement_var)
   )
-  return(invisible(OUT))
+  return(OUT)
 }
+
