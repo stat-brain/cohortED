@@ -19,6 +19,6 @@
     "Years_Since_Join", "FillValue", "Label", "LabelColor", "AcademicYear",
     "Cohort_Label_Stack", "YearsSinceJoin", "PercentRetained",
     "Change", "grade", "YEAR", "GRADE_NUMERIC", "YEAR_LABEL", "Entry_Type", 
-    "Percent_Proficient"
+    "Percent_Proficient", "Group"
   ))
 }

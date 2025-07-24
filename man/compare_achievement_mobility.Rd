@@ -30,7 +30,8 @@ A list with the following elements:
 \item{\code{Most_Common_Level}}{A list of data frames showing the most common achievement level for each mobility group in each year.}
 \item{\code{Achievement_Change_Summary}}{A data frame showing the percent change in each achievement level by mobility group across years.}
 \item{\code{Stay_Change_Summary}}{A data frame showing how "Stay" students' achievement changed (Improved, No Change, Declined).}
-\item{\code{Comparison_Plot}}{A side-by-side bar plot comparing achievement distributions by mobility status for each year.}
+\item{\code{Comparison_Plot}}{A side-by-side plot showing separate bar charts for each year, grouped by mobility status and achievement level.}
+\item{\code{Achievement_Distribution_Plot}}{A grouped bar chart showing achievement level distributions across four categories: Previous/Leave, Previous/Stay, Current/Stay, and Current/Join.}
 \item{\code{Stay_Change_Plot}}{A bar plot showing the direction of change for "Stay" students.}
 \item{\code{Caption}}{A character string describing the comparison.}
 \item{\code{Note}}{A short note clarifying that "Stay" represents a true cohort; "Join" and "Leave" are not tracked longitudinally.}

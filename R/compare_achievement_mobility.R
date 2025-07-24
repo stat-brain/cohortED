@@ -20,7 +20,8 @@
 #'   \item{\code{Most_Common_Level}}{A list of data frames showing the most common achievement level for each mobility group in each year.}
 #'   \item{\code{Achievement_Change_Summary}}{A data frame showing the percent change in each achievement level by mobility group across years.}
 #'   \item{\code{Stay_Change_Summary}}{A data frame showing how "Stay" students' achievement changed (Improved, No Change, Declined).}
-#'   \item{\code{Comparison_Plot}}{A side-by-side bar plot comparing achievement distributions by mobility status for each year.}
+#'   \item{\code{Comparison_Plot}}{A side-by-side plot showing separate bar charts for each year, grouped by mobility status and achievement level.}
+#'   \item{\code{Achievement_Distribution_Plot}}{A grouped bar chart showing achievement level distributions across four categories: Previous/Leave, Previous/Stay, Current/Stay, and Current/Join.}
 #'   \item{\code{Stay_Change_Plot}}{A bar plot showing the direction of change for "Stay" students.}
 #'   \item{\code{Caption}}{A character string describing the comparison.}
 #'   \item{\code{Note}}{A short note clarifying that "Stay" represents a true cohort; "Join" and "Leave" are not tracked longitudinally.}
@@ -33,6 +34,7 @@
 #' @importFrom ggplot2 ggplot aes geom_bar labs scale_fill_manual theme_minimal
 #' @importFrom cowplot plot_grid
 #' @importFrom stats xtabs
+#' @importFrom grDevices colorRampPalette
 #' @export
 #' 
 #' @examples
@@ -82,6 +84,10 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
   # Combine into a single dataset
   combined_df <- rbind(df_prev, df_curr)
   
+  # Build ordered color palette from low (red) to high (green)
+  achievement_palette <- colorRampPalette(c("#B22222", "#E57373", "#CCCCCC", "#66CDAA", "#2E8B57"))(length(achievement_levels))
+  names(achievement_palette) <- achievement_levels
+  
   # Bar plot for previous year
   plot_prev <- ggplot(df_prev, aes(x = Mobility_Status, y = Percent, fill = Achievement_Level)) +
     geom_bar(stat = "identity") +
@@ -92,12 +98,7 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
       fill = "Achievement Level"
     ) +
     theme_minimal() +
-    scale_fill_manual(values = c(
-      "Advanced" = "#2E8B57",
-      "Proficient" = "#66CDAA",
-      "Partially Proficient" = "#E57373",
-      "Unsatisfactory" = "#B22222"
-    ))
+    scale_fill_manual(values = achievement_palette)
   
   # Bar plot for current year
   plot_curr <- ggplot(df_curr, aes(x = Mobility_Status, y = Percent, fill = Achievement_Level)) +
@@ -109,12 +110,7 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
       fill = "Achievement Level"
     ) +
     theme_minimal() +
-    scale_fill_manual(values = c(
-      "Advanced" = "#2E8B57",
-      "Proficient" = "#66CDAA",
-      "Partially Proficient" = "#E57373",
-      "Unsatisfactory" = "#B22222"
-    ))
+    scale_fill_manual(values = achievement_palette)
   
   # Summary tables (cross-tab)
   previous_table <- xtabs(Percent ~ Mobility_Status + Achievement_Level, data = df_prev)
@@ -183,6 +179,33 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
     ) +
     theme_minimal()
   
+  #--- Add group labels for plotting ---
+  df_prev$Group <- paste0("Previous_", df_prev$Mobility_Status)
+  df_curr$Group <- paste0("Current_", df_curr$Mobility_Status)
+  
+  combined_plot_df <- rbind(df_prev, df_curr)
+  combined_plot_df$Group <- factor(combined_plot_df$Group,
+                                   levels = c("Previous_Leave", "Previous_Stay", "Current_Stay", "Current_Join"))
+  
+  # Side-by-side bar plot
+  achievement_distribution_plot <- ggplot(combined_plot_df, aes(x = Achievement_Level, y = Percent, fill = Group)) +
+    geom_col(position = "dodge", width = 0.7) +
+    scale_y_continuous(labels = function(x) paste0(round(x, 1), "%")) +
+    scale_fill_manual(values = c(
+      "Previous_Leave" = "#f4a582",
+      "Previous_Stay" = "#92c5de",
+      "Current_Stay" = "#0571b0",
+      "Current_Join" = "#ca0020"
+    )) +
+    labs(
+      title = "Achievement Level Distribution by Mobility Group",
+      x = "Achievement Level",
+      y = "Percent of Students",
+      fill = "Group"
+    ) +
+    theme_minimal()
+  
+  
   # Output list
   OUT <- list(
     Previous_Table = previous_table,
@@ -192,6 +215,7 @@ compare_achievement_mobility <- function(dataset, current_year, current_grade, a
     Most_Common_Level = most_common,
     Achievement_Change_Summary = change_df,
     Comparison_Plot = cowplot::plot_grid(plot_prev, plot_curr, ncol = 2),
+    Achievement_Distribution_Plot = achievement_distribution_plot,
     Stay_Change_Plot = stay_change_plot, 
     Stay_Change_Summary = stay_change_summary,
     Caption = paste(
