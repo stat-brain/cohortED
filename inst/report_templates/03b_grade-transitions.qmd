@@ -21,21 +21,23 @@ kable(transition_by_year, caption = "Number of Students by Transition Type and Y
 
 ```
 
-## Overall Transition Frequencies
-
-This table summarizes the overall frequency of each grade transition type.
-
-```{r grade_transition_table}
-kable(transition_by_type, caption = "Overall Frequency of Grade Transition Types")
-
-```
-
 ::: {.callout-tip title="Interpretation Tip"}
 
 Repeaters may contribute to observed declines in cohort persistence rates, while skippers may increase apparent achievement levels for some grade-years.  
 Understanding these patterns can help contextualize shifts in proficiency and mobility trends explored later in this report.
 
 :::
+
+## Overall Transition Frequencies
+
+This table summarizes the overall frequency of each grade transition type. 
+
+```{r grade_transition_table}
+kable(transition_by_type, caption = "Overall Frequency of Grade Transition Types")
+
+```
+
+
 
 ## Grade Entry and Achievement Patterns
 
@@ -51,19 +53,6 @@ results <- analyze_grade_changes(transition_summary,
 
 ```
 
-```{r results_plots}
-results$Transition_Plot
-
-results$Achievement_Plot
-
-kable(results$Target_Grade_Transitions_By_Year, caption = "Entry Type Counts by Academic Year")
-
-kable(results$Skipped_Over_Grade_By_Year, caption = "Students Who Skipped Over the Grade")
-
-kable(results$Achievement_By_Transition_And_Year, caption = "Achievement by Entry Type and Year") |>
-  kable_styling(full_width = FALSE)
-
-```
 
 ```{r summarize_grade_changes_text}
 #| results: asis

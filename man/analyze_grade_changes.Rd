@@ -2,49 +2,41 @@
 % Please edit documentation in R/analyze_grade_changes.R
 \name{analyze_grade_changes}
 \alias{analyze_grade_changes}
-\title{Analyze Entry Type and Achievement Patterns in a Target Grade}
+\title{Analyze Grade-Level Entry Patterns Across Academic Years}
 \usage{
-analyze_grade_changes(
-  grade_change_output,
-  grade,
-  achievement_var = "ACHIEVEMENT_LEVEL",
-  n_proficiencies = 3
-)
+analyze_grade_changes(dataset, grade)
 }
 \arguments{
-\item{grade_change_output}{A list returned from \code{summarize_grade_changes()}, including student-level transitions and classified subgroups.}
+\item{dataset}{A data frame containing at least the variables \code{ID}, \code{GRADE}, and \code{YEAR}.}
 
-\item{grade}{A grade label (e.g., "5" or "K") to analyze.}
-
-\item{achievement_var}{Character string specifying the column name representing student achievement. Must be present in \code{grade_change_output$Student_Transitions}.}
-
-\item{n_proficiencies}{Number of top levels to count as proficient if \code{achievement_var} is categorical. Passed to \code{make_proficiency_levels()}.}
+\item{grade}{The target grade of interest. Can be numeric or character (e.g., \code{"5"} or \code{"K"}).}
 }
 \value{
-A named list with the following report-ready components:
+A named list (invisibly) with the following elements:
 
 \describe{
-\item{Target_Grade_Transitions_By_Year}{A wide-format table summarizing how students entered the grade (Stay, Repeat, Skip_In, Drop_Back, Join, Other) by academic year.}
-\item{Skipped_Over_Grade_By_Year}{A table showing the number of students who skipped over the target grade each year.}
-\item{Achievement_By_Transition_And_Year}{A table showing \% proficient (and mean score if numeric) by entry type and academic year.}
-\item{Transition_Plot}{A stacked bar plot showing the number of students by entry type and year.}
-\item{Achievement_Plot}{A line plot showing changes in proficiency rates by entry type across years.}
-\item{Data}{A list of supporting data frames: Target_Grade_Students, Achievement_Data, Skipped_Over_Students, Join, Other.}
-\item{Notes}{A character vector describing the analysis context.}
+\item{Tables}{A list of summary tables for each entry type (\code{Repeat}, \code{Stay}, \code{Skip_In}, \code{Skip_Over}, \code{Join}),
+each containing \code{Academic_Year}, \code{Count}, and \code{Percent} columns. Also includes a combined table \code{All}.}
+\item{Data}{A list of student-level data frames for each entry type, filtered for relevant rows.}
+\item{Meta}{A named vector \code{Total_Target_Grade} with the total number of students in the target grade by year.}
+\item{Plots}{A \code{Line} plot (ggplot2 object) showing how the percentage of each entry type changes over time.}
 }
 }
 \description{
-Identifies how students entered a specified grade (e.g., stayed on track, repeated, skipped in, dropped back, joined) and summarizes their academic performance by year.
-Also identifies students who skipped over the grade entirely. Designed for use with the output of \code{summarize_grade_changes()}.
+Identifies and summarizes how students enter or skip a specified grade across consecutive academic years.
+This function classifies students into entry categories such as Repeat, Stay, Skip-In, Skip-Over, and Join,
+and returns summary tables, student-level data, and longitudinal visualizations.
+
+This function is useful for understanding how grade-level composition changes over time and how these changes
+may relate to cohort performance on assessments.
 }
 \details{
-Entry types are assigned based on grade-level change relative to expected yearly progression. For example:
+Entry types are classified as follows:
 \itemize{
-\item "Repeat": student was in the same grade two years in a row
-\item "Skip_In": student advanced more than one grade in a single year and is observed in the target grade
-\item "Drop_Back": student regressed more than one grade
-\item "Stay": student followed expected grade-level progression
-\item "Join": student entered the dataset in the target grade with no prior record
-\item "Other": unmatched or ambiguous patterns (e.g., mid-year transfers)
+\item \strong{Repeat}: Student was in the target grade both this year and the prior year.
+\item \strong{Stay}: Student was in grade \code{target - 1} last year and advanced normally to the target grade.
+\item \strong{Skip_In}: Student jumped two or more grades into the target grade from a lower grade last year.
+\item \strong{Skip_Over}: Student was in a lower grade last year and a higher grade this year, skipping the target grade.
+\item \strong{Join}: Student appears in the target grade this year but was not observed at all in the prior year.
 }
 }

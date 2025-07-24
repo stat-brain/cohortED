@@ -36,7 +36,7 @@ format:
 
 <div style="margin-bottom: 30px; text-align: center;">
   <button 
-    onclick="window.open('assets/mobility_report.html', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');" 
+    onclick="window.open('assets/performance_report.html', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');" 
     style="padding: 10px 20px; font-size: 1rem; cursor: pointer; background-color: #007acc; color: white; border: none; border-radius: 4px;">
     View Full Report
   </button>
