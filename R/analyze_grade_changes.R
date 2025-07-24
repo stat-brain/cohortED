@@ -29,6 +29,7 @@
 #'
 #' Students who were never observed in the target grade but show a jump over it (e.g., Grade 3 → Grade 5) are counted in `Skipped_Over_Grade_By_Year`.
 #'
+#' @import ggplot2
 #'
 #' @export
 

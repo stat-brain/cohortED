@@ -22,7 +22,6 @@ advanced_plot$Plot
 
 ```{r cohort_heatmaps, fig.align='center', fig.width=8, fig.height=6}
 #| results: asis
-#| eval: false
 
 # Loop through each heatmap in the list and print it with a header
 for (name in names(cohort_results$Heatmaps)) {
