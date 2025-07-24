@@ -58,6 +58,6 @@ Grade transitions are not reported for the first observed year in the dataset, a
 prior year for comparison.
 }
 \examples{
-summarize_grade_transitions(dataset = math)
+summarize_grade_changes(dataset = math)
 
 }

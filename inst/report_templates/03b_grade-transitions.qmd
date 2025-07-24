@@ -7,8 +7,8 @@ This section summarizes the types of grade transitions observed among students i
 ```{r summarize_transitions}
 # Generate grade transitions
 transition_summary <- summarize_grade_changes(df)
-transition_by_year <- transition_summary$Summary_Tables$
-transition_by_type <- transition_summary$Transition_Summary_By_Type
+transition_by_year <- transition_summary$Summary_Tables$By_Year_And_Grade
+transition_by_type <- transition_summary$Summary_Tables$By_Year_And_Enrollment
 
 ```
 
@@ -37,4 +37,30 @@ Understanding these patterns can help contextualize shifts in proficiency and mo
 
 :::
 
+## Grade Entry and Achievement Patterns
 
+This section explores how students entered Grade `r target_grade`, including whether they stayed on track, repeated, skipped into the grade, or dropped back. It also compares achievement across these groups.
+
+```{r analyze_transitions}
+# Run the function (assumes `grade_transitions` is from summarize_grade_changes())
+results <- analyze_grade_changes(grade_transitions, 
+                                 grade = target_grade, 
+                                 achievement_var = achieve_var, 
+                                 n_proficiencies = n_proficiency_levels
+                                 )
+
+```
+
+```{r results_plots}
+results$Transition_Plot
+
+results$Achievement_Plot
+
+kable(results$Target_Grade_Transitions_By_Year, caption = "Entry Type Counts by Academic Year")
+
+kable(results$Skipped_Over_Grade_By_Year, caption = "Students Who Skipped Over the Grade")
+
+kable(results$Achievement_By_Transition_And_Year, caption = "Achievement by Entry Type and Year") |>
+  kable_styling(full_width = FALSE)
+
+```

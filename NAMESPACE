@@ -2,6 +2,7 @@
 
 export(analyze_cohort_persistence)
 export(analyze_entry_cohorts)
+export(analyze_grade_changes)
 export(analyze_student_cohorts)
 export(compare_achievement_mobility)
 export(definitions)

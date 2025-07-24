@@ -15,9 +15,10 @@
     "ACHIEVEMENT_LEVEL", "PERCENT", "Grade", "Count", "Cohort", "Year",
     "GRADE", "MOBILITY", "% Proficient", "Total", "GRADE_PAIR_LABEL",
     "Mobility_Status", "Achievement_Level", "Percent", "YEAR_NUM", "n_students",
-    "COUNT", "Cohort_Label", "JOIN_YEAR_LABEL", "JOIN_GRADE",
+    "COUNT", "Cohort_Label", "JOIN_YEAR_LABEL", "JOIN_GRADE", "Academic_Year",
     "Years_Since_Join", "FillValue", "Label", "LabelColor", "AcademicYear",
     "Cohort_Label_Stack", "YearsSinceJoin", "PercentRetained",
-    "Change", "grade", "YEAR", "GRADE_NUMERIC", "YEAR_LABEL"
+    "Change", "grade", "YEAR", "GRADE_NUMERIC", "YEAR_LABEL", "Entry_Type", 
+    "Percent_Proficient"
   ))
 }
