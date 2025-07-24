@@ -40,6 +40,22 @@ cat(mobility_text$Proficiency_By_Group)
 
 ```
 
+## Distribution of Achievement Levels
+
+```{r distribution_plot}
+# New grouped bar plot showing achievement level breakdown
+mobility_results$Achievement_Distribution_Plot
+
+```
+
+```{r distribution_context}
+#| results: asis
+
+# Optional: Add interpretive text if available
+cat("This grouped bar chart shows how achievement levels are distributed across four categories: students who stayed or left in the previous year, and those who stayed or joined in the current year. This format helps identify shifts in proficiency related to student mobility transitions.")
+
+```
+
 ## Achievement Level Changes for "Stay" Students
 
 ```{r stay_change_plot}
