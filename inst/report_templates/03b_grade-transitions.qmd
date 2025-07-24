@@ -43,7 +43,7 @@ This section explores how students entered Grade `r target_grade`, including whe
 
 ```{r analyze_transitions}
 # Run the function (assumes `grade_transitions` is from summarize_grade_changes())
-results <- analyze_grade_changes(grade_transitions, 
+results <- analyze_grade_changes(transition_summary, 
                                  grade = target_grade, 
                                  achievement_var = achieve_var, 
                                  n_proficiencies = n_proficiency_levels
@@ -62,5 +62,49 @@ kable(results$Skipped_Over_Grade_By_Year, caption = "Students Who Skipped Over t
 
 kable(results$Achievement_By_Transition_And_Year, caption = "Achievement by Entry Type and Year") |>
   kable_styling(full_width = FALSE)
+
+```
+
+```{r summarize_grade_changes_text}
+#| results: asis
+
+# Prepare source tables
+entry_tbl <- results$Target_Grade_Transitions_By_Year
+ach_tbl   <- results$Achievement_By_Transition_And_Year
+
+# Extract rows for current and previous year
+entry_curr <- entry_tbl[entry_tbl$Academic_Year == to_academic_year(current_year), ]
+entry_prev <- entry_tbl[entry_tbl$Academic_Year == to_academic_year(previous_year), ]
+ach_curr   <- ach_tbl[ach_tbl$Academic_Year == to_academic_year(current_year), ]
+ach_prev   <- ach_tbl[ach_tbl$Academic_Year == to_academic_year(previous_year), ]
+
+# Generate entry type change summary
+entry_types <- intersect(names(entry_prev), names(entry_curr))
+entry_diffs <- sapply(entry_types[entry_types != "Academic_Year" & entry_types != "Total"], function(type) {
+  delta <- entry_curr[[type]] - entry_prev[[type]]
+  sign <- ifelse(delta > 0, "increased", ifelse(delta < 0, "decreased", "remained stable"))
+  paste0(type, " ", sign, ifelse(sign == "remained stable", "", paste0(" by ", abs(delta))))
+})
+entry_text <- paste(entry_diffs, collapse = "; ")
+
+# Generate achievement change summary
+ach_types <- intersect(ach_curr$Entry_Type, ach_prev$Entry_Type)
+ach_diffs <- sapply(ach_types, function(type) {
+  p1 <- ach_prev$Percent_Proficient[ach_prev$Entry_Type == type]
+  p2 <- ach_curr$Percent_Proficient[ach_curr$Entry_Type == type]
+  delta <- round(p2 - p1, 1)
+  sign <- ifelse(delta > 0, "increased", ifelse(delta < 0, "decreased", "remained stable"))
+  paste0(type, " proficiency ", sign, ifelse(sign == "remained stable", "", paste0(" by ", abs(delta), "%")))
+})
+ach_text <- paste(ach_diffs, collapse = "; ")
+
+# Combine summary
+change_summary <- paste0(
+  "From ", to_academic_year(previous_year), " to ", to_academic_year(current_year), 
+  ", the composition of students entering Grade ", target_grade, " changed as follows: ",
+  entry_text, ". In terms of achievement, proficiency rates ", ach_text, "."
+)
+
+cat(change_summary)
 
 ```
