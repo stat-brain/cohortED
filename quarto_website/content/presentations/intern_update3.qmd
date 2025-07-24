@@ -54,6 +54,7 @@ July 25, 2025
 * Expanded package functionality
 * Developed new report (Grade-Based Performance Report)
 * Analyzed real data
+* Drafted NCME 2026 Proposals
 
 ## Refinements
 
@@ -118,34 +119,33 @@ July 25, 2025
 }
 </style>
 
+## Package Improvements
 
 
+::: {.columns}
 
-## ✨ A New Report
+::: {.column width="60%"}
+- Integrated grade change analysis
+- Enhanced participation visualizations
+- Developed additional performance tools
+- Expanded narrative reporting
+- Increase parameter flexibility
+:::
 
-<div class="sparkle-container">
-  <div class="sparkle">✨</div>
-  <div class="sparkle">🌟</div>
-  <div class="sparkle">💫</div>
-  <div class="sparkle">✨</div>
+::: {.column width="40%"}
+<img src="assets/img/code_image.jpg" alt="Image of Computer Code"
+     style="max-width: 100%; max-height: 400px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+:::
 
-  <ul>
-    <li>Early version of report</li>
-    <li>Built using <strong>real performance data</strong></li>
-    <li>Explores <strong>grade-level achievement trends</strong></li>
-    <li>Fully <em>reproducible</em> and <em>flexible</em></li>
-    <li>Expands the scope of the <code>cohortED</code> package</li>
-  </ul>
-</div>
+:::
 
-## Merging and Cleaning the Data
-  
-* Change in variables and variable names
-* Handle non-unique student identifiers
-  - New students vs. Existing students
-  - Based on same test, same grade, same year
-  - Found a potential solution
-* Separate re-testers [9-12 only]
+
+## Developed Grade-Based Performance Report
+
+- Focuses on a **single grade level** across multiple years
+- Utilizes **adjacent grade levels** for cohort analysis
+- Describes **participation**, **performance**, and **persistence**
+- Supports **reproducible**, customized reporting with minimal code changes
 
 ## Working towards reproducibility
 
@@ -178,11 +178,27 @@ params:
   🔁 Change these values to generate a custom report.
 </div>
 
-## With `sgpData`
+## ✨ A New Report
 
-** Still need to add this here **
+<div class="sparkle-container">
+  <div class="sparkle">✨</div>
+  <div class="sparkle">🌟</div>
+  <div class="sparkle">💫</div>
+  <div class="sparkle">✨</div>
 
-<iframe src="assets/mobility_report2.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
+  <ul>
+    <li>Early version of report</li>
+    <li>Built using <strong>real performance data</strong></li>
+    <li>Explores <strong>grade-level achievement trends</strong></li>
+    <li>Fully <em>reproducible</em> and <em>flexible</em></li>
+    <li>Expands the scope of the <code>cohortED</code> package</li>
+  </ul>
+</div>
+
+## Grade-based Performance Report
+### with `sgpData`
+
+<iframe src="assets/performance_report.html" width="100%" height="650px" style="border: 1px solid #ccc;"></iframe>
 
 <div style="margin-top: 12px; text-align: center;">
   <a href="https://stat-brain.github.io/cohortED/example_reports.html" target="_blank" style="font-weight: bold; text-decoration: none; color: #007acc;">
@@ -190,7 +206,16 @@ params:
   </a>
 </div>
 
-## With Internal Data
+## Working with Real Data
+  
+* Change in variables and variable names
+* Handle non-unique student identifiers
+  - New students vs. Existing students
+  - Based on same test, same grade, same year
+  - Found a potential solution
+* Separate re-testers [only affected 9-12]
+
+## Reporting with Real Data
 
 **See other reports**
 
@@ -230,8 +255,9 @@ Drafts available upon request
 ## Desired Feedback
 
 - **Usefulness**: Are the reports and visuals informative and actionable?
-- **Future Direction**: Could this be shared as a blog or practitioner resource?
 - **Conceptual Fit**: How should grade-level trends complement cohort analysis?
+- **Potential**: In what ways do you see this package being useful?
+- **Future Direction**: How best to turn this into a blog?
 - **Writing Support**: Suggestions on the NCME Innovation Demonstration draft?  
   _(I’d be happy to share it.)_
 
