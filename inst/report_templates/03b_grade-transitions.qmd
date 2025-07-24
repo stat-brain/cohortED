@@ -1,14 +1,13 @@
-## Grade Transition Patterns
+# Grade Transition Patterns
 
 Understanding how students progress through grades—whether they repeat, skip, or re-enter after time away—offers important context for interpreting cohort-based trends. While most students follow a traditional linear path, a small but meaningful share experience deviations in grade progression. These transitions can influence both cohort persistence and achievement results in later sections of the report.
 
 This section summarizes the types of grade transitions observed among students in the current dataset.
 
 ```{r summarize_transitions}
-# Generate grade transition summary using trajectory data
-# Assumes this object is already created in 02_cohort-overview.qmd
-transition_summary <- summarize_grade_changes(cohort_results$Trajectories)
-transition_by_year <- transition_summary$Transition_Summary_By_Year
+# Generate grade transitions
+transition_summary <- summarize_grade_changes(df)
+transition_by_year <- transition_summary$Summary_Tables$
 transition_by_type <- transition_summary$Transition_Summary_By_Type
 
 ```
@@ -31,9 +30,11 @@ kable(transition_by_type, caption = "Overall Frequency of Grade Transition Types
 
 ```
 
-> [!TIP]
-> **Interpretation Tip:**  
-> Repeaters may contribute to observed declines in cohort persistence rates, while skippers may increase apparent achievement levels for some grade-years.  
-> Understanding these patterns can help contextualize shifts in proficiency and mobility trends explored later in this report.
+::: {.callout-tip title="Interpretation Tip"}
+
+Repeaters may contribute to observed declines in cohort persistence rates, while skippers may increase apparent achievement levels for some grade-years.  
+Understanding these patterns can help contextualize shifts in proficiency and mobility trends explored later in this report.
+
+:::
 
 

@@ -187,7 +187,7 @@ summarize_grade_changes <- function(dataset) {
   return_ids <- unique(as.character(transitions$ID[transitions$ENROLLMENT_TRANSITION == "Return"]))
   
   if (length(return_ids) > 0) {
-    OUT$Data$Return <- df[df$ID %in% return_ids, ]
+    OUT$Data$Return <- dataset[dataset$ID %in% return_ids, ]
     rownames(OUT$Data$Return) <- NULL
     OUT$Details$Notes <- c(
       OUT$Details$Notes,
@@ -203,7 +203,7 @@ summarize_grade_changes <- function(dataset) {
     ids <- unique(transitions$ID[transitions$GRADE_TRANSITION == label])
     label_cap <- paste0(toupper(substring(label, 1, 1)), substring(label, 2))
     if (length(ids) > 0) {
-      OUT$Data[[label_cap]] <- df[df$ID %in% ids, ]
+      OUT$Data[[label_cap]] <- dataset[dataset$ID %in% ids, ]
       rownames(OUT$Data[[label_cap]]) <- NULL
       OUT$Data[[label_cap]]$GRADE_NUM <- NULL 
     } else {

@@ -149,9 +149,12 @@ kable(participation_table, row.names = FALSE)
 # Summarize total and trends
 # Remove "Total" row for the trend summary
 part_table_trim <- participation_table[participation_table$GRADE != "Total", , drop = FALSE]
+part_table_trim <- part_table_trim[part_table_trim$GRADE != "Total", ]
 
 # Extract the latest academic year column
 last_col <- tail(names(part_table_trim), 1)
+previous_col <- names(part_table_trim)[ncol(part_table_trim) - 1]
+
 last_year_counts <- as.numeric(part_table_trim[[last_col]])
 grades <- part_table_trim$GRADE
 
@@ -160,11 +163,33 @@ n_grades <- length(grades)
 plural <- if (n_grades == 1) "" else "s"
 grade_list <- paste(grades, collapse = ", ")
 
+# Pull values for target grade
+target_row <- which(part_table_trim$GRADE == target_grade)
+n_curr <- as.numeric(part_table_trim[target_row, last_col])
+n_prev <- as.numeric(part_table_trim[target_row, previous_col])
+delta <- n_curr - n_prev
+
+# Format values
+n_curr_fmt <- prettyNum(n_curr, big.mark = ",", scientific = FALSE)
+delta_fmt <- prettyNum(abs(delta), big.mark = ",", scientific = FALSE)
+
+# Phrase change
+trend_phrase <- if (is.na(delta)) {
+  "an **unknown change** in participation"
+} else if (delta > 0) {
+  paste0("an **increase** of **", delta_fmt, "** students compared to ", previous_year_label)
+} else if (delta < 0) {
+  paste0("a **decrease** of **", delta_fmt, "** students compared to ", previous_year_label)
+} else {
+  "**no change** in participation"
+}
+
+# Final narrative
 part_summary <- paste0(
-  "In **", last_col, "**, a total of **", formatC(sum(last_year_counts, na.rm = TRUE), big.mark = ","), "** students participated in the ", 
-  "**", subject_label, "** assessment across ", n_grades, " grade", plural, " (", grade_list, "). ",
-  "Participation counts provide essential context when interpreting proficiency changes across time, ",
-  "as shifts in tested populations can influence performance trends."
+  "In **", last_col, "**, a total of **", n_curr_fmt, "** students took the **", subject_label, 
+  "** assessment in **Grade ", target_grade, "**. ",
+  "This reflects ", trend_phrase, ". ",
+  "Understanding changes in tested student counts helps contextualize year-over-year shifts in proficiency."
 )
 
 cat(part_summary)
