@@ -75,4 +75,11 @@ current_year_label  <- to_academic_year(current_year)
 previous_year_label <- to_academic_year(previous_year)
 first_year_label    <- to_academic_year(first_year)
 
+# Dynamically obtain the achievement levels
+achieve_levels <- if(is.factor(df[[achieve_var]])) {
+  levels(df[[achieve_var]])
+} else {
+  levels(factor(df[[achieve_var]]))
+}
+
 ```

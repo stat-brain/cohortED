@@ -8,7 +8,7 @@ compare_achievement_mobility(
   dataset,
   current_year,
   current_grade,
-  achievement_levels
+  achievement_variable
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ compare_achievement_mobility(
 
 \item{current_grade}{An integer giving the current grade level (e.g., \code{5}).}
 
-\item{achievement_levels}{A character vector defining the ordered achievement levels to display (e.g., \code{c("Unsatisfactory", "Partially Proficient", "Proficient", "Advanced")}).}
+\item{achievement_variable}{A character string naming the column that contains achievement levels (e.g., \code{"ACHIEVEMENT_LEVEL"} or \code{"PROF_LVL"}). Levels are automatically detected and ordered.}
 }
 \value{
 A list with the following elements:
@@ -46,14 +46,14 @@ in both years, while the "Join" and "Leave" groups represent those entering or e
 }
 \details{
 Internally calls \code{\link{plot_alluvial_mobility}} to construct matched student data across years.
-Students with missing or "No Score" achievement data are excluded from analysis.
+Achievement levels are dynamically detected from the specified column. Students with missing or
+"No Score" achievement values are excluded from analysis.
 }
 \examples{
 compare_achievement_mobility(
   dataset = math,
   current_year = "2023-2024",
   current_grade = 5,
-  achievement_levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory")
+  achievement_variable = "ACHIEVEMENT_LEVEL"
 )
- 
 }

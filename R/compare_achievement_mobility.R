@@ -9,7 +9,7 @@
 #' @param dataset A data frame containing student-level data, including identifiers, grade, year, mobility status, and achievement levels.
 #' @param current_year A character string giving the current school year (e.g., \code{"2023-2024"}).
 #' @param current_grade An integer giving the current grade level (e.g., \code{5}).
-#' @param achievement_levels A character vector defining the ordered achievement levels to display (e.g., \code{c("Unsatisfactory", "Partially Proficient", "Proficient", "Advanced")}).
+#' @param achievement_variable A character string naming the column that contains achievement levels (e.g., \code{"ACHIEVEMENT_LEVEL"} or \code{"PROF_LVL"}). Levels are automatically detected and ordered.
 #'
 #' @return A list with the following elements:
 #' \describe{
@@ -29,24 +29,30 @@
 #'
 #' @details
 #' Internally calls \code{\link{plot_alluvial_mobility}} to construct matched student data across years.
-#' Students with missing or "No Score" achievement data are excluded from analysis.
+#' Achievement levels are dynamically detected from the specified column. Students with missing or
+#' "No Score" achievement values are excluded from analysis.
 #'
 #' @importFrom ggplot2 ggplot aes geom_bar labs scale_fill_manual theme_minimal
 #' @importFrom cowplot plot_grid
 #' @importFrom stats xtabs
 #' @importFrom grDevices colorRampPalette
 #' @export
-#' 
+#'
 #' @examples
 #' compare_achievement_mobility(
 #'   dataset = math,
 #'   current_year = "2023-2024",
 #'   current_grade = 5,
-#'   achievement_levels = c("Advanced", "Proficient", "Partially Proficient", "Unsatisfactory")
+#'   achievement_variable = "ACHIEVEMENT_LEVEL"
 #' )
-#'  
 
-compare_achievement_mobility <- function(dataset, current_year, current_grade, achievement_levels) {
+compare_achievement_mobility <- function(dataset, current_year, current_grade, achievement_variable) {
+  # Standardize column for internal use
+  dataset$ACHIEVEMENT_LEVEL <- dataset[[achievement_variable]]
+  
+  # Get ordered levels dynamically
+  achievement_levels <- levels(factor(dataset$ACHIEVEMENT_LEVEL))
+  
   # Get student-level data with mobility and achievement levels
   NEW_DATA <- plot_alluvial_mobility(
     dataset = dataset,
